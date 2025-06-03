@@ -37,21 +37,6 @@ if [[ $hostname =~ thinkpad|desktop ]]; then
     yay -S --noconfirm --needed - < $scriptdir/packages/arch/packages.txt
     yay -Yc
 
-    # zsh
-    if [[ $SHELL != /bin/zsh ]]; then
-	    echo "Switching to zsh"
-	    chsh -s /bin/zsh
-    fi
-
-    # Kickstart neovim https://github.com/nvim-lua/kickstart.nvim
-    if [[ ! -d ~/.config/nvim ]]; then
-	    git clone https://github.com/nvim-lua/kickstart.nvim.git ~/.config/nvim
-    fi
-    nvim --headless "+Lazy! sync" +qa
-
-    # reload
-    swaymsg reload
-
     # rust
     rustup default stable
 
@@ -80,42 +65,75 @@ elif [[ $hostname == "fedora" ]]; then
 
     flatpak update -y
     cat $basedir/../../.config/$flatpak_dir/flatpak-pkglist.txt | xargs flatpak install -y
+
+elif [[ $hostname == "CHLFSTL0014" ]]; then
+    sudo add-apt-repository ppa:neovim-ppa/unstable -y
+    sudo apt update
+    sudo apt upgrade --assume-yes
+    sudo apt autoremove --assume-yes
+
+    sudo xargs -a $scriptdir/packages/ubuntu/wsl.txt apt install -y
+
+    # fzf is quite old on ubuntu, so install it from git
+    [[ ! -d $HOME/.fzf ]] && git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+    $HOME/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
+
+    [[ ! -d /mnt/k ]] && sudo mkdir -vp /mnt/k
+    [[ ! -d /mnt/u ]] && sudo mkdir -vp /mnt/u
+    [[ ! -d /mnt/x ]] && sudo mkdir -vp /mnt/x
 fi
 
-# Create user-dirs.dirs directories
-mkdir -vp $HOME/tmp
-mkdir -vp $HOME/.local/share/desktop
-mkdir -vp $HOME/.local/share/templates
-mkdir -vp $HOME/.local/share/public
-mkdir -vp $HOME/.local/share/documents
-mkdir -vp $HOME/.local/share/music
-mkdir -vp $HOME/.local/share/pictures
-mkdir -vp $HOME/.local/share/videos
+# zsh
+if [[ $SHELL != /bin/zsh ]]; then
+        echo "Switching to zsh"
+        chsh -s /bin/zsh
+fi
+
+# Kickstart neovim https://github.com/nvim-lua/kickstart.nvim
+if [[ ! -d "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim ]]; then
+    git clone https://github.com/nvim-lua/kickstart.nvim.git $HOME/.config/nvim
+fi
+nvim --headless "+Lazy! sync" +qa
 
 # Build dotfile tree and stow files
 mkdir_recursive $scriptdir/system
 stow --verbose --restow --target $HOME --dir $scriptdir system
 
-systemctl --user daemon-reload
+if [[ $hostname =~ thinkpad|desktop ]]; then
+    # reload sway
+    swaymsg reload
 
-systemctl --user enable unison-drive.service
-systemctl --user start unison-drive.service
+    # Create user-dirs.dirs directories
+    mkdir -vp $HOME/tmp
+    mkdir -vp $HOME/.local/share/desktop
+    mkdir -vp $HOME/.local/share/templates
+    mkdir -vp $HOME/.local/share/public
+    mkdir -vp $HOME/.local/share/documents
+    mkdir -vp $HOME/.local/share/music
+    mkdir -vp $HOME/.local/share/pictures
+    mkdir -vp $HOME/.local/share/videos
 
-sudo systemctl enable bluetooth.service
-sudo systemctl start bluetooth.service
+    systemctl --user daemon-reload
 
-sudo systemctl enable avahi-daemon.service
-sudo systemctl start avahi-daemon.service
+    systemctl --user enable unison-drive.service
+    systemctl --user start unison-drive.service
 
-sudo systemctl enable cups.service
-sudo systemctl start cups.service
+    sudo systemctl enable bluetooth.service
+    sudo systemctl start bluetooth.service
 
-sudo systemctl start tlp.service
-sudo systemctl enable tlp.service
+    sudo systemctl enable avahi-daemon.service
+    sudo systemctl start avahi-daemon.service
 
-sudo systemctl start libvirtd.service
-sudo systemctl enable libvirtd.service
+    sudo systemctl enable cups.service
+    sudo systemctl start cups.service
+
+    sudo systemctl start tlp.service
+    sudo systemctl enable tlp.service
+
+    sudo systemctl start libvirtd.service
+    sudo systemctl enable libvirtd.service
+fi
 
 # If default ssh key does not exist, generate one and print it
-[[ ! -f ~/.ssh/id_rsa ]] && ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -N ""
-cat ~/.ssh/id_rsa.pub
+[[ ! -f $HOME/.ssh/id_rsa ]] && ssh-keygen -t rsa -b 4096 -f $HOME/.ssh/id_rsa -N ""
+cat $HOME/.ssh/id_rsa.pub
