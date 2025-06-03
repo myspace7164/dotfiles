@@ -1,0 +1,10 @@
+[Unit]
+Description=Unison backup-drive
+
+[Service]
+ExecStart=unison backup-drive
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

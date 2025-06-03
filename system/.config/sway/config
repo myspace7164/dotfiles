@@ -1,0 +1,229 @@
+### Variables
+set $mod Mod4
+
+set $left h
+set $down j
+set $up k
+set $right l
+
+# Prorams
+set $browser firefox
+set $emacs emacsclient --create-frame --alternate-editor=""
+set $file_manager pcmanfm
+set $menu wmenu-run -i -f "Iosevka 10" | xargs swaymsg exec --
+set $otp enteauth
+set $term wezterm
+
+### Config
+focus_follows_mouse no
+font pango:Iosevka 10
+titlebar_padding 4 1
+workspace_layout tabbed
+
+# Startup programs
+exec dex -a
+exec protonvpn-app --start-minimized
+exec udiskie
+exec wl-paste --watch cliphist store
+
+# Graphical programs
+exec $term start --always-new-process tmux attach -t0 || (tmux new -s 0 -d nvim && tmux new-window -t 0:1 && tmux attach -t 0)
+exec $emacs
+exec signal-desktop
+exec planify
+exec standard-notes
+exec firefox
+
+# Theming
+set $gnome-schema org.gnome.desktop.interface
+exec_always {
+    gsettings set $gnome-schema gtk-theme Adwaita-dark
+    gsettings set $gnome-schema color-scheme prefer-dark
+}
+
+# Window rules
+for_window [class=".*"] inhibit_idle fullscreen
+for_window [app_id=".*"] inhibit_idle fullscreen
+
+assign [class="steam"] number 7
+assign [class="Signal"] number 8
+assign [title="Standard Notes"] number 9
+assign [title="Planify"] number 9
+assign [app_id="firefox"] number 10
+
+for_window [app_id="io\.ente\.auth"] floating enable, resize set 15ppt 40ppt, move position 84ppt 1ppt
+for_window [title="Extension: \(Bitwarden Password Manager\)"] exec "swaymsg floating enable"
+
+### Output configuration
+exec_always kanshi
+
+### Idle configuration
+set $swaylock 'swaylock -f -c 000000 -e -F'
+exec swayidle -w \
+         timeout 300 $swaylock \
+         timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+         before-sleep $swaylock
+
+### Input configuration
+input "1133:50503:Logitech_USB_Receiver_Keyboard" xkb_layout ch
+
+input "1452:613:Apple_Inc._Magic_Trackpad" {
+      tap enabled
+      natural_scroll enabled
+      pointer_accel 0.5
+}
+
+input "76:613:Apple_Inc._Magic_Trackpad_2" {
+      tap enabled
+      natural_scroll enabled
+      pointer_accel 0.5
+}
+
+input "1:1:AT_Translated_Set_2_keyboard" xkb_layout ch
+
+input "1739:52619:SYNA8004:00_06CB:CD8B_Touchpad" {
+      tap enabled
+      natural_scroll enabled
+      pointer_accel 0.5
+}
+
+input "1739:52828:SYNA8020:00_06CB:CE5C_Touchpad" {
+      tap enabled
+      natural_scroll enabled
+      pointer_accel 0.5
+}
+
+input "9610:273:SINO_WEALTH_Gaming_Keyboard" xkb_layout us
+
+input "9610:273:SINO_WEALTH_Gaming_Keyboard_Mouse" {
+      middle_emulation enabled
+      scroll_button button3
+      scroll_method on_button_down
+}
+
+input "1046:911:Goodix_Capacitive_TouchScreen" map_to_output DSI-1
+
+# Set up PrintScreen as the compose key
+input * xkb_options compose:prsc
+
+### Key bindings
+bindsym $mod+e exec $file_manager
+bindsym $mod+m exec $emacs
+bindsym $mod+o exec $otp
+bindsym $mod+b exec $browser
+
+set $emoji_picker ~/repos/dotfiles/scripts/emoji.sh | wmenu -i -f "Iosevka 10" | cut -d' ' -f1 | wl-copy -n
+bindsym $mod+Shift+m exec $emoji_picker
+bindsym $mod+Shift+s exec $swaylock
+
+# Basics
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+q kill
+bindsym $mod+d exec $menu
+floating_modifier $mod normal
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+# Moving around
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+# Workspaces
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# Layout stuff
+bindsym $mod+c splith
+bindsym $mod+v splitv
+bindsym $mod+t layout tabbed
+bindsym $mod+s layout toggle split
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+
+# Scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+# Resizing containers
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Audio and media control
+bindsym --locked $mod+Shift+o exec cycle-sink
+bindsym --locked XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym --locked XF86AudioMicMute exec wpctl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym --locked XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- -l 1
+bindsym --locked XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioPrev exec playerctl previous
+
+# Backlight control
+set $brightness_up bash -c 'brightnessctl -l -c backlight -m | cut -d , -f1 | while IFS= read -r dev; do brightnessctl -d $dev -e set 5%+; done'
+set $brightness_down bash -c 'brightnessctl -l -c backlight -m | cut -d , -f1 | while IFS= read -r dev; do brightnessctl -d $dev -e set 5%-; done'
+bindsym --locked XF86MonBrightnessDown exec $brightness_down
+bindsym --locked XF86MonBrightnessUp exec $brightness_up
+bindsym --locked $mod+XF86AudioLowerVolume exec $brightness_down
+bindsym --locked $mod+XF86AudioRaiseVolume exec $brightness_up
+
+# Screen shots
+set $grim exec grim - | tee "$(xdg-user-dir PICTURES)/$(date +%Y%m%d_%Hh%Mm%Ss)_grim.png" | wl-copy
+set $grim_region exec grim -g "$(slurp)" - | tee "$(xdg-user-dir PICTURES)/$(date +%Y%m%d_%Hh%Mm%Ss)_grim.png" | wl-copy
+bindsym Print $grim
+bindsym Shift+Print $grim_region
+bindsym Multi_key $grim
+bindsym XF86SelectiveScreenshot $grim_region
+
+# Stop wf-recorder
+bindsym $mod+Multi_key exec pkill -INT -x wf-recorder
+
+# Clipboard history
+bindsym $mod+Shift+v exec ~/repos/dotfiles/scripts/cliphist_restore.sh
+bindsym $mod+Shift+d exec cliphist list | wmenu -i -f "Iosevka 10" | cliphist deleten
+bindsym $mod+Shift+w exec cliphist wipe
+
+# Status Bar
+bar {
+    position bottom
+    status_command i3status
+    font Iosevka 10
+    tray_output none
+}
+
+include /etc/sway/config.d/*

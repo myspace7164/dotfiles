@@ -1,0 +1,9 @@
+directory: ~/Music/new
+library: ~/Music/new/library.db
+plugins: discogs spotify deezer fromfilename embedart fetchart lastgenre
+
+fetchart:
+    sources: "*"
+
+include:
+    - keys.yaml

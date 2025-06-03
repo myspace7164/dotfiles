@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+sudo modprobe -r ddcci_backlight
+sudo modprobe ddcci_backlight

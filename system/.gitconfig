@@ -1,0 +1,9 @@
+[user]
+    email = c6k6z0zf@anonaddy.me
+    name = sturdy3299
+
+[init]
+	defaultBranch = main
+
+[pull]
+    rebase = false

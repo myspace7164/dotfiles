@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+
+import json
+import subprocess
+
+result = subprocess.run(["pactl", "get-default-sink"], capture_output=True, text=True)
+default_sink = result.stdout.replace("\n", "")
+
+result = subprocess.run(["pactl -f json list sources"], shell=True, capture_output=True, text=True)
+sinks = json.loads(result.stdout)
+
+available_sinks = []
+active_sink = ()
+
+for i_sink in range(len(sinks)):
+    sink = sinks[i_sink]
+    for i_port in range(len(sink["ports"])):
+        port = sinks[i_sink]["ports"][i_port]
+        if port["availability"] != "not available" and "[In]" not in port["name"] and "input" not in port["name"]:
+            available_sinks.append((i_sink, i_port))
+        if sink["name"].replace(".monitor", "") == default_sink and sink["active_port"] == port["name"]:
+            active_sink = (i_sink, i_port)
+
+
+def set_default_sink(sink_tuple):
+    i_sink, i_port = sink_tuple
+    sink_name = sinks[i_sink]["name"].replace(".monitor", "")
+    port = sinks[i_sink]["ports"][i_port]
+    subprocess.run(["pactl set-default-sink {}".format(sink_name)], shell=True)
+    subprocess.run(["pactl set-sink-port {} \"{}\"".format(sink_name, port["name"])], shell=True)
+
+
+if not active_sink:
+    set_default_sink(available_sinks[0])
+else:
+    found = False
+    for i in range(len(available_sinks) - 1):
+        sink = available_sinks[i]
+        if sink == active_sink:
+            found = True
+            set_default_sink(available_sinks[i+1])
+
+if active_sink and not found:
+    set_default_sink(available_sinks[0])
