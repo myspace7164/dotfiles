@@ -374,9 +374,8 @@
   :ensure t
   :defer t
   :config
-  (setq magit-repository-directories '(("~/.emacs.d" . 0)
-                                       ("~/git" . 1)
-                                       ("~/src" . 1))))
+  (setq magit-repository-directories '(("~/repos" . 1)
+                                       ("~/.config/nvim" . 1))))
 
 (use-package marginalia
   :ensure t
