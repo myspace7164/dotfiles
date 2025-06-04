@@ -27,7 +27,7 @@ exec udiskie
 exec wl-paste --watch cliphist store
 
 # Graphical programs
-exec $term start --always-new-process tmux attach -t0 || (tmux new -s 0 -d nvim && tmux new-window -t 0:1 && tmux attach -t 0)
+exec $term # start --always-new-process tmux attach -t0 || (tmux new -s 0 -d nvim && tmux new-window -t 0:1 && tmux attach -t 0)
 exec $emacs
 exec signal-desktop
 exec planify
@@ -203,11 +203,10 @@ bindsym --locked $mod+XF86AudioLowerVolume exec $brightness_down
 bindsym --locked $mod+XF86AudioRaiseVolume exec $brightness_up
 
 # Screen shots
-set $grim exec grim - | tee "$(xdg-user-dir PICTURES)/$(date +%Y%m%d_%Hh%Mm%Ss)_grim.png" | wl-copy
+set $grim exec grim -g "$(slurp -o)" - | tee "$(xdg-user-dir PICTURES)/$(date +%Y%m%d_%Hh%Mm%Ss)_grim.png" | wl-copy
 set $grim_region exec grim -g "$(slurp)" - | tee "$(xdg-user-dir PICTURES)/$(date +%Y%m%d_%Hh%Mm%Ss)_grim.png" | wl-copy
-bindsym Print $grim
-bindsym Shift+Print $grim_region
 bindsym Multi_key $grim
+bindsym Shift+Multi_key $grim_region
 bindsym XF86SelectiveScreenshot $grim_region
 
 # Stop wf-recorder
