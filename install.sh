@@ -35,7 +35,7 @@ if [[ $hostname =~ thinkpad|desktop ]]; then
 
     yay -Syu --noconfirm --needed
     yay -S --noconfirm --needed - < $scriptdir/packages/arch/packages.txt
-    yay -Yc
+    yay -Yc --noconfirm
 
     # rust
     rustup default stable
@@ -85,13 +85,17 @@ fi
 
 # zsh
 if [[ $SHELL != /bin/zsh ]]; then
-        echo "Switching to zsh"
-        chsh -s /bin/zsh
+    echo "Switching to zsh"
+    chsh -s /bin/zsh
 fi
 
 # Kickstart neovim https://github.com/nvim-lua/kickstart.nvim
 if [[ ! -d "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim ]]; then
     git clone https://github.com/myspace7164/kickstart.nvim.git $HOME/.config/nvim
+else
+	pushd "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
+	git pull
+	popd
 fi
 nvim --headless "+Lazy! sync" +qa
 
