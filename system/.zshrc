@@ -69,7 +69,7 @@ export GROFF_NO_SGR=1
 command -v fzf >/dev/null 2>&1 && source <(fzf --zsh)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# custom machine-local shell config
+# custom machine-local shell config (stolen from fedora)
 if [[ -d ~/.zshrc.d ]]; then
     for rc in ~/.zshrc.d/*; do
         if [[ -f "$rc" ]]; then
