@@ -68,3 +68,13 @@ export GROFF_NO_SGR=1
 # fzf setup depending on installation type
 command -v fzf >/dev/null 2>&1 && source <(fzf --zsh)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# custom machine-local shell config
+if [[ -d ~/.zshrc.d ]]; then
+    for rc in ~/.zshrc.d/*; do
+        if [[ -f "$rc" ]]; then
+            . "$rc"
+        fi
+    done
+fi
+unset rc
