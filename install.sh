@@ -91,7 +91,7 @@ fi
 
 # Kickstart neovim https://github.com/nvim-lua/kickstart.nvim
 if [[ ! -d "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim ]]; then
-    git clone https://github.com/nvim-lua/kickstart.nvim.git $HOME/.config/nvim
+    git clone https://github.com/myspace7164/kickstart.nvim.git $HOME/.config/nvim
 fi
 nvim --headless "+Lazy! sync" +qa
 
