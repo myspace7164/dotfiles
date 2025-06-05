@@ -65,16 +65,21 @@ man() {
 }
 export GROFF_NO_SGR=1
 
-# fzf setup depending on installation type
+# fzf
 command -v fzf >/dev/null 2>&1 && source <(fzf --zsh)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# custom machine-local shell config (stolen from fedora)
-if [[ -d ~/.zshrc.d ]]; then
-    for rc in ~/.zshrc.d/*; do
-        if [[ -f "$rc" ]]; then
-            . "$rc"
-        fi
-    done
+if command -v fd > /dev/null 2>&1; then
+  fd_cmd='fd'
+elif command -v fdfind > /dev/null 2>&1; then
+  fd_cmd='fdfind'
+else
+  fd_cmd='find . -type f'
 fi
-unset rc
+
+FD_EXCLUDE="--exclude .git --exclude compatdata"
+export FZF_DEFAULT_COMMAND="$fd_cmd --type f --strip-cwd-prefix --hidden --follow $FD_EXCLUDE"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {}'"
+export FZF_ALT_C_COMMAND="$fd_cmd --type d --strip-cwd-prefix --hidden --follow $FD_EXCLUDE"
+export FZF_ALT_C_OPTS="--preview 'tree -C {}'"

@@ -77,10 +77,6 @@ elif [[ $hostname == "CHLFSTL0014" ]]; then
     # fzf is quite old on ubuntu, so install it from git
     [[ ! -d $HOME/.fzf ]] && git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
     $HOME/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
-
-    [[ ! -d /mnt/k ]] && sudo mkdir -vp /mnt/k
-    [[ ! -d /mnt/u ]] && sudo mkdir -vp /mnt/u
-    [[ ! -d /mnt/x ]] && sudo mkdir -vp /mnt/x
 fi
 
 # zsh
