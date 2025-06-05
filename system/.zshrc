@@ -83,3 +83,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {}'"
 export FZF_ALT_C_COMMAND="$fd_cmd --type d --strip-cwd-prefix --hidden --follow $FD_EXCLUDE"
 export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+
+# direnv
+command -v direnv >/dev/null 2>&1 && eval "$(direnv hook zsh)"
