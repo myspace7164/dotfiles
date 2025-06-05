@@ -3,7 +3,7 @@
     name = sturdy3299
 
 [init]
-	defaultBranch = main
+    defaultBranch = main
 
 [pull]
     rebase = false
