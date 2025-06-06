@@ -114,6 +114,7 @@
     switcheroo
     texliveFull
     tor-browser
+    tmux
     unison
     unzip
     veracrypt
@@ -132,6 +133,7 @@
 
   programs.firefox.enable = true;
   programs.localsend.enable = true;
+  programs.nix-ld.enable = true;
   programs.npm.enable = true;
   programs.steam.enable = true;
 
