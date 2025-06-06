@@ -69,7 +69,6 @@
     blender
     calibre
     darktable
-    discord
     drawio
     easyeffects
     emacs
@@ -107,7 +106,6 @@
     ripgrep
     rsync
     signal-desktop
-    spotify
     standardnotes
     stow
     stremio
