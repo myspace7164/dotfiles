@@ -10,6 +10,7 @@ mkdir_recursive() {
     done
 }
 
+distro=$(awk -F= '/^ID=/{print $2}' /etc/os-release | tr -d '"')
 hostname=$(cat /etc/hostname)
 scriptdir=$(dirname "$0")
 
@@ -80,7 +81,7 @@ elif [[ $hostname == "CHLFSTL0014" ]]; then
 fi
 
 # zsh
-if [[ $SHELL != /bin/zsh ]]; then
+if [[ $distro != nixos && $SHELL != /bin/zsh ]]; then
     echo "Switching to zsh"
     chsh -s /bin/zsh
 fi
