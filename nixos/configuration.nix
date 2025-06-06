@@ -63,9 +63,62 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
+    audacity
+    bitwarden
+    bleachbit
+    blender
+    calibre
+    darktable
+    discord
+    drawio
+    easyeffects
+    emacs
+    ente-auth
+    ente-desktop
     fd
+    gcc
+    gimp
     git
+    git-filter-repo
+    gnucash
+    gnumake
+    hunspell
+    hunspellDicts.de_CH
+    hunspellDicts.en_US
+    hunspellDicts.sv_SE
+    inkscape
+    libreoffice
+    man-pages
+    man-pages-posix
+    mat2
+    metadata-cleaner
+    mixxx
+    mpv
+    neovim
+    nextcloud-client
+    nicotine-plus
+    obs-studio
+    onionshare
+    p7zip
+    protonvpn-gui
+    python313
+    qbittorrent
+    reaper
+    ripgrep
+    rsync
+    signal-desktop
+    spotify
+    standardnotes
     stow
+    stremio
+    switcheroo
+    texliveFull
+    tor-browser
+    unison
+    unzip
+    veracrypt
+    vlc
+    vscode
     wget
   ];
 

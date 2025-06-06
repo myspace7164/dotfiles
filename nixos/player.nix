@@ -8,22 +8,6 @@
 
   networking.hostName = "player";
 
-  environment.systemPackages = with pkgs; [
-    bitwarden
-    emacs
-    ente-auth
-    ente-desktop
-    git
-    nextcloud-client
-    protonvpn-gui
-    spotify
-    stow
-    stremio
-  ];
-
-  # Should fix gdm resolution
-  systemd.tmpfiles.rules = [ "L+ /run/gdm/.config/monitors.xml - - - - /home/user/.config/monitors.xml" ];
-
   services.syncthing = {
     enable = true;
     user = "user";

@@ -5,23 +5,24 @@
     enable = true;
     wrapperFeatures.gtk = true;
     extraPackages = with pkgs; [
-      bemoji
       brightnessctl
       dex
-      foot
       glib
       gnome-themes-extra
       grim
       i3status
+      jq
       kanshi
       mako
       pavucontrol
       pcmanfm
       pulseaudio
-      swayest-workstyle
+      slurp
       swayidle
       swaylock
       udiskie
+      wezterm
+      wf-recorder
       wl-clipboard
       wmenu
       wtype

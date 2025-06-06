@@ -15,9 +15,6 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
-  # Minimal gnome install
-  # services.gnome.core-apps.enable = false;
-
   programs.dconf.enable = true;
   programs.kdeconnect = {
     enable = true;
