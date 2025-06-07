@@ -6,6 +6,7 @@
     wrapperFeatures.gtk = true;
     extraPackages = with pkgs; [
       brightnessctl
+      cliphist
       dex
       glib
       gnome-themes-extra
