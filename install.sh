@@ -104,8 +104,10 @@ if [[ $hostname =~ thinkpad|desktop ]]; then
     # reload sway
     swaymsg reload
 
-    # Create user-dirs.dirs directories
     mkdir -vp $HOME/tmp
+    mkdir -vp $HOME/cloud
+
+    # Create user-dirs.dirs directories
     mkdir -vp $HOME/.local/share/desktop
     mkdir -vp $HOME/.local/share/templates
     mkdir -vp $HOME/.local/share/public
