@@ -14,7 +14,7 @@ distro=$(awk -F= '/^ID=/{print $2}' /etc/os-release | tr -d '"')
 hostname=$(cat /etc/hostname)
 scriptdir=$(dirname "$0")
 
-if [[ $hostname =~ thinkpad|desktop ]]; then
+if [[ $hostname =~ arch ]]; then
     # Enable colors in pacman
     sudo sed -i 's/^#Color$/Color/' /etc/pacman.conf
 
@@ -118,7 +118,9 @@ if [[ $hostname =~ thinkpad|desktop ]]; then
 
     systemctl --user enable unison-drive.service
     systemctl --user start unison-drive.service
+fi
 
+if [[ $hostname =~ arch ]]; then
     sudo systemctl enable bluetooth.service
     sudo systemctl start bluetooth.service
 
