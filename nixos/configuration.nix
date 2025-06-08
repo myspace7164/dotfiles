@@ -12,6 +12,7 @@
 
   # https://wiki.nixos.org/wiki/Backlight#brightnessctl
   boot.extraModulePackages = with config.boot.kernelPackages; [ ddcci-driver ];
+  boot.kernelModules = [ "ddcci-backlight" ];
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -148,17 +149,6 @@
     enable = true;
     autosuggestions.enable = true;
     syntaxHighlighting.enable = true;
-  };
-
-  systemd.services.ddcci-load = {
-    description = "Load ddcci kernel module with modprobe";
-    wantedBy = [ "default.target" ];
-    after = [ "default.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.kmod}/bin/modprobe ddcci_backlight";
-      RemainAfterExit = true;
-    };
   };
 
   system.stateVersion = "25.05"; # Did you read the comment?
