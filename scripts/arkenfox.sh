@@ -6,6 +6,7 @@ echo $basedir
 # Set Firefox profile directory
 moz_dir="$HOME/.mozilla/firefox"
 user_overrides_source="$(pwd)/$basedir/../config/user-overrides.js"
+user_overrides_source="$(realpath $user_overrides_source)"
 profile_suffix="arkenfox"
 
 # Look for existing *.arkenfox profile
