@@ -14,7 +14,9 @@ distro=$(awk -F= '/^ID=/{print $2}' /etc/os-release | tr -d '"')
 hostname=$(cat /etc/hostname)
 scriptdir=$(dirname "$0")
 
-if [[ $hostname =~ arch ]]; then
+if [[ $distro == nixos ]]; then
+    sudo nixos-rebuild switch --upgrade
+elif [[ $hostname =~ arch ]]; then
     # Enable colors in pacman
     sudo sed -i 's/^#Color$/Color/' /etc/pacman.conf
 
@@ -142,3 +144,6 @@ fi
 # If default ssh key does not exist, generate one and print it
 [[ ! -f $HOME/.ssh/id_rsa ]] && ssh-keygen -t rsa -b 4096 -f $HOME/.ssh/id_rsa -N ""
 cat $HOME/.ssh/id_rsa.pub
+
+# Arkenfox
+bash $basedir/../scripts/arkenfox.sh
