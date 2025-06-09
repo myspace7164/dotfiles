@@ -15,4 +15,6 @@
     settings.devices.steamdeck.id = "2HHZQDW-2LYDBPN-AYIKXOV-BVYJURA-CZUFCXF-7TB4N5Q-W2FE36H-YRXUMAM";
     settings.folders."~/cloud/games".devices = [ "steamdeck" ];
   };
+
+  system.autoUpgrade.allowReboot = true;
 }
