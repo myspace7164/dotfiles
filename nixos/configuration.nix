@@ -143,8 +143,17 @@
 
   # shell
   programs.bat.enable = true;
-  programs.direnv.enable = true;
-  programs.fzf.fuzzyCompletion = true;
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
+  programs.fzf = {
+    fuzzyCompletion = true;
+    keybindings = true;
+  };
+
   programs.zsh = {
     enable = true;
     autosuggestions.enable = true;

@@ -37,20 +37,6 @@ precmd() { vcs_info }
 setopt prompt_subst
 PROMPT='%F{cyan}%n@%m%f:%F{yellow}%~%f ${vcs_info_msg_0_}%(!.#.>) '
 
-# Auto suggestions
-if [[ -f "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
-    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-elif [[ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
-    source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
-
-# Syntax highlighting
-if [[ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
-    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-elif [[ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
-    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-
 # Color man pages
 man() {
 	env \
@@ -65,8 +51,11 @@ man() {
 }
 export GROFF_NO_SGR=1
 
+# Based on the distro, some plugin loading is handled by the distro itself (namely NixOS)
+distro=$(awk -F= '/^ID=/{print $2}' /etc/os-release | tr -d '"')
+
 # fzf
-command -v fzf >/dev/null 2>&1 && source <(fzf --zsh)
+[ $distro != nixos ] && command -v fzf >/dev/null 2>&1 && source <(fzf --zsh)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if command -v fd > /dev/null 2>&1; then
@@ -85,4 +74,18 @@ export FZF_ALT_C_COMMAND="$fd_cmd --type d --strip-cwd-prefix --hidden --follow 
 export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
 
 # direnv
-command -v direnv >/dev/null 2>&1 && eval "$(direnv hook zsh)"
+[ $distro != nixos ] && command -v direnv >/dev/null 2>&1 && eval "$(direnv hook zsh)"
+
+# Auto suggestions
+if [[ -f "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+elif [[ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+    source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+# Syntax highlighting
+if [[ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [[ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
