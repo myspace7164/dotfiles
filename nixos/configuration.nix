@@ -130,10 +130,14 @@
   #   enableSSHSupport = true;
   # };
 
-  programs.firefox.enable = true;
   programs.localsend.enable = true;
   programs.nix-ld.enable = true;
   programs.npm.enable = true;
+
+  programs.firefox = {
+    enable = true;
+    package = pkgs.librewolf;
+  };
 
   programs.steam = {
     enable = true;

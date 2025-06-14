@@ -7,7 +7,7 @@ set $up k
 set $right l
 
 # Prorams
-set $browser firefox
+set $browser librewolf
 set $emacs emacsclient --create-frame --alternate-editor=""
 set $file_manager pcmanfm
 set $menu wmenu-run -i -f "Iosevka 10" | xargs swaymsg exec --
@@ -33,7 +33,7 @@ exec signal-desktop
 exec planify
 exec standardnotes
 exec standard-notes
-exec firefox
+exec $browser
 
 # Theming
 set $gnome-schema org.gnome.desktop.interface
@@ -51,6 +51,7 @@ assign [class="Signal"] number 8
 assign [title="Standard Notes"] number 9
 assign [title="Planify"] number 9
 assign [app_id="firefox"] number 10
+assign [app_id="librewolf"] number 10
 
 for_window [app_id="io\.ente\.auth"] floating enable, resize set 15ppt 40ppt, move position 84ppt 1ppt
 for_window [title="Extension: \(Bitwarden Password Manager\)"] exec "swaymsg floating enable"
