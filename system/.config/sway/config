@@ -22,7 +22,7 @@ workspace_layout tabbed
 
 # Startup programs
 exec dex -a
-exec protonvpn-app --start-minimized
+exec protonvpn-app
 exec udiskie
 exec wl-paste --watch cliphist store
 
