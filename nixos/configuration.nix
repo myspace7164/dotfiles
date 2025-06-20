@@ -63,6 +63,10 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  nixpkgs.overlays = [
+    (import ./overlays/steuern-lu-2024nP.nix)
+  ];
+
   environment.systemPackages = with pkgs; [
     audacity
     bitwarden
@@ -108,6 +112,7 @@
     rsync
     signal-desktop
     standardnotes
+    steuern-lu-2024nP
     stow
     stremio
     switcheroo
