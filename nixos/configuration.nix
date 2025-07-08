@@ -16,7 +16,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.firewall.checkReversePath = "loose";
+  networking.firewall.checkReversePath = false;
 
   # Set your time zone.
   time.timeZone = "Europe/Zurich";
