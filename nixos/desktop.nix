@@ -3,7 +3,7 @@
 {
   imports = [
     ./configuration.nix
-    ./sway.nix
+    ./plasma.nix
     ./virtualisation.nix
   ];
 
@@ -23,11 +23,40 @@
 
   networking.hostName = "desktop";
 
+  # AMD related
+  hardware = {
+    enableAllFirmware = true;
+
+    graphics.enable = true;
+    graphics.enable32Bit = true;
+
+    amdgpu.initrd.enable = true;
+    amdgpu.amdvlk.enable = true;
+    amdgpu.amdvlk.support32Bit.enable = true;
+  };
+
+  services.xserver.videoDrivers = [ "amdgpu" ];
+
+  programs.steam.extraPackages = with pkgs; [
+    gamescope
+    rpcs3
+  ];
+
   # Use ddcutil and cat /sys/bus/i2c/devices/*/name to get the info
   services.udev.extraRules = let
     bash = "${pkgs.bash}/bin/bash";
   in ''
-      SUBSYSTEM=="i2c", ACTION=="add", ATTR{name}=="AMDGPU DM i2c hw bus 3", RUN+="${bash} -c 'sleep 5; printf ddcci\ 0x37 > /sys/bus/i2c/devices/i2c-8/new_device'"
-      SUBSYSTEM=="i2c", ACTION=="add", ATTR{name}=="AMDGPU DM aux hw bus 0", RUN+="${bash} -c 'sleep 5; printf ddcci\ 0x37 > /sys/bus/i2c/devices/i2c-9/new_device'"
+      SUBSYSTEM=="i2c", ACTION=="add", ATTR{name}=="AMDGPU DM i2c hw bus 3", RUN+="${bash} -c 'sleep 30; printf ddcci\ 0x37 > /sys/bus/i2c/devices/i2c-8/new_device'"
+      SUBSYSTEM=="i2c", ACTION=="add", ATTR{name}=="AMDGPU DM aux hw bus 0", RUN+="${bash} -c 'sleep 30; printf ddcci\ 0x37 > /sys/bus/i2c/devices/i2c-9/new_device'"
     '';
+
+  environment.systemPackages = with pkgs; [
+    gamescope
+    rpcs3
+
+    # AMD related
+    mesa
+    vulkan-loader
+    vulkan-tools
+  ];
 }

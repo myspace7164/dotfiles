@@ -31,4 +31,10 @@
     gnomeExtensions.bing-wallpaper-changer
     gnomeExtensions.status-area-horizontal-spacing
   ];
+
+  qt = {
+    enable = true;
+    platformTheme = "gnome";
+    style = "adwaita-dark";
+  };
 }

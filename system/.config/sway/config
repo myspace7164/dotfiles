@@ -45,6 +45,7 @@ exec_always {
 # Window rules
 for_window [class=".*"] inhibit_idle fullscreen
 for_window [app_id=".*"] inhibit_idle fullscreen
+for_window [title="^RPCS3.*$"] inhibit_idle open
 
 assign [class="steam"] number 7
 assign [class="Signal"] number 8

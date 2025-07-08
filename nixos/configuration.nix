@@ -180,12 +180,6 @@
   documentation.dev.enable = true;
   documentation.man.generateCaches = true; # https://nixos.wiki/wiki/Apropos
 
-  qt = {
-    enable = true;
-    platformTheme = "gnome";
-    style = "adwaita-dark";
-  };
-
   # Currently unused, but nice to have as a fallback
   services.flatpak.enable = true;
   systemd.services.flatpak-repo = {
