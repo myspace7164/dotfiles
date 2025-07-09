@@ -1,5 +1,10 @@
 { config, pkgs, ... }:
 
+let
+  background-package = pkgs.runCommand "background-image" {} ''
+  cp ${../assets/10-3-6k.jpg} $out
+'';
+in
 {
   imports = [
     ./configuration.nix
@@ -50,5 +55,20 @@
     mesa
     vulkan-loader
     vulkan-tools
+
+    # Custom SDDM wallpaper
+    (
+      pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
+        [General]
+        background = ${background-package}
+      ''
+    )
   ];
+
+  # SDDM specific
+  services.displayManager.sddm.wayland.enable = false;
+  services.xserver.displayManager.setupCommands = ''
+  ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-A-0 --primary --mode 3440x1440 --pos 0x0 --rotate normal \
+                                 --output DisplayPort-0 --mode 1920x1080 --pos 3440x0 --rate 165 --rotate normal
+'';
 }
