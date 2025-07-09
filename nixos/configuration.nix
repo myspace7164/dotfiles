@@ -10,10 +10,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = lib.mkDefault 0;
 
-  # https://wiki.nixos.org/wiki/Backlight#brightnessctl
-  boot.extraModulePackages = with config.boot.kernelPackages; [ ddcci-driver ];
-  boot.kernelModules = [ "ddcci-backlight" ];
-
   # Enable networking
   networking.networkmanager.enable = true;
   networking.firewall.checkReversePath = false;

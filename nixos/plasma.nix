@@ -18,9 +18,13 @@
   programs.kdeconnect.enable = true;
 
   environment.systemPackages = with pkgs; [
+    ddcutil
     kdePackages.kalk
-    kdePackages.sddm-kcm
+    kdePackages.powerdevil
   ];
 
   hardware.bluetooth.enable = true;
+
+  hardware.i2c.enable = true;
+  users.users.user.extraGroups = [ "i2c" ];
 }
