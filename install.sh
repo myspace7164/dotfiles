@@ -102,7 +102,7 @@ nvim --headless "+Lazy! sync" +qa
 mkdir_recursive $scriptdir/system
 stow --verbose --restow --target $HOME --dir $scriptdir system
 
-if [[ $hostname =~ thinkpad|desktop ]]; then
+if [[ $hostname =~ thinkpad|desktop|pocket ]]; then
     # reload sway
     swaymsg reload
 
