@@ -18,13 +18,27 @@
   programs.kdeconnect.enable = true;
 
   environment.systemPackages = with pkgs; [
-    ddcutil
-    kdePackages.kalk
-    kdePackages.powerdevil
+    hardinfo2
+    haruna
+    kdePackages.discover
+    kdePackages.isoimagewriter
+    kdePackages.kcalc
+    kdePackages.kcharselect
+    kdePackages.kcolorchooser
+    kdePackages.kolourpaint
+    kdePackages.ksystemlog
+    kdePackages.partitionmanager
+    kdePackages.sddm-kcm
+    kdiff3
+    wayland-utils
+    wl-clipboard
   ];
 
   hardware.bluetooth.enable = true;
 
-  hardware.i2c.enable = true;
-  users.users.user.extraGroups = [ "i2c" ];
+  qt = {
+    enable = true;
+    platformTheme = "kde6";
+    style = "breeze";
+  };
 }

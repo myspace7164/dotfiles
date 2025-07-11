@@ -63,6 +63,9 @@ in
         background = ${background-package}
       ''
     )
+
+    ddcutil
+    kdePackages.powerdevil
   ];
 
   # SDDM specific
@@ -71,4 +74,8 @@ in
   ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-A-0 --primary --mode 3440x1440 --pos 0x0 --rotate normal \
                                  --output DisplayPort-0 --mode 1920x1080 --pos 3440x0 --rate 165 --rotate normal
 '';
+
+  # External monitor backlight control
+  hardware.i2c.enable = true;
+  users.users.user.extraGroups = [ "i2c" ];
 }
