@@ -69,6 +69,7 @@
     bleachbit
     blender
     calibre
+    czkawka
     darktable
     drawio
     easyeffects
