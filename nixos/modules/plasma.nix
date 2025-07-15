@@ -1,18 +1,14 @@
 { config, pkgs, ... }:
 
+let
+  background-package = pkgs.runCommand "background-image" {} ''
+  cp ${../../assets/10-3-6k.jpg} $out
+'';
+in
 {
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.desktopManager.xterm.enable = false;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "ch";
-    variant = "";
-  };
-
   # Enable the Plasma 6 (KDE 6) Desktop Environment.
   services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
   services.desktopManager.plasma6.enable = true;
 
   programs.kdeconnect.enable = true;
@@ -28,11 +24,21 @@
     kdePackages.kolourpaint
     kdePackages.ksystemlog
     kdePackages.partitionmanager
-    kdePackages.sddm-kcm
     kdiff3
     wayland-utils
+    wezterm
     wl-clipboard
+
+    # Custom SDDM wallpaper
+    (
+      pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
+        [General]
+        background = ${background-package}
+      ''
+    )
   ];
+
+  environment.plasma6.excludePackages = [ pkgs.kdePackages.konsole ];
 
   hardware.bluetooth.enable = true;
 

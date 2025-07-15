@@ -5,12 +5,6 @@
   services.xserver.enable = true;
   services.xserver.desktopManager.xterm.enable = false;
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "ch";
-    variant = "";
-  };
-
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;

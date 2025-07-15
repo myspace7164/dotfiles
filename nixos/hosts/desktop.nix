@@ -1,15 +1,10 @@
 { config, pkgs, ... }:
 
-let
-  background-package = pkgs.runCommand "background-image" {} ''
-  cp ${../assets/10-3-6k.jpg} $out
-'';
-in
 {
   imports = [
-    ./configuration.nix
-    ./plasma.nix
-    ./virtualisation.nix
+    ../configuration.nix
+    ../modules/plasma.nix
+    ../modules/virtualisation.nix
   ];
 
   boot.loader.timeout = 1;
@@ -27,6 +22,9 @@ in
     };
 
   networking.hostName = "desktop";
+
+  services.xserver.enable = true;
+  services.xserver.xkb.layout = "ch";
 
   # AMD related
   hardware = {
@@ -55,14 +53,6 @@ in
     mesa
     vulkan-loader
     vulkan-tools
-
-    # Custom SDDM wallpaper
-    (
-      pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
-        [General]
-        background = ${background-package}
-      ''
-    )
 
     ddcutil
     kdePackages.powerdevil

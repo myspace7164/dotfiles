@@ -2,11 +2,13 @@
 
 {
   imports = [
-    ./configuration.nix
-    ./gnome.nix
+    ../configuration.nix
+    ../modules/gnome.nix
   ];
 
   networking.hostName = "player";
+
+  services.xserver.xkb.layout = "ch";
 
   services.syncthing = {
     enable = true;
