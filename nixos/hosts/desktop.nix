@@ -4,10 +4,11 @@
   imports = [
     ../configuration.nix
     ../modules/plasma.nix
+    ../modules/plymouth.nix
     ../modules/virtualisation.nix
   ];
 
-  boot.loader.timeout = 1;
+  boot.loader.timeout = 0;
   boot.loader.systemd-boot.enable = false;
 
   boot.loader.grub.enable = true;

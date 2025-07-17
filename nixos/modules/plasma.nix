@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   background-package = pkgs.runCommand "background-image" {} ''
@@ -6,9 +6,11 @@ let
 '';
 in
 {
+  boot.plymouth.theme = "breeze";
+  
   # Enable the Plasma 6 (KDE 6) Desktop Environment.
   services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.sddm.wayland.enable = lib.mkDefault true;
   services.desktopManager.plasma6.enable = true;
 
   programs.kdeconnect.enable = true;
@@ -21,6 +23,7 @@ in
     kdePackages.kcalc
     kdePackages.kcharselect
     kdePackages.kcolorchooser
+    kdePackages.kleopatra
     kdePackages.kolourpaint
     kdePackages.ksystemlog
     kdePackages.partitionmanager
