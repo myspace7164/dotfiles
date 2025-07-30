@@ -27,13 +27,13 @@ exec udiskie
 exec wl-paste --watch cliphist store
 
 # Graphical programs
-exec $term # start --always-new-process tmux attach -t0 || (tmux new -s 0 -d nvim && tmux new-window -t 0:1 && tmux attach -t 0)
+# exec $term # start --always-new-process tmux attach -t0 || (tmux new -s 0 -d nvim && tmux new-window -t 0:1 && tmux attach -t 0)
 exec $emacs
-exec signal-desktop
-exec planify
-exec standardnotes
-exec standard-notes
-exec $browser
+# exec signal-desktop
+# exec planify
+# exec standardnotes
+# exec standard-notes
+# exec $browser
 
 # Theming
 set $gnome-schema org.gnome.desktop.interface
@@ -47,15 +47,15 @@ for_window [class=".*"] inhibit_idle fullscreen
 for_window [app_id=".*"] inhibit_idle fullscreen
 for_window [title="^RPCS3.*$"] inhibit_idle open
 
-assign [class="steam"] number 7
-assign [class="Signal"] number 8
-assign [title="Standard Notes"] number 9
-assign [title="Planify"] number 9
-assign [app_id="firefox"] number 10
-assign [app_id="librewolf"] number 10
+# assign [class="steam"] number 7
+# assign [class="Signal"] number 8
+# assign [title="Standard Notes"] number 9
+# assign [title="Planify"] number 9
+# assign [app_id="firefox"] number 10
+# assign [app_id="librewolf"] number 10
 
-for_window [app_id="io\.ente\.auth"] floating enable, resize set 15ppt 40ppt, move position 84ppt 1ppt
-for_window [title="Extension: \(Bitwarden Password Manager\)"] exec "swaymsg floating enable, resize set 15ppt 40ppt, move position 84ppt 1ppt"
+# for_window [app_id="io\.ente\.auth"] floating enable, resize set 15ppt 40ppt, move position 84ppt 1ppt
+# for_window [title="Extension: \(Bitwarden Password Manager\)"] exec "swaymsg floating enable, resize set 15ppt 40ppt, move position 84ppt 1ppt"
 
 ### Output configuration
 exec_always kanshi

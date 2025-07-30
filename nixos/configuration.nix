@@ -15,7 +15,7 @@
   networking.firewall.checkReversePath = false;
 
   # Set your time zone.
-  time.timeZone = "Europe/Zurich";
+  time.timeZone = lib.mkDefault "Europe/Zurich";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
