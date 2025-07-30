@@ -60,8 +60,10 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  nix.settings.experimental-features = ["nix-command" "flakes"];
+
   nixpkgs.overlays = [
-    (import ./overlays/steuern-lu-2024nP.nix)
+    # (import ./overlays/steuern-lu-2024nP.nix)
   ];
 
   environment.systemPackages = with pkgs; [
@@ -110,7 +112,7 @@
     rsync
     signal-desktop
     standardnotes
-    steuern-lu-2024nP
+    # steuern-lu-2024nP
     stow
     stremio
     switcheroo
