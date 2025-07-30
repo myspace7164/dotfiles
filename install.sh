@@ -15,7 +15,7 @@ hostname=$(cat /etc/hostname)
 scriptdir=$(dirname "$0")
 
 if [[ $distro == nixos ]]; then
-    sudo nixos-rebuild switch --upgrade
+    sudo nixos-rebuild switch --recreate-lock-file --flake $scriptdir
 elif [[ $hostname =~ arch ]]; then
     # Enable colors in pacman
     sudo sed -i 's/^#Color$/Color/' /etc/pacman.conf

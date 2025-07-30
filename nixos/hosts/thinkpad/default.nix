@@ -7,6 +7,7 @@
     ../../modules/plasma.nix
     ../../modules/plymouth.nix
     ../../modules/virtualisation.nix
+    ./hardware-configuration.nix
   ];
 
   networking.hostName = "thinkpad";

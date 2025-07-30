@@ -10,16 +10,14 @@
       thinkpad = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./nixos/hosts/thinkpad/default.nix
-          ./nixos/hosts/thinkpad/hardware-configuration.nix
+          ./nixos/hosts/thinkpad
         ];
       };
 
       desktop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ./nixos/hosts/desktop/default.nix
-          ./nixos/hosts/desktop/hardware-configuration.nix
+          ./nixos/hosts/desktop
         ];
       };
     };
