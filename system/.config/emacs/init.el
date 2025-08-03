@@ -458,7 +458,7 @@
   (setq mu4e-drafts-folder "/Drafts")
   (setq mu4e-trash-folder "/Trash")
   (setq mu4e-refile-folder "/Archive")
-  
+
   (if (member (system-name) '("desktop" "thinkpad"))
       (setq sendmail-program "/run/current-system/sw/bin/msmtp")
     (setq sendmail-program "/usr/bin/msmtp"))
@@ -553,10 +553,22 @@ This works across multiple Org files."
   :hook ((org-mode . turn-on-org-cdlatex)
          (org-mode . visual-line-mode))
   :config
-  (setq org-directory "~/cloud/org")
+  (setq org-directory (cond ((member (system-name) '("thinkpad" "desktop" "player"))
+                             "~/cloud/org")
+                            ((member (system-name) '("WINDOWS"))
+                             "~/Nextcloud/org")))
+  (setq org-default-notes-file (concat org-directory "/notes.org"))
   (setq org-agenda-files (list org-directory))
+
   (when (file-exists-p "~/.local/share/org/caldav.org")
     (add-to-list 'org-agenda-files "~/.local/share/org/caldav.org" t))
+
+  (when (eq system-type 'ms-dos)
+    (org-add-link-type "onenote" 'org-onenote-open)
+    (defun org-onenote-open (link)
+      "Open the OneNote item identified by the unique OneNote URL."
+      (w32-shell-execute "open" "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\ONENOTE.exe" (concat "/hyperlink " "onenote:" (shell-quote-argument link)))))
+
   (setq org-complete-tags-always-offer-all-agenda-tags t)
 
   (setq org-special-ctrl-k t)
@@ -597,23 +609,6 @@ This works across multiple Org files."
         (org-end-of-subtree)
         (newline)
         (org-paste-subtree 4)))))
-
-(use-package org
-  :if (member (system-name) '("WINDOWS"))
-  :config
-  (setq org-directory "~/Nextcloud/org")
-  (setq org-agenda-files (list org-directory)))
-
-(use-package org
-  :if (getenv "EMACS_WORK")
-  :config
-  (setq org-directory "~/org")
-  (setq org-agenda-files (list org-directory))
-
-  (org-add-link-type "onenote" 'org-onenote-open)
-  (defun org-onenote-open (link)
-    "Open the OneNote item identified by the unique OneNote URL." 
-    (w32-shell-execute "open" "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\ONENOTE.exe" (concat "/hyperlink " "onenote:" (shell-quote-argument link)))))
 
 (use-package org-agenda
   :bind ("C-c a" . org-agenda)
