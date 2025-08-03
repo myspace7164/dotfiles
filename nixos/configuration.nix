@@ -67,6 +67,7 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    (import ./modules/emacs.nix { inherit pkgs; })
     audacity
     bitwarden
     bleachbit
@@ -76,7 +77,6 @@
     darktable
     drawio
     easyeffects
-    emacs
     ente-auth
     ente-desktop
     fd
