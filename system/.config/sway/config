@@ -222,6 +222,7 @@ bindsym $mod+Shift+w exec cliphist wipe
 # Status Bar
 bar {
     font Iosevka 10
+    mode dock
     modifier $mod
     position bottom
     status_command i3status
