@@ -220,10 +220,14 @@ bindsym $mod+Shift+w exec cliphist wipe
 
 # Status Bar
 bar {
+    font Iosevka 10
+    modifier $mod
     position bottom
     status_command i3status
-    font Iosevka 10
     tray_output none
 }
+
+# Toggle bar visibility
+bindsym $mod+Shift+b exec "swaymsg bar mode toggle"
 
 include /etc/sway/config.d/*
