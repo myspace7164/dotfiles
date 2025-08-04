@@ -42,5 +42,5 @@ emacsWithPackages (epkgs: (with epkgs.melpaStablePackages; [
   vertico
 ])
 ++ [
-  pkgs.mu
+  epkgs.mu4e
 ])

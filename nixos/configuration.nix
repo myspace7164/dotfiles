@@ -68,6 +68,7 @@
 
   environment.systemPackages = with pkgs; [
     (aspellWithDicts (dicts: with dicts; [ de en en-computers en-science fi sv ]))
+    (import ./modules/emacs.nix { inherit pkgs; })
     audacity
     bitwarden
     bleachbit
@@ -91,6 +92,7 @@
     hunspellDicts.en_US
     hunspellDicts.sv_SE
     inkscape
+    isync
     libreoffice
     man-pages
     man-pages-posix
@@ -98,6 +100,8 @@
     metadata-cleaner
     mixxx
     mpv
+    msmtp
+    mu
     neovim
     nextcloud-client
     nicotine-plus
@@ -127,10 +131,10 @@
     wget
   ];
 
-  services.emacs = {
+  services.protonmail-bridge = {
     enable = true;
-    package = (import ./modules/emacs.nix { inherit pkgs; });
-    defaultEditor = true;
+    package = pkgs.protonmail-bridge;
+    path = with pkgs; [ gnome-keyring ];
   };
 
   # Some programs need SUID wrappers, can be configured further or are

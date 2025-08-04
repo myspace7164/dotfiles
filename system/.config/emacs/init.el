@@ -409,7 +409,7 @@
          ("M-<down>" . move-text-down)))
 
 (use-package mu4e
-  :if (member (system-name) '("mailer"))
+  :if (member (system-name) '("thinkpad"))
   :commands (mu4e)
   :hook (;; start mu4e in background, allows to immediately compose-mail
          (after-init . (lambda () (mu4e t)))
