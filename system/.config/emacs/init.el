@@ -290,6 +290,11 @@
 
 (use-package emacs
   :bind ("M-Q" . unfill-paragraph)
+
+  :custom
+  ;; Emacs 30 and newer: Disable Ispell completion function.
+  (text-mode-ispell-word-completion nil)
+
   :config
   (setq visible-bell t)
 
@@ -361,10 +366,6 @@
          (org-agenda-mode . hl-line-mode)
          (prog-mode . hl-line-mode)
          (tabulated-list-mode . hl-line-mode)))
-
-(use-package ispell
-  :custom
-  (ispell-program-name "hunspell"))
 
 (use-package json-mode
   :ensure t
@@ -631,20 +632,28 @@ This works across multiple Org files."
   :config
   (setq org-capture-templates '(("i" "Inbox" entry (file "inbox.org")
                                  "* %?\n%U")
-                                ("m" "Mail" entry (file "inbox.org")
-                                 "* %:fromname\n%U\n%a\n%?")
+
+                                ;; journaling
                                 ("j" "Journal" entry (file+olp+datetree "journal.org")
                                  "* %U %^{Title}\n%?")
                                 ("J" "Journal (custom datetime)" entry (file+olp+datetree "journal.org")
                                  "* %U %^{Title}\n%?" :time-prompt t)
-                                ("p" "Protocol" entry (file "inbox.org")
-                                 "* %^{Title}\n%U\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-	                            ("L" "Protocol Link" entry (file "inbox.org")
-                                 "* %?[[%:link][%:description]] \n%U")
+
+                                ;; meeting notes
                                 ("n" "Meeting notes" entry (file+headline "notes.org" "Meetings")
                                  "* %U %^{Title}\n%?")
                                 ("N" "Meeting notes (custom datetime)" entry (file+headline "notes.org" "Meetings")
-                                 "* %^U %^{Title}\n%?"))))
+                                 "* %^U %^{Title}\n%?")
+
+                                ;; mu4e
+                                ("m" "Mail" entry (file "inbox.org")
+                                 "* %:fromname\n%U\n%a\n%?")
+
+                                ;; org-capture-extension specific (https://github.com/sprig/org-capture-extension)
+                                ("p" "Protocol" entry (file "inbox.org")
+                                 "* %^{Title}\n%U\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+	                            ("L" "Protocol Link" entry (file "inbox.org")
+                                 "* %?[[%:link][%:description]] \n%U"))))
 
 ;; TODO This needs some fixing, org-latex-previews are toggled even when latex previews are disabled
 ;; Write a function toggle-org-fragtog (or similar) which when enabled, will generate all latex previews and enable org-fragtog-mode, if org-fragtog-mode is disabled, no latex previews should be generated

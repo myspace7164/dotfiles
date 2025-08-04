@@ -67,7 +67,7 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    (import ./modules/emacs.nix { inherit pkgs; })
+    (aspellWithDicts (dicts: with dicts; [ de en en-computers en-science fi sv ]))
     audacity
     bitwarden
     bleachbit
@@ -126,6 +126,12 @@
     vscode
     wget
   ];
+
+  services.emacs = {
+    enable = true;
+    package = (import ./modules/emacs.nix { inherit pkgs; });
+    defaultEditor = true;
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
