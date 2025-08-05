@@ -614,6 +614,8 @@ This works across multiple Org files."
 (use-package org-agenda
   :bind ("C-c a" . org-agenda)
   :config
+  (setq org-agenda-todo-keyword-format "%-8s")
+
   (setq org-agenda-todo-ignore-deadlines 'future)
   (setq org-agenda-todo-ignore-scheduled 'future)
   (setq org-agenda-todo-ignore-timestamp 'future)
