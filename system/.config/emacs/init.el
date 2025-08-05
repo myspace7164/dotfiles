@@ -35,8 +35,9 @@
 
 (use-package cape
   :ensure t
-  :commands cape-file
+  :bind ("C-c p" . cape-prefix-map)
   :init
+  (add-hook 'completion-at-point-functions #'cape-emoji)
   (add-hook 'completion-at-point-functions #'cape-file))
 
 (use-package cdlatex
