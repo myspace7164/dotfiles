@@ -32,12 +32,10 @@
 
   hardware.bluetooth.enable = true;
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.libinput.enable = true;
-
-  services.udisks2.enable = true;
-  services.playerctld.enable = true;
   services.gnome.gnome-keyring.enable = true;
+  services.libinput.enable = true;
+  services.playerctld.enable = true;
+  services.udisks2.enable = true;
 
   xdg.portal = {
     enable = true;
