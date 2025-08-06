@@ -154,6 +154,14 @@
     package = pkgs.librewolf;
   };
 
+  xdg.mime.defaultApplications = {
+    "text/html" = "librewolf.desktop";
+    "x-scheme-handler/http" = "librewolf.desktop";
+    "x-scheme-handler/https" = "librewolf.desktop";
+    "x-scheme-handler/about" = "librewolf.desktop";
+    "x-scheme-handler/unknown" = "librewolf.desktop";
+  };
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -191,12 +199,8 @@
   documentation.man.generateCaches = true; # https://nixos.wiki/wiki/Apropos
 
   # Currently unused, but nice to have as a fallback
-  services.flatpak.enable = true;
-  systemd.services.flatpak-repo = {
-    wantedBy = [ "multi-user.target" ];
-    path = [ pkgs.flatpak ];
-    script = ''
-      flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-    '';
+  services.flatpak = {
+    enable = false;
+    packages = [];
   };
 }

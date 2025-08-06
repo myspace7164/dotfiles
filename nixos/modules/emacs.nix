@@ -19,6 +19,7 @@ emacsWithPackages (epkgs: (with epkgs.melpaStablePackages; [
   move-text
   nix-mode
   org-caldav
+  org-contacts
   org-pdftools
   pdf-tools
   plantuml-mode
