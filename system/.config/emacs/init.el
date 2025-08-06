@@ -59,7 +59,7 @@
 (use-package citar-denote
   :ensure t
   :after citar denote
-  :bind (("C-c w f" . citar-denote-open-file)
+  :bind (("C-c w f" . my/citar-denote-open-file)
          ("C-c w n" . citar-denote-open-note)
          ("C-c w d" . citar-denote-dwim)
          ("C-c w e" . citar-denote-open-reference-entry)
@@ -71,15 +71,15 @@
          ("C-c w x" . citar-denote-nocite)
          ("C-c w y" . citar-denote-cite-nocite)
          ("C-c w z" . citar-denote-nobib))
-  :config
-  (citar-denote-mode 1)
-
-  (defun citar-denote-open-file (&optional prefix)
+  :preface
+  (defun my/citar-denote-open-file (&optional prefix)
     (interactive "P")
     (let* ((file buffer-file-name)
            (citekey (citar-denote--retrieve-references file)))
       (if prefix (other-window-prefix))
-      (citar-open-files citekey))))
+      (citar-open-files citekey)))
+  :config
+  (citar-denote-mode 1))
 
 (use-package citar-embark
   :ensure t
@@ -163,10 +163,8 @@
 
 (use-package corfu
   :ensure t
-  :custom
-  (corfu-auto t)
-  :config
-  (defun corfu-enable-always-in-minibuffer ()
+  :preface
+  (defun my/corfu-enable-always-in-minibuffer ()
     "Enable Corfu in the minibuffer if Vertico/Mct are not active."
     (unless (or (bound-and-true-p mct--active)
                 (bound-and-true-p vertico--input)
@@ -175,7 +173,10 @@
       (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
                   corfu-popupinfo-delay nil)
       (corfu-mode 1)))
-  (add-hook 'minibuffer-setup-hook #'corfu-enable-always-in-minibuffer 1)
+  :custom
+  (corfu-auto t)
+  :config
+  (add-hook 'minibuffer-setup-hook #'my/corfu-enable-always-in-minibuffer 1)
   (global-corfu-mode 1))
 
 (use-package csv-mode
@@ -225,13 +226,13 @@
          ("C-c C-d C-k" . denote-dired-rename-marked-files-with-keywords)
          ("C-c C-d C-R" . denote-dired-rename-marked-files-using-front-matter))
   :hook (dired-mode . denote-dired-mode-in-directories)
-  :config
+  :preface
   ;; TODO: add optional extension
   ;; TODO: handle denote keywords properly
   ;; TODO: optional output-dir
   (defun my/denote-uml-file (description)
     (concat (file-name-sans-extension (file-name-nondirectory buffer-file-name)) "-" description "__"  "uml" ".svg"))
-
+  :config
   (setq denote-directory "~/cloud/notes")
   (setq denote-dired-directories (list denote-directory)))
 
@@ -290,7 +291,16 @@
 	     (prog-mode . electric-pair-local-mode)))
 
 (use-package emacs
-  :bind ("M-Q" . unfill-paragraph)
+  :bind ("M-Q" . my/unfill-paragraph)
+
+  :preface
+  (defun my/unfill-paragraph (&optional region)
+    "Takes a multi-line paragraph and makes it into a single line of text."
+    (interactive (progn (barf-if-buffer-read-only) '(t)))
+    (let ((fill-column (point-max))
+	      ;; This would override `fill-column' if it's an integer.
+	      (emacs-lisp-docstring-fill-column t))
+      (fill-paragraph nil region)))
 
   :custom
   ;; Emacs 30 and newer: Disable Ispell completion function.
@@ -306,14 +316,6 @@
 
   (setq-default tab-width 4)
   (setq tab-always-indent 'complete)
-
-  (defun unfill-paragraph (&optional region)
-    "Takes a multi-line paragraph and makes it into a single line of text."
-    (interactive (progn (barf-if-buffer-read-only) '(t)))
-    (let ((fill-column (point-max))
-	      ;; This would override `fill-column' if it's an integer.
-	      (emacs-lisp-docstring-fill-column t))
-      (fill-paragraph nil region)))
 
   (add-to-list 'default-frame-alist '(font . "Iosevka-10"))
 
@@ -468,7 +470,11 @@
   (setq message-sendmail-extra-arguments '("--read-envelope-from"))
   (setq send-mail-function 'smtpmail-send-it)
   (setq message-send-mail-function 'message-send-mail-with-sendmail)
-  (setq message-kill-buffer-on-exit t))
+  (setq message-kill-buffer-on-exit t)
+
+  (setq mu4e-org-contacts-file (concat org-directory "/people.org"))
+  (add-to-list 'mu4e-headers-actions '("org-contact-add" . mu4e-action-add-org-contact) t)
+  (add-to-list 'mu4e-view-actions '("org-contact-add" . mu4e-action-add-org-contact) t))
 
 (use-package mu4e-icalendar
   :after mu4e org-agenda
@@ -516,7 +522,7 @@
 (use-package ol
   :after org-id
   :bind ("C-c l" . org-store-link)
-  :config
+  :preface
   (defun my/org-id-link-description (link desc)
   "Return description for `id:` links. Use DESC if non-nil, otherwise fetch headline.
 This works across multiple Org files."
@@ -529,11 +535,10 @@ This works across multiple Org files."
             (goto-char (marker-position location))
             (setq headline (nth 4 (org-heading-components)))))
         headline)))
-
+  :config
   (org-link-set-parameters "id"
                            :complete (lambda () (concat "id:" (org-id-get-with-outline-path-completion org-refile-targets)))
-                           :insert-description 'my/org-id-link-description)
-  (setq org-link-descriptive nil))
+                           :insert-description 'my/org-id-link-description))
 
 (use-package ol-man :after org)
 
@@ -554,6 +559,25 @@ This works across multiple Org files."
          ("p" . org-previous-visible-heading))
   :hook ((org-mode . turn-on-org-cdlatex)
          (org-mode . visual-line-mode))
+  :preface
+  (defun my/org-refile-to-datetree-with-prompt ()
+    "Prompt for a date and refile the current entry into a datetree."
+    (interactive)
+    (let* ((org-datetree-file "journal.org")
+           (date-string (org-read-date nil nil nil "Select date:"))
+           (parsed-date (calendar-gregorian-from-absolute (org-time-string-to-absolute date-string))))
+      (save-excursion
+        (org-cut-subtree)
+        (find-file org-datetree-file)
+        (org-datetree-find-date-create parsed-date)
+        (org-end-of-subtree)
+        (newline)
+        (org-paste-subtree 4))))
+
+  (when (eq system-type 'ms-dos)
+    (defun my/org-onenote-open (link)
+      "Open the OneNote item identified by the unique OneNote URL."
+      (w32-shell-execute "open" "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\ONENOTE.exe" (concat "/hyperlink " "onenote:" (shell-quote-argument link)))))
   :config
   (setq org-directory (cond ((member (system-name) '("thinkpad" "desktop" "player"))
                              "~/cloud/org")
@@ -566,10 +590,7 @@ This works across multiple Org files."
     (add-to-list 'org-agenda-files "~/.local/share/org/caldav.org" t))
 
   (when (eq system-type 'ms-dos)
-    (org-add-link-type "onenote" 'org-onenote-open)
-    (defun org-onenote-open (link)
-      "Open the OneNote item identified by the unique OneNote URL."
-      (w32-shell-execute "open" "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\ONENOTE.exe" (concat "/hyperlink " "onenote:" (shell-quote-argument link)))))
+    (org-add-link-type "onenote" 'my/org-onenote-open))
 
   (setq org-complete-tags-always-offer-all-agenda-tags t)
 
@@ -596,21 +617,7 @@ This works across multiple Org files."
   (plist-put org-format-latex-options :foreground nil)
   (plist-put org-format-latex-options :background nil)
   (when (member (system-name) '("thinkpad"))
-    (plist-put org-format-latex-options :scale 0.3))
-
-  (defun my/org-refile-to-datetree-with-prompt ()
-    "Prompt for a date and refile the current entry into a datetree."
-    (interactive)
-    (let* ((org-datetree-file "journal.org")
-           (date-string (org-read-date nil nil nil "Select date:"))
-           (parsed-date (calendar-gregorian-from-absolute (org-time-string-to-absolute date-string))))
-      (save-excursion
-        (org-cut-subtree)
-        (find-file org-datetree-file)
-        (org-datetree-find-date-create parsed-date)
-        (org-end-of-subtree)
-        (newline)
-        (org-paste-subtree 4)))))
+    (plist-put org-format-latex-options :scale 0.3)))
 
 (use-package org-agenda
   :bind ("C-c a" . org-agenda)
@@ -631,32 +638,52 @@ This works across multiple Org files."
                                      ("S" "Someday" tags-todo "+someday"))))
 
 (use-package org-capture
+  :after org-contacts
   :bind ("C-c c" . org-capture)
-  :config
-  (setq org-capture-templates '(("i" "Inbox" entry (file "inbox.org")
-                                 "* %?\n%U")
+  :preface
+  (defvar my/org-contacts-template
+    (concat "* %(org-contacts-template-name)\n"
+            ":PROPERTIES:\n"
+            ":EMAIL: %(org-contacts-template-email)\n"
+            ":PHONE:\n"
+            ":ALIAS:\n"
+            ":NICKNAME:\n"
+            ":IGNORE:\n"
+            ":ICON:\n"
+            ":NOTE: %^{NOTE}\n"
+            ":ADDRESS: %^{123 Street, 0001 State, Country}\n"
+            ":BIRTHDAY: %^{YYYY-MM-DD}\n"
+            ":END:") "Template for a contact.")
+  :custom
+  (org-capture-templates
+   `(("i" "Inbox" entry (file "inbox.org")
+      "* %?\n%U")
 
-                                ;; journaling
-                                ("j" "Journal" entry (file+olp+datetree "journal.org")
-                                 "* %U %^{Title}\n%?")
-                                ("J" "Journal (custom datetime)" entry (file+olp+datetree "journal.org")
-                                 "* %U %^{Title}\n%?" :time-prompt t)
+     ;; journaling
+     ("j" "Journal" entry (file+olp+datetree "journal.org")
+      "* %U %^{Title}\n%?")
+     ("J" "Journal (custom datetime)" entry (file+olp+datetree "journal.org")
+      "* %U %^{Title}\n%?" :time-prompt t)
 
-                                ;; meeting notes
-                                ("n" "Meeting notes" entry (file+headline "notes.org" "Meetings")
-                                 "* %U %^{Title}\n%?")
-                                ("N" "Meeting notes (custom datetime)" entry (file+headline "notes.org" "Meetings")
-                                 "* %^U %^{Title}\n%?")
+     ;; meeting notes
+     ("n" "Meeting notes" entry (file+headline "notes.org" "Meetings")
+      "* %U %^{Title}\n%?")
+     ("N" "Meeting notes (custom datetime)" entry (file+headline "notes.org" "Meetings")
+      "* %^U %^{Title}\n%?")
 
-                                ;; mu4e
-                                ("m" "Mail" entry (file "inbox.org")
-                                 "* %:fromname\n%U\n%a\n%?")
+     ;; contacts
+     ("c" "Contacts" entry (file "people.org")
+      ,my/org-contacts-template)
 
-                                ;; org-capture-extension specific (https://github.com/sprig/org-capture-extension)
-                                ("p" "Protocol" entry (file "inbox.org")
-                                 "* %^{Title}\n%U\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-	                            ("L" "Protocol Link" entry (file "inbox.org")
-                                 "* %?[[%:link][%:description]] \n%U"))))
+     ;; mu4e
+     ("m" "Mail" entry (file "inbox.org")
+      "* %:fromname\n%U\n%a\n%?")
+
+     ;; org-capture-extension specific (https://github.com/sprig/org-capture-extension)
+     ("p" "Protocol" entry (file "inbox.org")
+      "* %^{Title}\n%U\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+	 ("L" "Protocol Link" entry (file "inbox.org")
+      "* %?[[%:link][%:description]] \n%U"))))
 
 ;; TODO This needs some fixing, org-latex-previews are toggled even when latex previews are disabled
 ;; Write a function toggle-org-fragtog (or similar) which when enabled, will generate all latex previews and enable org-fragtog-mode, if org-fragtog-mode is disabled, no latex previews should be generated
@@ -676,6 +703,12 @@ This works across multiple Org files."
     (setq org-caldav-url (plist-get auth-info :url))
     (setq org-caldav-calendar-id (plist-get auth-info :id)))
   (run-at-time nil (* 5 60) 'org-caldav-sync))
+
+
+(use-package org-contacts
+  :after org
+  :custom
+  (org-contacts-files (list (concat org-directory "/people.org"))))
 
 (use-package org-faces
   :after org

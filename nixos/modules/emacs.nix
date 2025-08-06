@@ -18,6 +18,7 @@ emacsWithPackages (epkgs: (with epkgs.melpaStablePackages; [
   minions
   move-text
   nix-mode
+  nov
   org-caldav
   org-contacts
   org-pdftools
@@ -33,6 +34,7 @@ emacsWithPackages (epkgs: (with epkgs.melpaStablePackages; [
   corfu
   csv-mode
   denote
+  djvu
   embark
   embark-consult
   json-mode
