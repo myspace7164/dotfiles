@@ -4,7 +4,7 @@ mkdir_recursive() {
     basedir=$1
     find "$basedir" -type d | while read -r dir; do
         relative_dir="${dir#$basedir/}"
-        if [[ ! $relative_dir =~ ^\.$|\.git ]]; then
+        if [[ ! $relative_dir =~ ^\.$|\.git && $relative_dir != $basedir ]]; then
             mkdir -vp "$HOME/$relative_dir"
         fi
     done
