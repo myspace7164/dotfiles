@@ -49,6 +49,21 @@ elif [[ $hostname =~ arch ]]; then
     sudo virsh net-start default
     sudo virsh net-autostart default
 
+    sudo systemctl enable bluetooth.service
+    sudo systemctl start bluetooth.service
+
+    sudo systemctl enable avahi-daemon.service
+    sudo systemctl start avahi-daemon.service
+
+    sudo systemctl enable cups.service
+    sudo systemctl start cups.service
+
+    sudo systemctl start tlp.service
+    sudo systemctl enable tlp.service
+
+    sudo systemctl start libvirtd.service
+    sudo systemctl enable libvirtd.service
+
 elif [[ $hostname == "fedora" ]]; then
     # Flatpak
     flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
@@ -89,16 +104,6 @@ if [[ $distro != nixos && $SHELL != /bin/zsh ]]; then
     chsh -s /bin/zsh
 fi
 
-# Kickstart neovim https://github.com/nvim-lua/kickstart.nvim
-if [[ ! -d "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim ]]; then
-    git clone https://github.com/myspace7164/kickstart.nvim.git $HOME/.config/nvim
-else
-	pushd "${XDG_CONFIG_HOME:-$HOME/.config}"/nvim
-	git pull
-	popd
-fi
-nvim --headless "+Lazy! sync" +qa
-
 # Build dotfile tree and stow files
 mkdir_recursive $scriptdir/system
 stow --verbose --restow --target $HOME --dir $scriptdir system
@@ -107,39 +112,10 @@ if [[ $hostname =~ thinkpad|desktop|pocket ]]; then
     # reload sway
     swaymsg reload
 
-    mkdir -vp $HOME/tmp
-    mkdir -vp $HOME/cloud
-
-    # Create user-dirs.dirs directories
-    mkdir -vp $HOME/.local/share/desktop
-    mkdir -vp $HOME/.local/share/templates
-    mkdir -vp $HOME/.local/share/public
-    mkdir -vp $HOME/.local/share/documents
-    mkdir -vp $HOME/.local/share/music
-    mkdir -vp $HOME/.local/share/pictures
-    mkdir -vp $HOME/.local/share/videos
-
     systemctl --user daemon-reload
 
     systemctl --user enable unison-drive.service
     systemctl --user start unison-drive.service
-fi
-
-if [[ $hostname =~ arch ]]; then
-    sudo systemctl enable bluetooth.service
-    sudo systemctl start bluetooth.service
-
-    sudo systemctl enable avahi-daemon.service
-    sudo systemctl start avahi-daemon.service
-
-    sudo systemctl enable cups.service
-    sudo systemctl start cups.service
-
-    sudo systemctl start tlp.service
-    sudo systemctl enable tlp.service
-
-    sudo systemctl start libvirtd.service
-    sudo systemctl enable libvirtd.service
 fi
 
 # If default ssh key does not exist, generate one and print it
