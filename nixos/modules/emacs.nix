@@ -42,6 +42,7 @@ emacsWithPackages (epkgs: (with epkgs.melpaStablePackages; [
   matlab-mode
   orderless
   standard-themes
+  undo-tree
   vertico
 ])
 ++ [

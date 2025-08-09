@@ -877,6 +877,13 @@ This works across multiple Org files."
 
   (setq LaTeX-electric-left-right-brace t))
 
+(use-package undo-tree
+  :ensure t
+  :custom
+  (undo-tree-history-directory-alist `(("." . ,(locate-user-emacs-file "undo-tree"))))
+  :init
+  (global-undo-tree-mode))
+
 (use-package vc
   :config
   (setq vc-follow-symlinks t))
