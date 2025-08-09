@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../configuration.nix
+    ../..
     ../../modules/hack-the-box.nix
     ../../modules/sway.nix
     ../../modules/virtualisation.nix
