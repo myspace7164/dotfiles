@@ -23,6 +23,7 @@
       desktop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+	  nix-flatpak.nixosModules.nix-flatpak
           ./nixos/hosts/desktop
         ];
       };
