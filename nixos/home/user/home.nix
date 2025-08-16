@@ -26,6 +26,9 @@
     ".config/tmux/tmux.conf".source = ../../modules/tmux/tmux.conf;
     ".config/wezterm/wezterm.lua".source = ../../modules/wezterm/wezterm.lua;
 
+    # .local/bin
+    ".local/bin".source = ../../../bin;
+
     # mail
     ".mbsyncrc".source = ../../modules/mail/.mbsyncrc;
     ".msmtprc".source = ../../modules/mail/.msmtprc;
