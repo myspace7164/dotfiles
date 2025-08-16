@@ -27,7 +27,7 @@
     ".config/wezterm/wezterm.lua".source = ../../modules/wezterm/wezterm.lua;
 
     # .local/bin
-    ".local/bin".source = ../../../bin;
+    ".local/bin".source = ../../bin;
 
     # mail
     ".mbsyncrc".source = ../../modules/mail/.mbsyncrc;
