@@ -68,7 +68,6 @@
 
   environment.systemPackages = with pkgs; [
     (aspellWithDicts (dicts: with dicts; [ de en en-computers en-science fi sv ]))
-    (import ./modules/emacs.nix { inherit pkgs; })
     audacity
     bitwarden
     bleachbit
