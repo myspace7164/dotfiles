@@ -2,6 +2,7 @@
 {
   imports = [
     ../../modules/emacs/home.nix
+    ../../modules/nvim/home.nix
   ];
 
   home.username = "user";
