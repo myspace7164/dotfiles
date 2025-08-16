@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
   home.username = "user";
   home.homeDirectory = "/home/user";
@@ -39,4 +39,9 @@
     ".unison/backup-drive.prf".source = ../../modules/unison/backup-drive.prf;
     ".unison/backup-usb.prf".source = ../../modules/unison/backup-usb.prf;
   };
+
+  home.activation.myDaemonReload = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  ${pkgs.systemd}/bin/systemctl --user daemon-reload
+'';
+
 }
