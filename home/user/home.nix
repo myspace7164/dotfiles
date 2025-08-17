@@ -2,6 +2,7 @@
 {
   imports = [
     ../../modules/emacs/home.nix
+    ../../modules/unison/home.nix
     ../../modules/zsh/home.nix
   ];
 
@@ -9,34 +10,19 @@
   home.homeDirectory = "/home/user";
   home.stateVersion = "25.05";
 
-  home.file = {
-    # .config
-    ".config/beets/config.yaml".source = ../../modules/beets/config.yaml;
-    ".config/git/config".source = ../../modules/git/config;
-    ".config/i3status/config".source = ../../modules/i3status/config;
-    ".config/kanshi/config".source = ../../modules/kanshi/config;
-    ".config/mako/config".source = ../../modules/mako/config;
-    ".config/nvim/init.lua".source = ../../modules/nvim/init.lua;
-    ".config/sway/config".source = ../../modules/sway/config;
-    ".config/tmux/tmux.conf".source = ../../modules/tmux/tmux.conf;
-    ".config/wezterm/wezterm.lua".source = ../../modules/wezterm/wezterm.lua;
-
-    # .local/bin
-    ".local/bin".source = ../../bin;
-
-    # mail
-    ".mbsyncrc".source = ../../modules/mail/.mbsyncrc;
-    ".msmtprc".source = ../../modules/mail/.msmtprc;
-
-    # unison
-    ".config/systemd/user/unison-drive.service".source = ../../modules/unison/unison-drive.service;
-    ".config/systemd/user/unison-usb.service".source = ../../modules/unison/unison-usb.service;
-    ".unison/backup-drive.prf".source = ../../modules/unison/backup-drive.prf;
-    ".unison/backup-usb.prf".source = ../../modules/unison/backup-usb.prf;
+  xdg.configFile = {
+    "beets/config.yaml".source = ../../modules/beets/config.yaml;
+    "git/config".source = ../../modules/git/config;
+    "i3status/config".source = ../../modules/i3status/config;
+    "kanshi/config".source = ../../modules/kanshi/config;
+    "mako/config".source = ../../modules/mako/config;
+    "nvim/init.lua".source = ../../modules/nvim/init.lua;
+    "sway/config".source = ../../modules/sway/config;
+    "tmux/tmux.conf".source = ../../modules/tmux/tmux.conf;
+    "wezterm/wezterm.lua".source = ../../modules/wezterm/wezterm.lua;
   };
 
-  home.activation.daemonReload = lib.hm.dag.entryAfter ["writeBoundary"] ''
-  ${pkgs.systemd}/bin/systemctl --user daemon-reload
-'';
-
+  # mail
+  home.file.".mbsyncrc".source = ../../modules/mail/.mbsyncrc;
+  home.file.".msmtprc".source = ../../modules/mail/.msmtprc;
 }

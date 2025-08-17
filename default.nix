@@ -154,7 +154,23 @@
   };
 
   system.stateVersion = "25.05"; # Did you read the comment?
-  system.autoUpgrade.enable = true;
+
+  system.autoUpgrade = {
+    enable = true;
+    flake = "github:myspace7164/dotfiles";
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "--update-input"
+      "nixpkgs-unstable"
+      "--update-input"
+      "home-manager"
+      "--update-input"
+      "nix-flatpak"
+      "--commit-lock-file"
+      "-L"
+    ];
+  };
 
   nix.gc = {
     automatic = true;
