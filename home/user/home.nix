@@ -1,20 +1,15 @@
 { config, lib, pkgs, ... }:
 {
+  imports = [
+    ../../modules/emacs/home.nix
+    ../../modules/zsh/home.nix
+  ];
+
   home.username = "user";
   home.homeDirectory = "/home/user";
   home.stateVersion = "25.05";
 
   home.file = {
-    # zsh
-    ".zprofile".source = ../../modules/zsh/.zprofile;
-    ".zshenv".source = ../../modules/zsh/.zshenv;
-    ".zshrc".source = ../../modules/zsh/.zshrc;
-
-    # emacs
-    ".emacs.d/init.el".source = ../../modules/emacs/init.el;
-    ".emacs.d/early-init.el".source = ../../modules/emacs/early-init.el;
-    ".local/share/applications/org-protocol.desktop".source = ../../modules/emacs/org-protocol.desktop;
-
     # .config
     ".config/beets/config.yaml".source = ../../modules/beets/config.yaml;
     ".config/git/config".source = ../../modules/git/config;
@@ -40,7 +35,7 @@
     ".unison/backup-usb.prf".source = ../../modules/unison/backup-usb.prf;
   };
 
-  home.activation.myDaemonReload = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  home.activation.daemonReload = lib.hm.dag.entryAfter ["writeBoundary"] ''
   ${pkgs.systemd}/bin/systemctl --user daemon-reload
 '';
 

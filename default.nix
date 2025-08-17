@@ -54,7 +54,6 @@
     description = "User";
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" ];
-    shell = pkgs.zsh;
   };
 
   # Allow unfree packages
@@ -148,42 +147,10 @@
   programs.nix-ld.enable = true;
   programs.npm.enable = true;
 
-  programs.firefox = {
-    enable = true;
-    package = pkgs.librewolf;
-  };
-
-  xdg.mime.defaultApplications = {
-    "text/html" = "librewolf.desktop";
-    "x-scheme-handler/http" = "librewolf.desktop";
-    "x-scheme-handler/https" = "librewolf.desktop";
-    "x-scheme-handler/about" = "librewolf.desktop";
-    "x-scheme-handler/unknown" = "librewolf.desktop";
-  };
-
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
-  };
-
-  # shell
-  programs.bat.enable = true;
-
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.fzf = {
-    fuzzyCompletion = true;
-    keybindings = true;
-  };
-
-  programs.zsh = {
-    enable = true;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
   };
 
   system.stateVersion = "25.05"; # Did you read the comment?
