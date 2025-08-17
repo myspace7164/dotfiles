@@ -2,11 +2,14 @@
 
 {
   imports = [
-    ../..
-    ../../modules/plasma.nix
-    ../../modules/plymouth.nix
-    ../../modules/virtualisation.nix
     ./hardware-configuration.nix
+    ../..
+    ../../modules/emacs
+    ../../modules/librewolf
+    ../../modules/plasma
+    ../../modules/plymouth
+    ../../modules/virtualisation
+    ../../modules/zsh
   ];
 
   boot.loader.timeout = 0;

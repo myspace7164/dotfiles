@@ -17,6 +17,7 @@
         system = "x86_64-linux";
         modules = [
           nix-flatpak.nixosModules.nix-flatpak
+
           ./hosts/thinkpad
 
           home-manager.nixosModules.home-manager
@@ -32,7 +33,15 @@
         system = "x86_64-linux";
         modules = [
 	        nix-flatpak.nixosModules.nix-flatpak
+
           ./hosts/desktop
+
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.user = import ./home/user/home.nix;
+          }
         ];
       };
     };
