@@ -522,6 +522,10 @@
   :after org-id
   :bind ("C-c l" . org-store-link)
   :preface
+  (defun my/org-id-complete-link (&optional arg)
+    "Create an id: link using completion"
+    (concat "id:"
+            (org-id-get-with-outline-path-completion org-refile-targets)))
   (defun my/org-id-link-description (link desc)
   "Return description for `id:` links. Use DESC if non-nil, otherwise fetch headline.
 This works across multiple Org files."
@@ -531,13 +535,14 @@ This works across multiple Org files."
              headline)
         (when location
           (with-current-buffer (marker-buffer location)
-            (goto-char (marker-position location))
-            (setq headline (nth 4 (org-heading-components)))))
+            (save-excursion
+              (goto-char (marker-position location))
+              (setq headline (nth 4 (org-heading-components))))))
         headline)))
   :config
   (org-link-set-parameters "id"
-                           :complete (lambda () (concat "id:" (org-id-get-with-outline-path-completion org-refile-targets)))
-                           :insert-description 'my/org-id-link-description))
+                           :complete #'my/org-id-complete-link
+                           :insert-description #'my/org-id-link-description))
 
 (use-package ol-man :after org)
 
