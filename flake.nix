@@ -8,10 +8,14 @@
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    plasma-manager.url = "github:nix-community/plasma-manager";
+    plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
+    plasma-manager.inputs.home-manager.follows = "home-manager";
+
     nix-flatpak.url = "github:gmodena/nix-flatpak/";
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-flatpak, ... }: {
+  outputs = { self, nixpkgs, home-manager, plasma-manager, nix-flatpak, ... }: {
     nixosConfigurations = {
       thinkpad = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -40,7 +44,13 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.user = import ./home/user/home.nix;
+            home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+            home-manager.users.user = {
+              imports = [
+                ./home/user/home.nix
+                ./modules/plasma/home.nix
+              ];
+            };
           }
         ];
       };
