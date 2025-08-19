@@ -5,6 +5,7 @@
     enable = true;
     wrapperFeatures.gtk = true;
     extraPackages = with pkgs; [
+      adwaita-icon-theme
       brightnessctl
       cliphist
       dex
