@@ -29,7 +29,6 @@ in
     kdePackages.partitionmanager
     kdiff3
     wayland-utils
-    wezterm
     wl-clipboard
 
     # Custom SDDM wallpaper
@@ -40,8 +39,6 @@ in
       ''
     )
   ];
-
-  environment.plasma6.excludePackages = [ pkgs.kdePackages.konsole ];
 
   hardware.bluetooth.enable = true;
 
