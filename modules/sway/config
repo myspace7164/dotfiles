@@ -34,9 +34,10 @@ exec wl-paste --watch cliphist store
 seat seat0 xcursor_theme Adwaita 24
 
 exec_always {
-gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
-gsettings set org.gnome.desktop.interface cursor-theme Adwaita
-gsettings set org.gnome.desktop.wm.preferences button-layout ':'
+    gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
+    gsettings set org.gnome.desktop.interface icon-theme Adwaita
+    gsettings set org.gnome.desktop.interface cursor-theme Adwaita
+    gsettings set org.gnome.desktop.wm.preferences button-layout ':'
 }
 
 ### Window rules
