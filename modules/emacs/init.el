@@ -666,6 +666,10 @@ This works across multiple Org files."
       "* %U %^{Title}\n%?")
      ("J" "Journal (custom datetime)" entry (file+olp+datetree "journal.org")
       "* %U %^{Title}\n%?" :time-prompt t)
+     ("d" "Daily review" entry (file+olp+datetree "journal.org")
+      "* %U Daily review\n%?")
+     ("D" "Daily review (custom datetime)" entry (file+olp+datetree "journal.org")
+      "* %U Daily review\n%?" :time-prompt t)
 
      ;; meeting notes
      ("n" "Meeting notes" entry (file+headline "notes.org" "Meetings")
