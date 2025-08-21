@@ -14,8 +14,7 @@ ripgrep
 sshpass
 stow
 tmux
+tree
 unzip
 xclip
 zsh
-zsh-autosuggestions
-zsh-syntax-highlighting

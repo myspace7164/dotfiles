@@ -12,7 +12,7 @@ mkdir_recursive() {
 
 distro=$(awk -F= '/^ID=/{print $2}' /etc/os-release | tr -d '"')
 hostname=$(cat /etc/hostname)
-scriptdir=$(dirname "$0")
+scriptdir=$(readlink -f $(dirname "$0"))
 
 if [[ $distro == nixos ]]; then
     nix flake update --flake $scriptdir
@@ -95,8 +95,31 @@ elif [[ $hostname == "CHLFSTL0014" ]]; then
     sudo xargs -a $scriptdir/packages/ubuntu/wsl.txt apt install -y
 
     # fzf is quite old on ubuntu, so install it from git
-    [[ ! -d $HOME/.fzf ]] && git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+    if [[ ! -d $HOME/.fzf ]]; then
+	    git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.fzf
+    else
+	    pushd $HOME/.fzf
+	    git pull
+	    popd
+    fi
     $HOME/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
+
+    mkdir -vp $HOME/.emacs.d
+    ln -sf $scriptdir/modules/emacs/early-init.el $HOME/.emacs.d
+    ln -sf $scriptdir/modules/emacs/init.el $HOME/.emacs.d
+
+    mkdir $HOME/.config/git
+    ln -sf $scriptdir/modules/git/config $HOME/.config/git
+
+    mkdir $HOME/.config/nvim
+    ln -sf $scriptdir/modules/nvim/init.lua $HOME/.config/nvim
+
+    mkdir $HOME/.config/tmux
+    ln -sf $scriptdir/modules/tmux/tmux.conf $HOME/.config/tmux
+
+    ln -sf $scriptdir/modules/zsh/.zprofile $HOME
+    ln -sf $scriptdir/modules/zsh/.zshenv $HOME
+    ln -sf $scriptdir/modules/zsh/.zshrc $HOME
 fi
 
 # zsh
@@ -106,8 +129,8 @@ if [[ $distro != nixos && $SHELL != /bin/zsh ]]; then
 fi
 
 # Build dotfile tree and stow files
-mkdir_recursive $scriptdir/system
-stow --verbose --restow --target $HOME --dir $scriptdir system
+# mkdir_recursive $scriptdir/system
+# stow --verbose --restow --target $HOME --dir $scriptdir system
 
 if [[ $hostname =~ thinkpad|desktop|pocket ]]; then
     # reload sway
@@ -124,4 +147,6 @@ fi
 cat $HOME/.ssh/id_rsa.pub
 
 # Arkenfox
-bash $basedir/../scripts/arkenfox.sh
+if command -v firefox > /dev/null 2>&1; then
+	bash $basedir/../scripts/arkenfox.sh
+fi
