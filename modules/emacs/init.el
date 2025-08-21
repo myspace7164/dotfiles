@@ -317,7 +317,8 @@
   (setq-default tab-width 4)
   (setq tab-always-indent 'complete)
 
-  (add-to-list 'default-frame-alist '(font . "Iosevka-10"))
+  (when (member (system-name) '("thinkpad" "desktop" "player" "WINDOWS"))
+    (add-to-list 'default-frame-alist '(font . "Iosevka-10")))
 
   (setq read-buffer-completion-ignore-case t))
 
@@ -347,6 +348,7 @@
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package faces
+  :if (member (system-name) '("thinkpad" "desktop" "player" "WINDOWS"))
   :config
   (set-face-attribute 'default nil :font "Iosevka-10"))
 
