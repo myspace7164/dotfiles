@@ -3,6 +3,7 @@
   imports = [
     ../../modules/emacs/home.nix
     ../../modules/unison/home.nix
+    ../../modules/xdg/home.nix
     ../../modules/zsh/home.nix
   ];
 

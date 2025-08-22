@@ -16,4 +16,8 @@ config.font_size = 10
 
 config.color_scheme = "Modus-Vivendi"
 
+if wezterm.hostname() == "thinkpad" then
+   config.adjust_window_size_when_changing_font_size = false
+end
+
 return config

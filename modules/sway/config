@@ -107,7 +107,7 @@ bindsym $mod+e exec emacsclient --create-frame --alternate-editor=""
 bindsym $mod+o exec enteauth
 bindsym $mod+Shift+o exec cycle-sink
 
-set $emoji_picker ~/Git/dotfiles/scripts/emoji.sh | wmenu -i -f "Iosevka 10" | cut -d' ' -f1 | wl-copy -n
+set $emoji_picker ~/repos/dotfiles/scripts/emoji.sh | wmenu -i -f "Iosevka 10" | cut -d' ' -f1 | wl-copy -n
 bindsym $mod+period exec $emoji_picker
 bindsym $mod+Shift+s exec $swaylock
 
@@ -266,7 +266,7 @@ bindsym XF86SelectiveScreenshot $grim_region
 bindsym $mod+Multi_key exec pkill -INT -x wf-recorder
 
 # Special keys for clipboard history
-bindsym $mod+Shift+v exec ~/Git/dotfiles/scripts/cliphist_restore.sh
+bindsym $mod+Shift+v exec ~/repos/dotfiles/scripts/cliphist_restore.sh
 bindsym $mod+Shift+d exec cliphist list | wmenu -i -f "Iosevka 10" | cliphist deleten
 bindsym $mod+Shift+w exec cliphist wipe
 

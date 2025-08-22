@@ -1,6 +1,6 @@
 # Configure $PATH
 typeset -U path PATH
-path=(~/Git/dotfiles/bin $path)
+path=(~/repos/dotfiles/bin $path)
 path=(/var/lib/flatpak/exports/bin $path)
 export PATH
 

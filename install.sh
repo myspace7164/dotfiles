@@ -14,6 +14,18 @@ distro=$(awk -F= '/^ID=/{print $2}' /etc/os-release | tr -d '"')
 hostname=$(cat /etc/hostname)
 scriptdir=$(readlink -f $(dirname "$0"))
 
+mkdir -vp $HOME/cloud
+mkdir -vp $HOME/repos
+mkdir -vp $HOME/tmp
+
+mkdir -vp $HOME/.user-dirs.dirs/Desktop
+mkdir -vp $HOME/.user-dirs.dirs/Templates
+mkdir -vp $HOME/.user-dirs.dirs/Public
+mkdir -vp $HOME/.user-dirs.dirs/Documents
+mkdir -vp $HOME/.user-dirs.dirs/Music
+mkdir -vp $HOME/.user-dirs.dirs/Pictures
+mkdir -vp $HOME/.user-dirs.dirs/Videos
+
 if [[ $distro == nixos ]]; then
     nix flake update --flake $scriptdir
     sudo nixos-rebuild switch --flake $scriptdir

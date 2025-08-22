@@ -52,9 +52,9 @@
   :hook ((LaTeX-mode . citar-capf-setup)
          (org-mode . citar-capf-setup))
   :custom
-  (citar-bibliography '("~/Nextcloud/ref/books/references.bib"))
-  (citar-library-paths '("~/Nextcloud/ref/books"))
-  (citar-notes-paths '("~/Nextcloud/notes")))
+  (citar-bibliography '("~/cloud/ref/books/references.bib"))
+  (citar-library-paths '("~/cloud/ref/books"))
+  (citar-notes-paths '("~/cloud/notes")))
 
 (use-package citar-denote
   :ensure t
@@ -233,7 +233,7 @@
   (defun my/denote-uml-file (description)
     (concat (file-name-sans-extension (file-name-nondirectory buffer-file-name)) "-" description "__"  "uml" ".svg"))
   :config
-  (setq denote-directory "~/Nextcloud/notes")
+  (setq denote-directory "~/cloud/notes")
   (setq denote-dired-directories (list denote-directory)))
 
 (use-package dired
@@ -380,7 +380,7 @@
   :ensure t
   :defer t
   :config
-  (setq magit-repository-directories '(("~/Git" . 1))))
+  (setq magit-repository-directories '(("~/repos" . 1))))
 
 (use-package marginalia
   :ensure t
@@ -481,7 +481,7 @@
   :after mu4e org-agenda
   :config
   (mu4e-icalendar-setup)
-  (setq gnus-icalendar-org-capture-file "~/Nextcloud/org/calendar.org")
+  (setq gnus-icalendar-org-capture-file "~/cloud/org/calendar.org")
   (setq gnus-icalendar-org-capture-headline '("iCalendar events"))
   (gnus-icalendar-org-setup))
 
@@ -586,7 +586,7 @@ This works across multiple Org files."
       (w32-shell-execute "open" "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\ONENOTE.exe" (concat "/hyperlink " "onenote:" (shell-quote-argument link)))))
   :config
   (when (member (system-name) '("thinkpad" "desktop" "player" "WINDOWS"))
-    (setq org-directory "~/Nextcloud/org"))
+    (setq org-directory "~/cloud/org"))
   (setq org-default-notes-file (concat org-directory "/notes.org"))
   (setq org-agenda-files (list org-directory))
 
