@@ -12,7 +12,7 @@
 
   xdg.configFile = {
     "beets/config.yaml".source = ../../modules/beets/config.yaml;
-    "foot/foot.ini".source = ../../modules/foot/foot.ini;
+    "ghostty/config".source = ../../modules/ghostty/config;
     "git/config".source = ../../modules/git/config;
     "i3status/config".source = ../../modules/i3status/config;
     "kanshi/config".source = ../../modules/kanshi/config;

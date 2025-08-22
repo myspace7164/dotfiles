@@ -9,7 +9,7 @@
       brightnessctl
       cliphist
       dex
-      foot
+      ghostty
       glib
       gnome-themes-extra
       grim

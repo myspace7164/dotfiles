@@ -1,0 +1,14 @@
+background = 000000
+foreground = ffffff
+theme = Apple System Colors
+
+font-family = Iosevka
+font-size = 10
+
+gtk-titlebar = false
+resize-overlay = never
+shell-integration-features = false
+
+keybind = ctrl+shift+plus=increase_font_size:1
+keybind = ctrl+shift+equal=increase_font_size:1
+keybind = ctrl+semicolon=reload_config
