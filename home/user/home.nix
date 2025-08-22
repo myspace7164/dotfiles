@@ -12,7 +12,6 @@
 
   xdg.configFile = {
     "beets/config.yaml".source = ../../modules/beets/config.yaml;
-    "ghostty/config".source = ../../modules/ghostty/config;
     "git/config".source = ../../modules/git/config;
     "i3status/config".source = ../../modules/i3status/config;
     "kanshi/config".source = ../../modules/kanshi/config;
@@ -20,6 +19,7 @@
     "nvim/init.lua".source = ../../modules/nvim/init.lua;
     "sway/config".source = ../../modules/sway/config;
     "tmux/tmux.conf".source = ../../modules/tmux/tmux.conf;
+    "wezterm/wezterm.lua".source = ../../modules/wezterm/wezterm.lua;
   };
 
   # mail

@@ -9,7 +9,6 @@
       brightnessctl
       cliphist
       dex
-      ghostty
       glib
       gnome-themes-extra
       grim
@@ -24,6 +23,7 @@
       swayidle
       swaylock
       udiskie
+      wezterm
       wf-recorder
       wl-clipboard
       wmenu
