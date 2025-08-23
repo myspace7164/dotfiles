@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
     ../..
     ../../modules/gnome
+    ../../modules/plymouth
   ];
 
   networking.hostName = "player";
