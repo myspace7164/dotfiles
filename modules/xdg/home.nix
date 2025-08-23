@@ -1,8 +1,14 @@
 { config, lib, pkgs, ... }:
 {
-  xdg.configFile."user-dirs.dirs".source = ../../modules/xdg/user-dirs.dirs;
-
-  #   home.activation.userDirsUpdate = lib.hm.dag.entryAfter ["linkGeneration"] ''
-  #   ${pkgs.xdg-user-dirs}/bin/xdg-user-dirs-update
-  # '';
+  xdg.userDirs = {
+    createDirectories = true;
+    desktop = "${config.home.homeDirectory}/.user-dirs.dirs/Desktop";
+    download = "${config.home.homeDirectory}/tmp";
+    templates = "${config.home.homeDirectory}/.user-dirs.dirs/Templates";
+    publicShare = "${config.home.homeDirectory}/.user-dirs.dirs/Public";
+    documents = "${config.home.homeDirectory}/.user-dirs.dirs/Documents";
+    music = "${config.home.homeDirectory}/.user-dirs.dirs/Music";
+    pictures = "${config.home.homeDirectory}/.user-dirs.dirs/Pictures";
+    videos = "${config.home.homeDirectory}/.user-dirs.dirs/Videos";
+  };
 }
