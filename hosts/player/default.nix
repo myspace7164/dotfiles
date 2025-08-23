@@ -4,10 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ../..
-    ../../modules/emacs
     ../../modules/gnome
-    ../../modules/librewolf
-    ../../modules/zsh
   ];
 
   networking.hostName = "player";

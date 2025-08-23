@@ -4,12 +4,9 @@
   imports = [
     ./hardware-configuration.nix
     ../..
-    ../../modules/emacs
-    ../../modules/librewolf
     ../../modules/plasma
     ../../modules/plymouth
     ../../modules/virtualisation
-    ../../modules/zsh
   ];
 
   boot.loader.timeout = 0;

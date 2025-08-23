@@ -23,7 +23,6 @@
       swayidle
       swaylock
       udiskie
-      wezterm
       wf-recorder
       wl-clipboard
       wmenu

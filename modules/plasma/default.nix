@@ -2,7 +2,7 @@
 
 let
   background-package = pkgs.runCommand "background-image" {} ''
-  cp ${../../assets/10-3-6k.jpg} $out
+  cp ${./10-3-6k.jpg} $out
 '';
 in
 {
@@ -39,6 +39,11 @@ in
       ''
     )
   ];
+
+  # remove konsole and xterm
+  environment.plasma6.excludePackages = [ pkgs.kdePackages.konsole ];
+  services.xserver.desktopManager.xterm.enable = false;
+  services.xserver.excludePackages = [ pkgs.xterm ];
 
   hardware.bluetooth.enable = true;
 

@@ -54,6 +54,7 @@
     description = "User";
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.zsh;
   };
 
   # Allow unfree packages
@@ -126,7 +127,51 @@
     veracrypt
     vlc
     vscode
+    wezterm
     wget
+    ((emacsPackagesFor emacs).emacsWithPackages (
+      epkgs: (with epkgs.melpaPackages; [
+        cdlatex
+        citar
+        citar-denote
+        citar-embark
+        dired-subtree
+        direnv
+        magit
+        markdown-mode
+        minions
+        move-text
+        nix-mode
+        nov
+        org-caldav
+        org-contacts
+        org-pdftools
+        pdf-tools
+        plantuml-mode
+        saveplace-pdf-view
+      ])
+      ++ (with epkgs.elpaPackages; [
+        auctex
+        gcmh
+        cape
+        consult
+        corfu
+        csv-mode
+        denote
+        djvu
+        embark
+        embark-consult
+        json-mode
+        marginalia
+        matlab-mode
+        orderless
+        standard-themes
+        undo-tree
+        vertico
+      ])
+      ++ [
+        epkgs.mu4e
+      ]))
   ];
 
   services.protonmail-bridge = {
@@ -141,6 +186,30 @@
   programs.gnupg.agent = {
     enable = true;
     # enableSSHSupport = true;
+  };
+
+  # zsh
+  programs.zsh.enable = true;
+  programs.zsh.autosuggestions.enable = true;
+  programs.zsh.syntaxHighlighting.enable = true;
+
+  programs.bat.enable = true;
+
+  programs.direnv.enable = true;
+  programs.direnv.enableZshIntegration = true;
+  
+  programs.fzf.fuzzyCompletion = true;
+  programs.fzf.keybindings = true;
+
+  # librewolf
+  programs.firefox.enable = true;
+  programs.firefox.package = pkgs.librewolf;
+  xdg.mime.defaultApplications = {
+    "text/html" = "librewolf.desktop";
+    "x-scheme-handler/http" = "librewolf.desktop";
+    "x-scheme-handler/https" = "librewolf.desktop";
+    "x-scheme-handler/about" = "librewolf.desktop";
+    "x-scheme-handler/unknown" = "librewolf.desktop";
   };
 
   programs.localsend.enable = true;
