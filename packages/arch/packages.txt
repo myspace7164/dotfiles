@@ -106,7 +106,6 @@ unicode-emoji
 unison
 unzip
 virt-manager
-wezterm
 wf-recorder
 wget
 wl-clipboard

@@ -14,6 +14,7 @@
   };
 
   xdg.configFile = {
+    "alacritty/alacritty.toml".source = ../../config/alacritty/alacritty.toml;
     "beets/config.yaml".source = ../../config/beets/config.yaml;
     "git/config".source = ../../config/git/config;
     "i3status/config".source = ../../config/i3status/config;
@@ -22,7 +23,6 @@
     "nvim/init.lua".source = ../../config/nvim/init.lua;
     "sway/config".source = ../../config/sway/config;
     "tmux/tmux.conf".source = ../../config/tmux/tmux.conf;
-    "wezterm/wezterm.lua".source = ../../config/wezterm/wezterm.lua;
   };
 
   xdg.userDirs = {

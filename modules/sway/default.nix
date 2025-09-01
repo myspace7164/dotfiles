@@ -27,6 +27,7 @@
       wl-clipboard
       wmenu
       wtype
+      xdg-user-dirs
     ];
   };
 

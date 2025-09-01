@@ -68,6 +68,7 @@
 
   environment.systemPackages = with pkgs; [
     (aspellWithDicts (dicts: with dicts; [ de en en-computers en-science fi sv ]))
+    alacritty
     audacity
     bitwarden
     bleachbit
@@ -127,7 +128,6 @@
     veracrypt
     vlc
     vscode
-    wezterm
     wget
     ((emacsPackagesFor emacs).emacsWithPackages (
       epkgs: (with epkgs.melpaPackages; [
