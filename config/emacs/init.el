@@ -1,3 +1,10 @@
+(when (eq system-type 'android)
+  (setq touch-screen-display-keyboard t)
+  (setq modifier-bar-mode t)
+  (setq tool-bar-mode t)
+  (setq tool-bar-position 'bottom)
+  (setq tool-bar-button-margin 16))
+
 (use-package package
   :init
   (when (getenv "EMACS_WORK")
@@ -936,3 +943,6 @@ This works across multiple Org files."
 
 (use-package window
   :bind ("M-o" . other-window))
+
+(use-package yaml-mode
+  :ensure t)

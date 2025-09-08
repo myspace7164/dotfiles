@@ -130,7 +130,26 @@
     vscode
     wget
     ((emacsPackagesFor emacs).emacsWithPackages (
-      epkgs: (with epkgs.melpaPackages; [
+      epkgs: (with epkgs.elpaPackages; [
+        auctex
+        gcmh
+        cape
+        consult
+        corfu
+        csv-mode
+        denote
+        djvu
+        embark
+        embark-consult
+        json-mode
+        marginalia
+        matlab-mode
+        orderless
+        standard-themes
+        undo-tree
+        vertico
+      ])
+      ++ (with epkgs.melpaPackages; [
         cdlatex
         citar
         citar-denote
@@ -149,25 +168,7 @@
         pdf-tools
         plantuml-mode
         saveplace-pdf-view
-      ])
-      ++ (with epkgs.elpaPackages; [
-        auctex
-        gcmh
-        cape
-        consult
-        corfu
-        csv-mode
-        denote
-        djvu
-        embark
-        embark-consult
-        json-mode
-        marginalia
-        matlab-mode
-        orderless
-        standard-themes
-        undo-tree
-        vertico
+        yaml-mode
       ])
       ++ [
         epkgs.mu4e
