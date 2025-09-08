@@ -1,9 +1,15 @@
-(when (eq system-type 'android)
-  (setq touch-screen-display-keyboard t)
-  (setq modifier-bar-mode t)
-  (setq tool-bar-mode t)
-  (setq tool-bar-position 'bottom)
-  (setq tool-bar-button-margin 16))
+(use-package touch-screen
+  :if (eq system-type 'android)
+  :custom
+  (touch-screen-display-keyboard t))
+
+(use-package tool-bar
+  :if (eq system-type 'android)
+  :custom
+  (modifier-bar-mode t)
+  (tool-bar-mode t)
+  (tool-bar-position 'bottom)
+  (tool-bar-button-margin 16))
 
 (use-package package
   :init
