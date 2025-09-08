@@ -600,6 +600,8 @@ This works across multiple Org files."
   :config
   (when (member (system-name) '("thinkpad" "desktop" "player" "WINDOWS"))
     (setq org-directory "~/cloud/org"))
+  (when (eq system-type 'android)
+    (setq org-directory "/content/storage/org.nextcloud.documents/8d646530e3ce90d4419bac7207b2f88e%2F8"))
   (setq org-default-notes-file (concat org-directory "/notes.org"))
   (setq org-agenda-files (list org-directory))
 
