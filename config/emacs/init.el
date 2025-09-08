@@ -721,6 +721,7 @@ This works across multiple Org files."
 
 
 (use-package org-contacts
+  :ensure t
   :after org
   :custom
   (org-contacts-files (list (concat org-directory "/people.org"))))
