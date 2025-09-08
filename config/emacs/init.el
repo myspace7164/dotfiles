@@ -336,6 +336,17 @@
   (setq read-buffer-completion-ignore-case t))
 
 (use-package emacs
+  :bind ("<f5>" . modus-themes-toggle)
+  :init
+  (when (member (system-name) '("WINDOWS"))
+    (load-theme 'modus-operandi :no-confirm))
+
+  (when (or (member (system-name) '("thinkpad" "desktop" "player"))
+            (eq system-type 'android)
+            (getenv "EMACS_WORK"))
+    (load-theme 'modus-vivendi :no-confirm)))
+
+(use-package emacs
   :if (getenv "EMACS_WORK")
   :config
   (prefer-coding-system 'utf-8)
@@ -855,18 +866,6 @@ This works across multiple Org files."
 
 (use-package saveplace-pdf-view
   :ensure t)
-
-(use-package standard-themes
-  :if (or window-system (daemonp))
-  :ensure t
-  :bind ("<f5>" . standard-themes-toggle)
-  :init
-  (when (member (system-name) '("WINDOWS"))
-    (load-theme 'standard-light :no-confirm))
-  (when (or (member (system-name) '("thinkpad" "desktop" "player"))
-            (eq system-type 'android)
-            (getenv "EMACS_WORK"))
-    (load-theme 'standard-dark :no-confirm)))
 
 (use-package simple
   :config
