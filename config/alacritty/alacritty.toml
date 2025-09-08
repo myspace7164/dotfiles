@@ -1,13 +1,11 @@
+general.import = [ "current_theme.toml" ]
+
 [env]
 TERM = "xterm-256color"
 
 [font]
 normal = { family = "Iosevka", style = "Regular" }
 size = 10
-
-[colors.primary]
-foreground = "#ffffff"
-background = "#000000"
 
 [keyboard]
 bindings = [

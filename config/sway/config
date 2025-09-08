@@ -31,6 +31,9 @@ exec wl-paste --watch cliphist store
 
 ### Theming
 
+exec echo "dark" > ~/.local/state/theme
+exec ln -sf ~/.local/share/themes/alacritty/modus-vivendi.toml ~/.config/alacritty/current_theme.toml
+
 seat seat0 xcursor_theme Adwaita 24
 
 exec_always {
@@ -39,6 +42,8 @@ exec_always {
     gsettings set org.gnome.desktop.interface cursor-theme Adwaita
     gsettings set org.gnome.desktop.wm.preferences button-layout ':'
 }
+
+bindsym $mod+f5 exec ~/.local/share/scripts/toggle-theme.sh
 
 ### Window rules
 

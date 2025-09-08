@@ -7,6 +7,7 @@
   home.file = {
     ".local/bin".source = ../../bin;
     ".local/share/scripts".source = ../../scripts;
+    ".local/share/themes".source = ../../themes;
     # zsh
     ".zprofile".source = ../../config/zsh/.zprofile;
     ".zshenv".source = ../../config/zsh/.zshenv;
