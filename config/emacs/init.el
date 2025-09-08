@@ -862,6 +862,7 @@ This works across multiple Org files."
   (when (member (system-name) '("WINDOWS"))
     (load-theme 'standard-light :no-confirm))
   (when (or (member (system-name) '("thinkpad" "desktop" "player"))
+            (eq system-type 'android)
             (getenv "EMACS_WORK"))
     (load-theme 'standard-dark :no-confirm)))
 
