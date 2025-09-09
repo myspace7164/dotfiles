@@ -44,10 +44,11 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.sharedModules = [ plasma-manager.homeManagerModules.plasma-manager ];
+            home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
             home-manager.users.user = {
               imports = [
                 ./home/user/home.nix
+                ./hosts/desktop/home.nix
                 ./modules/plasma/home.nix
               ];
             };
