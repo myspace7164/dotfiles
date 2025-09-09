@@ -64,8 +64,7 @@
   services.displayManager.defaultSession = "plasmax11";
   services.displayManager.sddm.wayland.enable = false; # force X11
   services.xserver.displayManager.setupCommands = ''
-  ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-A-0 --primary --mode 3440x1440 --pos 0x0 --rotate normal \
-                                 --output DisplayPort-0 --mode 1920x1080 --pos 3440x0 --rate 165 --rotate normal
+  ${pkgs.xorg.xrandr}/bin/xrandr --output DisplayPort-0 --primary --mode 1920x1080 --pos 0x0 --rate 165 --rotate normal
 '';
 
   # External monitor backlight control
