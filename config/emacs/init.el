@@ -13,8 +13,6 @@
 
 (use-package package
   :init
-  (when (getenv "EMACS_WORK")
-    (setq package-gnupghome-dir "~/.emacs.d/elpa/gnupg"))
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
   (unless package--initialized
     (package-initialize)))
@@ -304,7 +302,8 @@
 	     (prog-mode . electric-pair-local-mode)))
 
 (use-package emacs
-  :bind ("M-Q" . my/unfill-paragraph)
+  :bind (("M-Q" . my/unfill-paragraph)
+         ("<f5>" . modus-themes-toggle))
 
   :preface
   (defun my/unfill-paragraph (&optional region)
@@ -330,31 +329,13 @@
   (setq-default tab-width 4)
   (setq tab-always-indent 'complete)
 
-  (when (member (system-name) '("thinkpad" "desktop" "player" "WINDOWS"))
-    (add-to-list 'default-frame-alist '(font . "Iosevka-10")))
+  (when (find-font (font-spec :name "Iosevka"))
+    (add-to-list 'default-frame-alist '(font . "Iosevka-10"))
+    (set-face-attribute 'default nil :font "Iosevka-10"))
 
-  (setq read-buffer-completion-ignore-case t))
+  (setq read-buffer-completion-ignore-case t)
 
-(use-package emacs
-  :bind ("<f5>" . modus-themes-toggle)
-  :init
-  (when (member (system-name) '("WINDOWS"))
-    (load-theme 'modus-operandi :no-confirm))
-
-  (when (or (member (system-name) '("thinkpad" "desktop" "player"))
-            (eq system-type 'android)
-            (getenv "EMACS_WORK"))
-    (load-theme 'modus-vivendi :no-confirm)))
-
-(use-package emacs
-  :if (getenv "EMACS_WORK")
-  :config
-  (prefer-coding-system 'utf-8)
-  (set-default-coding-systems 'utf-8)
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
-  (setq coding-system-for-read 'utf-8)
-  (setq coding-system-for-write 'utf-8))
+  (load-theme 'modus-vivendi :no-confirm))
 
 (use-package embark
   :ensure t
@@ -370,11 +351,6 @@
 (use-package embark-consult
   :ensure t
   :hook (embark-collect-mode . consult-preview-at-point-mode))
-
-(use-package faces
-  :if (member (system-name) '("thinkpad" "desktop" "player" "WINDOWS"))
-  :config
-  (set-face-attribute 'default nil :font "Iosevka-10"))
 
 (use-package files
   :config
@@ -416,7 +392,7 @@
   :mode "\\.md\\'")
 
 (use-package matlab-mode
-  :if (getenv "EMACS_WORK")
+  :if (equal system-name "CHLFSTL0014")
   :ensure t)
 
 (use-package minibuffer
