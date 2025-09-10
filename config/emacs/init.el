@@ -284,6 +284,7 @@
       ("File"
        ["Save buffers" save-some-buffers])
       ("Org"
+       ["Capture" org-capture]
        ["Agenda List" org-agenda-list]
        ["Global TODO List" org-todo-list]
        ["Search for Keywords" org-search-view])
