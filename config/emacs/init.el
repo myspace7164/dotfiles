@@ -328,7 +328,6 @@
 
   (setq delete-by-moving-to-trash t)
   (setq enable-recursive-minibuffers t)
-  (setq mac-right-option-modifier "none")
   (setq use-short-answers t)
 
   (setq-default tab-width 4)
