@@ -146,7 +146,6 @@
         matlab-mode
         orderless
         standard-themes
-        # undo-tree
         vertico
       ])
       ++ (with epkgs.melpaPackages; [

@@ -275,6 +275,21 @@
   :hook ((conf-mode . display-line-numbers-mode)
          (prog-mode . display-line-numbers-mode)))
 
+(use-package easymenu
+  :if (eq system-type 'android)
+  :config
+  (easy-menu-define my-menu global-map
+    "My Customized Menu for using Emacs on Android."
+    '("My"
+      ("File"
+       ["Save buffers" save-some-buffers])
+      ("Org"
+       ["Agenda List" org-agenda-list]
+       ["Global TODO List" org-todo-list]
+       ["Search for Keywords" org-search-view])
+      ("Magit"
+       ["Status" magit-status]))))
+
 (use-package eglot
   :hook (python-mode . eglot-ensure))
 
@@ -866,13 +881,6 @@ This works across multiple Org files."
   (setq-default TeX-master nil)
 
   (setq LaTeX-electric-left-right-brace t))
-
-;; (use-package undo-tree
-;;   :ensure t
-;;   :custom
-;;   (undo-tree-history-directory-alist `(("." . ,(locate-user-emacs-file "undo-tree"))))
-;;   :init
-;;   (global-undo-tree-mode))
 
 (use-package tool-bar
   :if (eq system-type 'android)
