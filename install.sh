@@ -1,15 +1,5 @@
 #!/usr/bin/env bash
 
-mkdir_recursive() {
-    basedir=$1
-    find "$basedir" -type d | while read -r dir; do
-        relative_dir="${dir#$basedir/}"
-        if [[ ! $relative_dir =~ ^\.$|\.git && $relative_dir != $basedir ]]; then
-            mkdir -vp "$HOME/$relative_dir"
-        fi
-    done
-}
-
 distro=$(awk -F= '/^ID=/{print $2}' /etc/os-release | tr -d '"')
 hostname=$(cat /etc/hostname)
 scriptdir=$(readlink -f $(dirname "$0"))
@@ -117,21 +107,21 @@ elif [[ $hostname == "CHLFSTL0014" ]]; then
     $HOME/.fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 
     mkdir -vp $HOME/.emacs.d
-    ln -sf $scriptdir/modules/emacs/early-init.el $HOME/.emacs.d
-    ln -sf $scriptdir/modules/emacs/init.el $HOME/.emacs.d
+    ln -sf $scriptdir/config/emacs/early-init.el $HOME/.emacs.d
+    ln -sf $scriptdir/config/emacs/init.el $HOME/.emacs.d
 
     mkdir $HOME/.config/git
-    ln -sf $scriptdir/modules/git/config $HOME/.config/git
+    ln -sf $scriptdir/config/git/config $HOME/.config/git
 
     mkdir $HOME/.config/nvim
-    ln -sf $scriptdir/modules/nvim/init.lua $HOME/.config/nvim
+    ln -sf $scriptdir/config/nvim/init.lua $HOME/.config/nvim
 
     mkdir $HOME/.config/tmux
-    ln -sf $scriptdir/modules/tmux/tmux.conf $HOME/.config/tmux
+    ln -sf $scriptdir/config/tmux/tmux.conf $HOME/.config/tmux
 
-    ln -sf $scriptdir/modules/zsh/.zprofile $HOME
-    ln -sf $scriptdir/modules/zsh/.zshenv $HOME
-    ln -sf $scriptdir/modules/zsh/.zshrc $HOME
+    ln -sf $scriptdir/config/zsh/.zprofile $HOME
+    ln -sf $scriptdir/config/zsh/.zshenv $HOME
+    ln -sf $scriptdir/config/zsh/.zshrc $HOME
 fi
 
 # zsh
@@ -139,10 +129,6 @@ if [[ $distro != nixos && $SHELL != /bin/zsh ]]; then
     echo "Switching to zsh"
     chsh -s /bin/zsh
 fi
-
-# Build dotfile tree and stow files
-# mkdir_recursive $scriptdir/system
-# stow --verbose --restow --target $HOME --dir $scriptdir system
 
 if [[ $hostname =~ thinkpad|desktop|pocket ]]; then
     # reload sway
