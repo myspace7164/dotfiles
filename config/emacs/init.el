@@ -1,19 +1,3 @@
-(require-theme 'modus-themes)
-(setq modus-themes-mode-line '(accented))
-(load-theme 'modus-vivendi :no-confirm)
-
-(when (eq system-type 'android)
-  (use-package touch-screen
-    :custom
-    (touch-screen-display-keyboard t))
-
-  (use-package tool-bar
-    :custom
-    (modifier-bar-mode t)
-    (tool-bar-mode t)
-    (tool-bar-position 'bottom)
-    (tool-bar-button-margin 16)))
-
 (use-package package
   :init
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -24,6 +8,21 @@
   :ensure t
   :init
   (gcmh-mode 1))
+
+(use-package touch-screen
+  :after emacs
+  :if (eq system-type 'android)
+  :custom
+  (touch-screen-display-keyboard t))
+
+(use-package tool-bar
+  :after emacs
+  :if (eq system-type 'android)
+  :custom
+  (modifier-bar-mode t)
+  (tool-bar-mode t)
+  (tool-bar-position 'bottom)
+  (tool-bar-button-margin 16))
 
 (use-package auth-source
   :custom
@@ -336,7 +335,9 @@
     (add-to-list 'default-frame-alist '(font . "Iosevka-10"))
     (set-face-attribute 'default nil :font "Iosevka-10"))
 
-  (setq read-buffer-completion-ignore-case t))
+  (setq read-buffer-completion-ignore-case t)
+
+  (load-theme 'modus-vivendi :no-confirm))
 
 (use-package embark
   :ensure t
