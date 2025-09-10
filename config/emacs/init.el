@@ -321,6 +321,8 @@
   ;; Emacs 30 and newer: Disable Ispell completion function.
   (text-mode-ispell-word-completion nil)
 
+  (read-extended-command-predicate #'command-completion-default-include-p)
+
   :config
   (setq visible-bell t)
 
