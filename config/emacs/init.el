@@ -335,6 +335,8 @@
 
   (setq read-buffer-completion-ignore-case t)
 
+  (require-theme 'modus-themes)
+  (setq modus-themes-mode-line '(accented))
   (load-theme 'modus-vivendi :no-confirm))
 
 (use-package embark
