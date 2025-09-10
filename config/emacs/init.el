@@ -322,15 +322,7 @@
 
   (setq read-buffer-completion-ignore-case t)
 
-  (load-theme 'modus-vivendi :no-confirm)
-
-  (when (eq system-type 'android)
-    (setq touch-screen-display-keyboard t)
-
-    (setq tool-bar-position 'bottom)
-    (setq tool-bar-button-margin 16)
-    (tool-bar-mode)
-    (modifier-bar-mode)))
+  (load-theme 'modus-vivendi :no-confirm))
 
 (use-package embark
   :ensure t
@@ -881,6 +873,19 @@ This works across multiple Org files."
 ;;   (undo-tree-history-directory-alist `(("." . ,(locate-user-emacs-file "undo-tree"))))
 ;;   :init
 ;;   (global-undo-tree-mode))
+
+(use-package tool-bar
+  :if (eq system-type 'android)
+  :custom
+  (tool-bar-position 'bottom)
+  (tool-bar-button-margin 16)
+  (tool-bar-mode t)
+  (modifier-bar-mode t))
+
+(use-package touch-screen
+  :if (eq system-type 'android)
+  :custom
+  (touch-screen-display-keyboard t))
 
 (use-package vc
   :config
