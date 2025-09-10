@@ -1,15 +1,18 @@
-(use-package touch-screen
-  :if (eq system-type 'android)
-  :custom
-  (touch-screen-display-keyboard t))
+(require-theme 'modus-themes)
+(setq modus-themes-mode-line '(accented))
+(load-theme 'modus-vivendi :no-confirm)
 
-(use-package tool-bar
-  :if (eq system-type 'android)
-  :custom
-  (modifier-bar-mode t)
-  (tool-bar-mode t)
-  (tool-bar-position 'bottom)
-  (tool-bar-button-margin 16))
+(when (eq system-type 'android)
+  (use-package touch-screen
+    :custom
+    (touch-screen-display-keyboard t))
+
+  (use-package tool-bar
+    :custom
+    (modifier-bar-mode t)
+    (tool-bar-mode t)
+    (tool-bar-position 'bottom)
+    (tool-bar-button-margin 16)))
 
 (use-package package
   :init
@@ -333,11 +336,7 @@
     (add-to-list 'default-frame-alist '(font . "Iosevka-10"))
     (set-face-attribute 'default nil :font "Iosevka-10"))
 
-  (setq read-buffer-completion-ignore-case t)
-
-  (require-theme 'modus-themes)
-  (setq modus-themes-mode-line '(accented))
-  (load-theme 'modus-vivendi :no-confirm))
+  (setq read-buffer-completion-ignore-case t))
 
 (use-package embark
   :ensure t
@@ -531,18 +530,18 @@
     (concat "id:"
             (org-id-get-with-outline-path-completion org-refile-targets)))
   (defun my/org-id-link-description (link desc)
-  "Return description for `id:` links. Use DESC if non-nil, otherwise fetch headline.
+    "Return description for `id:` links. Use DESC if non-nil, otherwise fetch headline.
 This works across multiple Org files."
-  (or desc
-      (let* ((id (substring link 3)) ; remove "id:" prefix
-             (location (org-id-find id 'marker)) ; Find the location of the ID
-             headline)
-        (when location
-          (with-current-buffer (marker-buffer location)
-            (save-excursion
-              (goto-char (marker-position location))
-              (setq headline (nth 4 (org-heading-components))))))
-        headline)))
+    (or desc
+        (let* ((id (substring link 3)) ; remove "id:" prefix
+               (location (org-id-find id 'marker)) ; Find the location of the ID
+               headline)
+          (when location
+            (with-current-buffer (marker-buffer location)
+              (save-excursion
+                (goto-char (marker-position location))
+                (setq headline (nth 4 (org-heading-components))))))
+          headline)))
   :config
   (org-link-set-parameters "id"
                            :complete #'my/org-id-complete-link
@@ -882,12 +881,12 @@ This works across multiple Org files."
 
   (setq LaTeX-electric-left-right-brace t))
 
-(use-package undo-tree
-  :ensure t
-  :custom
-  (undo-tree-history-directory-alist `(("." . ,(locate-user-emacs-file "undo-tree"))))
-  :init
-  (global-undo-tree-mode))
+;; (use-package undo-tree
+;;   :ensure t
+;;   :custom
+;;   (undo-tree-history-directory-alist `(("." . ,(locate-user-emacs-file "undo-tree"))))
+;;   :init
+;;   (global-undo-tree-mode))
 
 (use-package vc
   :config
