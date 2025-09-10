@@ -912,6 +912,12 @@ This works across multiple Org files."
   :config
   (vertico-mode 1))
 
+(use-package vertico
+  :if (eq system-type 'android)
+  :custom
+  (vertico-count 5)
+  (vertico-resize t))
+
 (use-package vertico-mouse
   :after vertico
   :config
