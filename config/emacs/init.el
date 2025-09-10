@@ -266,7 +266,7 @@
   (dired-subtree-use-backgrounds nil))
 
 (use-package direnv
-  :if (member (system-name) '("thinkpad" "desktop"))
+  :if (executable-find "direnv")
   :ensure t
   :config
   (direnv-mode 1))
@@ -332,7 +332,8 @@
   (setq-default tab-width 4)
   (setq tab-always-indent 'complete)
 
-  (when (find-font (font-spec :name "Iosevka"))
+  (when (or (find-font (font-spec :name "Iosevka"))
+            (member system-name '("thinkpad"))) ;; Workaround because emacsclient doesnt find iosevka on sway at startup
     (add-to-list 'default-frame-alist '(font . "Iosevka-10"))
     (set-face-attribute 'default nil :font "Iosevka-10"))
 
@@ -422,7 +423,7 @@
          ("M-<down>" . move-text-down)))
 
 (use-package mu4e
-  :if (member (system-name) '("thinkpad"))
+  :if (executable-find "mu") ;; when there is mu, there should be mu4e
   :commands (mu4e)
   :hook (;; start mu4e in background, allows to immediately compose-mail
          (after-init . (lambda () (mu4e t)))
@@ -473,9 +474,8 @@
   (setq mu4e-trash-folder "/Trash")
   (setq mu4e-refile-folder "/Archive")
 
-  (if (member (system-name) '("desktop" "thinkpad"))
-      (setq sendmail-program "/run/current-system/sw/bin/msmtp")
-    (setq sendmail-program "/usr/bin/msmtp"))
+  (when (executable-find "msmtp")
+      (setq sendmail-program (executable-find "msmtp")))
   (setq message-sendmail-f-is-evil t)
   (setq message-sendmail-extra-arguments '("--read-envelope-from"))
   (setq send-mail-function 'smtpmail-send-it)
@@ -594,7 +594,7 @@ This works across multiple Org files."
       "Open the OneNote item identified by the unique OneNote URL."
       (w32-shell-execute "open" "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\ONENOTE.exe" (concat "/hyperlink " "onenote:" (shell-quote-argument link)))))
   :config
-  (when (member (system-name) '("thinkpad" "desktop" "player" "WINDOWS"))
+  (when (file-directory-p "~/cloud/org")
     (setq org-directory "~/cloud/org"))
   (when (eq system-type 'android)
     (setq org-directory "/content/storage/org.nextcloud.documents/8d646530e3ce90d4419bac7207b2f88e%2F8"))
@@ -630,9 +630,7 @@ This works across multiple Org files."
   (setq org-preview-latex-default-process 'dvisvgm)
 
   (plist-put org-format-latex-options :foreground nil)
-  (plist-put org-format-latex-options :background nil)
-  (when (member (system-name) '("thinkpad"))
-    (plist-put org-format-latex-options :scale 0.3)))
+  (plist-put org-format-latex-options :background nil))
 
 (use-package org-agenda
   :bind ("C-c a" . org-agenda)
