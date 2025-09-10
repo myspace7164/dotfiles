@@ -327,10 +327,10 @@
   (when (eq system-type 'android)
     (setq touch-screen-display-keyboard t)
 
-    (modifier-bar-mode)
     (setq tool-bar-position 'bottom)
     (setq tool-bar-button-margin 16)
-    (tool-bar-mode)))
+    (tool-bar-mode)
+    (modifier-bar-mode)))
 
 (use-package embark
   :ensure t
