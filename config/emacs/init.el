@@ -372,6 +372,7 @@
 (use-package frame
   :if (eq system-type 'android)
   :config
+  ;; Small hack to show the screen keyboard when first opening emacs on android
   (frame-toggle-on-screen-keyboard (selected-frame) nil))
 
 (use-package hl-line
