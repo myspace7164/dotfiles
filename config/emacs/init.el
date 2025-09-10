@@ -287,7 +287,8 @@
        ["Capture" org-capture]
        ["Agenda List" org-agenda-list]
        ["Global TODO List" org-todo-list]
-       ["Search for Keywords" org-search-view])
+       ["Search for Keywords" org-search-view]
+       ["Refile" org-refile])
       ("Magit"
        ["Status" magit-status]))))
 
