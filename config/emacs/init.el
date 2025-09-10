@@ -369,6 +369,11 @@
          :map ctl-x-x-map
          ("s" . flyspell-mode)))
 
+(use-package frame
+  :if (eq system-type 'android)
+  :config
+  (frame-toggle-on-screen-keyboard (selected-frame) nil))
+
 (use-package hl-line
   :hook ((dired-mode . hl-line-mode)
          (org-agenda-mode . hl-line-mode)
