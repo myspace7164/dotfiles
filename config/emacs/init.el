@@ -660,7 +660,7 @@ This works across multiple Org files."
 (use-package org-agenda
   :if (eq system-type 'android)
   :config
-  (setf (alist-get 'todo org-agenda-prefix-format) "%-3:c"))
+  (setf (alist-get 'todo org-agenda-prefix-format) "%3:c"))
 
 (use-package org-capture
   :after org-contacts
