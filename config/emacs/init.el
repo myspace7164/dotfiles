@@ -598,8 +598,8 @@ This works across multiple Org files."
   :config
   (when (file-directory-p "~/cloud/org")
     (setq org-directory "~/cloud/org"))
-  (when (eq system-type 'android)
-    (setq org-directory "/content/storage/org.nextcloud.documents/8d646530e3ce90d4419bac7207b2f88e%2F8"))
+  (when (file-directory-p "/content/storage/com.android.externalstorage.documents/primary:Org")
+    (setq org-directory "/content/storage/com.android.externalstorage.documents/primary:Org"))
   (setq org-default-notes-file (concat org-directory "/notes.org"))
   (setq org-agenda-files (list org-directory))
 
