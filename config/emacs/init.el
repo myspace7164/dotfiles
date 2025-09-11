@@ -659,7 +659,7 @@ This works across multiple Org files."
 
 (use-package org-agenda
   :if (eq system-type 'android)
-  :prefix
+  :preface
   (defun my/org-category-truncate (s &optional width)
     "Truncate category S to WIDTH (default 12)."
     (let ((w (or width 12)))
