@@ -642,7 +642,7 @@ This works across multiple Org files."
 (use-package org-agenda
   :bind ("C-c a" . org-agenda)
   :config
-  (setq org-agenda-todo-keyword-format "%-7s")
+  (setq org-agenda-todo-keyword-format "%7s")
 
   (setq org-agenda-todo-ignore-deadlines 'future)
   (setq org-agenda-todo-ignore-scheduled 'future)
@@ -660,7 +660,7 @@ This works across multiple Org files."
 (use-package org-agenda
   :if (eq system-type 'android)
   :config
-  (setf (alist-get 'todo org-agenda-prefix-format) "%3:c"))
+  (setf (alist-get 'todo org-agenda-prefix-format) ""))
 
 (use-package org-capture
   :after org-contacts
