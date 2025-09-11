@@ -623,7 +623,8 @@ This works across multiple Org files."
 
   (setq org-log-done 'time)
   (setq org-log-into-drawer t)
-  (setq org-startup-indented t)
+  (when (not (eq system-type 'android))
+    (setq org-startup-indented t))
   (setq org-startup-folded t)
 
   (setq org-archive-location "archive/%s::")
