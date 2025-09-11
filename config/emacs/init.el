@@ -664,10 +664,10 @@ This works across multiple Org files."
     "Truncate category S to WIDTH (default 12)."
     (let ((w (or width 12)))
       (if (> (length s) w)
-          (concat (substring s 0 (- w 1)) "…")
+          (substring s 0 (- w 1))
         (truncate-string-to-width s w))))
   :config
-  (setf (alist-get 'todo org-agenda-prefix-format) "%(my/org-category-truncate (org-get-category) 3)"))
+  (setf (alist-get 'todo org-agenda-prefix-format) "%(my/org-category-truncate (org-get-category) 4) "))
 
 (use-package org-capture
   :after org-contacts
