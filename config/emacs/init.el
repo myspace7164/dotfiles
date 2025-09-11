@@ -337,7 +337,11 @@
   (when (or (find-font (font-spec :name "Iosevka"))
             (member system-name '("thinkpad"))) ;; Workaround because emacsclient doesnt find iosevka on sway at startup
     (add-to-list 'default-frame-alist '(font . "Iosevka-10"))
-    (set-face-attribute 'default nil :font "Iosevka-10"))
+    (set-face-attribute 'default nil :font "Iosevka-10")
+
+    (when (eq system-type 'android)
+      (add-to-list 'default-frame-alist '(font . "Iosevka-12"))
+      (set-face-attribute 'default nil :font "Iosevka-12")))
 
   (setq read-buffer-completion-ignore-case t)
 
@@ -600,6 +604,7 @@ This works across multiple Org files."
     (setq org-directory "~/cloud/org"))
   (when (file-directory-p "/content/storage/org.nextcloud.documents/8d646530e3ce90d4419bac7207b2f88e%2F8")
     (setq org-directory "/content/storage/org.nextcloud.documents/8d646530e3ce90d4419bac7207b2f88e%2F8"))
+  
   (setq org-default-notes-file (concat org-directory "/notes.org"))
   (setq org-agenda-files (list org-directory))
 
