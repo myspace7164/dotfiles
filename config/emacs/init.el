@@ -659,8 +659,15 @@ This works across multiple Org files."
 
 (use-package org-agenda
   :if (eq system-type 'android)
+  :prefix
+  (defun my/org-category-truncate (s &optional width)
+    "Truncate category S to WIDTH (default 12)."
+    (let ((w (or width 12)))
+      (if (> (length s) w)
+          (concat (substring s 0 (- w 1)) "…")
+        (truncate-string-to-width s w))))
   :config
-  (setf (alist-get 'todo org-agenda-prefix-format) ""))
+  (setf (alist-get 'todo org-agenda-prefix-format) "%(my/org-category-truncate (org-get-category) 3)"))
 
 (use-package org-capture
   :after org-contacts
