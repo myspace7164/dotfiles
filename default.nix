@@ -68,7 +68,6 @@
 
   environment.systemPackages = with pkgs; [
     (aspellWithDicts (dicts: with dicts; [ de en en-computers en-science fi sv ]))
-    alacritty
     audacity
     bitwarden
     bleachbit
@@ -82,6 +81,7 @@
     ente-desktop
     fd
     gcc
+    ghostty
     gimp
     git
     git-filter-repo

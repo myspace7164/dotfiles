@@ -48,7 +48,6 @@
             home-manager.users.user = {
               imports = [
                 ./home/user/home.nix
-                ./hosts/desktop/home.nix
                 ./modules/plasma/home.nix
               ];
             };
