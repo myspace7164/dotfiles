@@ -687,20 +687,28 @@ This works across multiple Org files."
             ":ADDRESS: %^{123 Street, 0001 State, Country}\n"
             ":BIRTHDAY: %^{YYYY-MM-DD}\n"
             ":END:") "Template for a contact.")
+
+  (defvar my/org-capture-created-property
+    (concat ":PROPERTIES:\n"
+            ":CREATED:  %U\n"
+            ":END:\n"))
   :custom
   (org-capture-templates
    `(("i" "Inbox" entry (file "inbox.org")
-      "* %?\n%U")
+      ,(concat "* %?\n" my/org-capture-created-property))
 
      ;; journaling
-     ("j" "Journal" entry (file+olp+datetree "journal.org")
+     ("j" "Journal templates")
+     ("jj" "Journal" entry (file+olp+datetree "journal.org")
       "* %U %^{Title}\n%?")
-     ("J" "Journal (custom datetime)" entry (file+olp+datetree "journal.org")
+     ("jJ" "Journal (custom datetime)" entry (file+olp+datetree "journal.org")
       "* %U %^{Title}\n%?" :time-prompt t)
-     ("d" "Daily review" entry (file+olp+datetree "journal.org")
+     ("jd" "Daily review" entry (file+olp+datetree "journal.org")
       "* %U Daily review\n%?")
-     ("D" "Daily review (custom datetime)" entry (file+olp+datetree "journal.org")
+     ("jD" "Daily review (custom datetime)" entry (file+olp+datetree "journal.org")
       "* %U Daily review\n%?" :time-prompt t)
+     ("jt" "Daily todo" entry (file+olp+datetree "journal.org")
+      ,(concat "* TODO Todo for today\nSCHEDULED: %t\n" my/org-capture-created-property "%?"))
 
      ;; meeting notes
      ("n" "Meeting notes" entry (file+headline "notes.org" "Meetings")
