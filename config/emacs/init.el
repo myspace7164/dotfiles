@@ -698,6 +698,10 @@ This works across multiple Org files."
   (org-capture-templates
    `(("i" "Inbox" entry (file "inbox.org")
       ,(concat "* %?\n" my/org-capture-created-property))
+     ("e" "Errand" entry (file "errands.org")
+      ,(concat "* TODO %?\n" my/org-capture-created-property))
+     ("s" "Shopping List" entry (file "shopping_list.org")
+      ,(concat "* TODO %?\n" my/org-capture-created-property))
 
      ;; journaling
      ("j" "Journal templates")
