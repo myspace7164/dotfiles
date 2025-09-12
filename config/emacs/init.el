@@ -635,10 +635,23 @@ This works across multiple Org files."
   (add-to-list 'org-structure-template-alist '("P" . "src plantuml") t)
 
   (setq org-preview-latex-image-directory "~/.local/share/ltximg/")
-  (setq org-preview-latex-default-process 'dvisvgm)
 
-  (plist-put org-format-latex-options :foreground nil)
-  (plist-put org-format-latex-options :background nil)
+  (when (not (eq system-type 'android))
+    (setq org-preview-latex-default-process 'dvisvgm)
+    (plist-put org-format-latex-options :foreground nil)
+    (plist-put org-format-latex-options :background nil))
+
+  (when (eq system-type 'android)
+    (setq org-preview-latex-process-alist
+          '((dvipng :programs ("latex" "dvipng") :description "dvi > png"
+                    :message
+                    "you need to install the programs: latex and dvipng."
+                    :image-input-type "dvi" :image-output-type "png"
+                    :image-size-adjust (1.0 . 1.0) :latex-compiler
+                    ("latex -interaction nonstopmode -output-directory %o %f")
+                    :image-converter ("dvipng -D 300 -T tight -o %O %f")
+                    :transparent-image-converter
+                    ("dvipng -D 300 -T tight -bg Transparent -o %O %f")))))
 
   (add-to-list 'org-default-properties "CREATED" t))
 

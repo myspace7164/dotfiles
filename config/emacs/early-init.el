@@ -8,5 +8,6 @@
 		                 (getenv "PATH")))
   (setenv "PATH" (format "%s:%s" "/data/data/com.termux/files/usr/bin/texlive"
 		                 (getenv "PATH")))
+  ;; (setenv "TEXMFROOT" "/data/data/com.termux/files/usr/share/texlive/2025")
   (push "/data/data/com.termux/files/usr/bin" exec-path)
   (push "/data/data/com.termux/files/usr/bin/texlive" exec-path))
