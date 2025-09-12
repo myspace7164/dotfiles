@@ -231,7 +231,7 @@
   (defun my/denote-uml-file (description)
     (concat (file-name-sans-extension (file-name-nondirectory buffer-file-name)) "-" description "__"  "uml" ".svg"))
   :config
-  (setq denote-directory "~/cloud/notes")
+  (setq denote-directory "~/cloud/org/notes")
   (setq denote-dired-directories (list denote-directory)))
 
 (use-package dired
@@ -638,7 +638,9 @@ This works across multiple Org files."
   (setq org-preview-latex-default-process 'dvisvgm)
 
   (plist-put org-format-latex-options :foreground nil)
-  (plist-put org-format-latex-options :background nil))
+  (plist-put org-format-latex-options :background nil)
+
+  (add-to-list 'org-default-properties "CREATED" t))
 
 (use-package org-agenda
   :bind ("C-c a" . org-agenda)
