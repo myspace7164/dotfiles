@@ -728,6 +728,8 @@ This works across multiple Org files."
       "* %U Daily review\n%?" :time-prompt t)
      ("jt" "Daily todo" entry (file+olp+datetree "journal.org")
       ,(concat "* TODO Todo for today\nSCHEDULED: %t\n" my/org-capture-created-property "%?"))
+     ("jT" "Daily todo (custom datetime)" entry (file+olp+datetree "journal.org")
+      ,(concat "* TODO Todo for today\nSCHEDULED: %t\n" my/org-capture-created-property "%?") :time-prompt t)
 
      ;; meeting notes
      ("n" "Meeting notes" entry (file+headline "notes.org" "Meetings")
