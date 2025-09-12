@@ -4,10 +4,11 @@
   (tool-bar-mode -1))
 
 (when (eq system-type 'android)
-  (setenv "PATH" (format "%s:%s" "/data/data/com.termux/files/usr/bin"
+  (setenv "PATH" (format "%s:%s:%s"
+                         "/data/data/com.termux/files/usr/bin"
+                         "/data/data/com.termux/files/usr/bin/texlive"
 		                 (getenv "PATH")))
-  (setenv "PATH" (format "%s:%s" "/data/data/com.termux/files/usr/bin/texlive"
-		                 (getenv "PATH")))
-  ;; (setenv "TEXMFROOT" "/data/data/com.termux/files/usr/share/texlive/2025")
   (push "/data/data/com.termux/files/usr/bin" exec-path)
-  (push "/data/data/com.termux/files/usr/bin/texlive" exec-path))
+  (push "/data/data/com.termux/files/usr/bin/texlive" exec-path)
+
+  (setenv "TEXMFROOT" "/data/data/com.termux/files/usr/share/texlive/2025"))
