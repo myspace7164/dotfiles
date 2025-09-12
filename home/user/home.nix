@@ -17,6 +17,8 @@
   xdg.configFile = {
     "beets/config.yaml".source = ../../config/beets/config.yaml;
     "ghostty/config".source = ../../config/ghostty/config;
+    "ghostty/themes/modus-vivendi".source = ../../config/ghostty/themes/modus-vivendi;
+    "ghostty/themes/modus-operandi".source = ../../config/ghostty/themes/modus-operandi;
     "git/config".source = ../../config/git/config;
     "i3status/config".source = ../../config/i3status/config;
     "kanshi/config".source = ../../config/kanshi/config;
