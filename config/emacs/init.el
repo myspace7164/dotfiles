@@ -459,21 +459,22 @@
   (setq mu4e-confirm-quit nil)
   (setq mu4e-notification-support t)
 
-  (setq mu4e-contexts
-        `(,(let ((auth-info (car (auth-source-search :host "127.0.0.1" :max 1))))
-             (when auth-info
-               (make-mu4e-context
-                :name (plist-get auth-info :user)
-                :vars `((user-mail-address . ,(plist-get auth-info :user))
-                        (user-full-name . ,(plist-get auth-info :name))
-                        (message-signature . ,(plist-get auth-info :name))))))
-          ,(let ((auth-info (car (auth-source-search :host "personal" :max 1))))
-             (when auth-info
-               (make-mu4e-context
-                :name (plist-get auth-info :user)
-                :vars `((user-mail-address . ,(plist-get auth-info :user))
-                        (user-full-name . ,(plist-get auth-info :name))
-                        (message-signature . ,(plist-get auth-info :name))))))))
+  (when (and (auth-source-search :host "127.0.0.1" :max 1) (auth-source-search :host "personal" :max 1))
+    (setq mu4e-contexts
+          `(,(let ((auth-info (car (auth-source-search :host "127.0.0.1" :max 1))))
+               (when auth-info
+                 (make-mu4e-context
+                  :name (plist-get auth-info :user)
+                  :vars `((user-mail-address . ,(plist-get auth-info :user))
+                          (user-full-name . ,(plist-get auth-info :name))
+                          (message-signature . ,(plist-get auth-info :name))))))
+            ,(let ((auth-info (car (auth-source-search :host "personal" :max 1))))
+               (when auth-info
+                 (make-mu4e-context
+                  :name (plist-get auth-info :user)
+                  :vars `((user-mail-address . ,(plist-get auth-info :user))
+                          (user-full-name . ,(plist-get auth-info :name))
+                          (message-signature . ,(plist-get auth-info :name)))))))))
 
   (setq mu4e-sent-folder "/Sent")
   (setq mu4e-drafts-folder "/Drafts")
@@ -481,7 +482,7 @@
   (setq mu4e-refile-folder "/Archive")
 
   (when (executable-find "msmtp")
-      (setq sendmail-program (executable-find "msmtp")))
+    (setq sendmail-program (executable-find "msmtp")))
   (setq message-sendmail-f-is-evil t)
   (setq message-sendmail-extra-arguments '("--read-envelope-from"))
   (setq send-mail-function 'smtpmail-send-it)
