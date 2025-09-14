@@ -194,6 +194,46 @@
   (setq custom-file (locate-user-emacs-file "custom.el"))
   (load custom-file))
 
+(use-package dbus
+  :preface
+  (defvar my/dark-theme 'modus-vivendi
+    "Default dark theme.")
+
+  (defvar my/light-theme 'modus-operandi
+    "Default light theme.")
+
+  (defun my/theme-from-dbus (value)
+    "Change the theme based on a D-Bus property.
+
+VALUE should be an integer or an arbitrarily nested list that
+contains an integer.  When VALUE is equal to 2 then a light theme
+will be selected, otherwise a dark theme will be selected."
+    (load-theme (if (= 2 (car (flatten-list value)))
+                    my/light-theme
+                  my/dark-theme)
+                t))
+  :config
+  ;; Set the current theme based on what the system theme is right now:
+  (dbus-call-method-asynchronously
+   :session "org.freedesktop.portal.Desktop"
+   "/org/freedesktop/portal/desktop"
+   "org.freedesktop.portal.Settings"
+   "Read"
+   #'my/theme-from-dbus
+   "org.freedesktop.appearance"
+   "color-scheme")
+
+  ;; Register to be notified when the system theme changes:
+  (dbus-register-signal
+   :session "org.freedesktop.portal.Desktop"
+   "/org/freedesktop/portal/desktop"
+   "org.freedesktop.portal.Settings"
+   "SettingChanged"
+   (lambda (path var value)
+     (when (and (string-equal path "org.freedesktop.appearance")
+                (string-equal var "color-scheme"))
+       (my/theme-from-dbus value)))))
+
 (use-package delsel
   :config
   (delete-selection-mode 1))
@@ -345,7 +385,8 @@
 
   (setq read-buffer-completion-ignore-case t)
 
-  (load-theme 'modus-vivendi :no-confirm))
+  (when (eq system-type 'android)
+    (load-theme 'modus-vivendi :no-confirm)))
 
 (use-package embark
   :ensure t
