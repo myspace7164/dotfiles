@@ -195,6 +195,7 @@
   (load custom-file))
 
 (use-package dbus
+  :if (not (eq system-type 'android))
   :preface
   (defvar my/dark-theme 'modus-vivendi
     "Default dark theme.")
