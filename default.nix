@@ -109,7 +109,6 @@
     onionshare
     p7zip
     protonvpn-gui
-    python313
     qbittorrent
     reaper
     ripgrep
@@ -155,6 +154,7 @@
         citar-embark
         dired-subtree
         direnv
+        lua-mode
         magit
         markdown-mode
         minions

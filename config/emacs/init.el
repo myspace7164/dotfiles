@@ -334,7 +334,11 @@ will be selected, otherwise a dark theme will be selected."
        ["Status" magit-status]))))
 
 (use-package eglot
-  :hook (python-mode . eglot-ensure))
+  :hook ((nix-mode . eglot-ensure)
+         (python-mode . eglot-ensure))
+  :config
+  (add-to-list 'eglot-server-programs '(nix-mode . ("nil")))
+  (add-to-list 'eglot-server-programs '(nix-mode . ("nixd"))))
 
 (use-package eldoc
   :custom
@@ -433,6 +437,9 @@ will be selected, otherwise a dark theme will be selected."
 (use-package json-mode
   :ensure t
   :mode "\\.json\\'")
+
+(use-package lua-mode
+  :ensure t)
 
 (use-package magit
   :ensure t
