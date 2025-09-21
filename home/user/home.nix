@@ -23,7 +23,6 @@
     "i3status/config".source = ../../config/i3status/config;
     "kanshi/config".source = ../../config/kanshi/config;
     "mako/config".source = ../../config/mako/config;
-    "nvim/init.lua".source = ../../config/nvim/init.lua;
     "sway/config".source = ../../config/sway/config;
     "tmux/tmux.conf".source = ../../config/tmux/tmux.conf;
   };
@@ -52,6 +51,13 @@
   ${pkgs.desktop-file-utils}/bin/update-desktop-database ~/.local/share/applications
 '';
 
+  # neovim
+  programs.neovim.enable = true;
+  programs.neovim.extraLuaConfig = lib.fileContents ../../config/nvim/init.lua;
+  programs.neovim.plugins = with pkgs.vimPlugins; [
+		modus-themes-nvim
+  ];
+
   # unison
   xdg.configFile."systemd/user/unison-drive.service".source = ../../config/unison/unison-drive.service;
   xdg.configFile."systemd/user/unison-usb.service".source = ../../config/unison/unison-usb.service;
@@ -72,4 +78,6 @@
   # mail
   home.file.".mbsyncrc".source = ../../config/mail/.mbsyncrc;
   home.file.".msmtprc".source = ../../config/mail/.msmtprc;
+
+  programs.man.generateCaches = true;
 }
