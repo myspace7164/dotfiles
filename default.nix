@@ -110,7 +110,6 @@
     protonvpn-gui
     qbittorrent
     reaper
-    retroarch-full
     ripgrep
     rsync
     signal-desktop
@@ -173,6 +172,12 @@
         epkgs.mu4e
         (epkgs.treesit-grammars.with-all-grammars)
       ]))
+    (retroarch.withCores (cores: with cores; [
+      dolphin
+      mgba
+      ppsspp
+      snes9x
+    ]))
   ];
 
   services.protonmail-bridge = {
