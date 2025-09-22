@@ -56,7 +56,9 @@
   programs.neovim.extraLuaConfig = lib.fileContents ../../config/nvim/init.lua;
   programs.neovim.plugins = with pkgs.vimPlugins; [
 		modus-themes-nvim
+    nvim-treesitter.withAllGrammars
   ];
+  programs.neovim.extraPackages = [ pkgs.tree-sitter ];
 
   # unison
   xdg.configFile."systemd/user/unison-drive.service".source = ../../config/unison/unison-drive.service;
