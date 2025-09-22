@@ -16,7 +16,6 @@
 
   services.syncthing = {
     enable = true;
-    settings.folders."~/cloud/games".devices = [ "steamdeck" ];
-    settings.folders."~/cloud/org".devices = [ "phone" ];
+    settings.folders."~/cloud/games".devices = [ "phone" "steamdeck" ];
   };
 }
