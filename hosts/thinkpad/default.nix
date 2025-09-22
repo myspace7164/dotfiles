@@ -13,4 +13,10 @@
   networking.hostName = "thinkpad";
 
   time.timeZone = "Europe/Zurich";
+
+  services.syncthing = {
+    enable = true;
+    settings.folders."~/cloud/games".devices = [ "steamdeck" ];
+    settings.folders."~/cloud/org".devices = [ "phone" ];
+  };
 }
