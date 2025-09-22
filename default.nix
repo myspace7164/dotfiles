@@ -171,6 +171,7 @@
       ])
       ++ [
         epkgs.mu4e
+        (epkgs.treesit-grammars.with-all-grammars)
       ]))
   ];
 
