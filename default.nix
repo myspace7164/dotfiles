@@ -186,7 +186,7 @@
     user = "user";
     dataDir = "/home/user";
     settings.devices.steamdeck.id = "2HHZQDW-2LYDBPN-AYIKXOV-BVYJURA-CZUFCXF-7TB4N5Q-W2FE36H-YRXUMAM";
-    settings.devices.phone.id = "Y7ATORA-7CQMLAN-XLYMSCB-RKCUWRJ-CCBOW4E-A3WM3GZ-FIH3PLW-JT6OTQL";
+    settings.devices.phone.id = "V2RPWUX-YHTMNN7-OV324QC-5S56VI7-NLZQIWI-JVMGL4P-VEJFVCQ-66IF5A4";
   };
 
 
