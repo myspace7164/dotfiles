@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ../..
+    ../../modules/boot
     ../../modules/plasma
     ../../modules/plymouth
     ../../modules/virtualisation
@@ -17,11 +18,11 @@
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.useOSProber = true;
 
-  fileSystems."/mnt/games" =
-    { device = "/dev/disk/by-uuid/d13ee898-8082-4557-b8f3-90dcc68c94de";
-      fsType = "ext4";
-      options = [ "noatime" ];
-    };
+  fileSystems."/mnt/games" = {
+    device = "/dev/disk/by-uuid/d13ee898-8082-4557-b8f3-90dcc68c94de";
+    fsType = "ext4";
+    options = [ "noatime" ];
+  };
 
   networking.hostName = "desktop";
 
@@ -64,8 +65,8 @@
   services.displayManager.defaultSession = "plasmax11";
   services.displayManager.sddm.wayland.enable = false; # force X11
   services.xserver.displayManager.setupCommands = ''
-  ${pkgs.xorg.xrandr}/bin/xrandr --output DisplayPort-0 --primary --mode 1920x1080 --pos 0x0 --rate 165 --rotate normal
-'';
+    ${pkgs.xorg.xrandr}/bin/xrandr --output DisplayPort-0 --primary --mode 1920x1080 --pos 0x0 --rate 165 --rotate normal
+  '';
 
   # External monitor backlight control
   hardware.i2c.enable = true;

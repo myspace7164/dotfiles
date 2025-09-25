@@ -1,13 +1,18 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  background-package = pkgs.runCommand "background-image" {} ''
-  cp ${./10-3-6k.jpg} $out
-'';
+  background-package = pkgs.runCommand "background-image" { } ''
+    cp ${./10-3-6k.jpg} $out
+  '';
 in
 {
   boot.plymouth.theme = "breeze";
-  
+
   # Enable the Plasma 6 (KDE 6) Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = lib.mkDefault true;
@@ -32,12 +37,10 @@ in
     wl-clipboard
 
     # Custom SDDM wallpaper
-    (
-      pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
-        [General]
-        background = ${background-package}
-      ''
-    )
+    (pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
+      [General]
+      background = ${background-package}
+    '')
   ];
 
   # remove konsole and xterm

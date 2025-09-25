@@ -5,11 +5,6 @@
 { pkgs, lib, ... }:
 
 {
-  # Bootloader.
-  boot.loader.systemd-boot.enable = lib.mkDefault true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = lib.mkDefault 0;
-
   # Enable networking
   networking.networkmanager.enable = true;
   networking.firewall.checkReversePath = false;
@@ -53,21 +48,36 @@
   users.users.user = {
     description = "User";
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     shell = pkgs.zsh;
   };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   nixpkgs.overlays = [
     # (import ./overlays/steuern-lu-2024nP.nix)
   ];
 
   environment.systemPackages = with pkgs; [
-    (aspellWithDicts (dicts: with dicts; [ de en en-computers en-science fi sv ]))
+    (aspellWithDicts (
+      dicts: with dicts; [
+        de
+        en
+        en-computers
+        en-science
+        fi
+        sv
+      ]
+    ))
     audacity
     bitwarden
     bleachbit
@@ -128,7 +138,8 @@
     vscode
     wget
     ((emacsPackagesFor emacs).emacsWithPackages (
-      epkgs: (with epkgs.elpaPackages; [
+      epkgs:
+      (with epkgs.elpaPackages; [
         auctex
         gcmh
         cape
@@ -171,13 +182,16 @@
       ++ [
         epkgs.mu4e
         (epkgs.treesit-grammars.with-all-grammars)
-      ]))
-    (retroarch.withCores (cores: with cores; [
-      dolphin
-      mgba
-      ppsspp
-      snes9x
-    ]))
+      ]
+    ))
+    (retroarch.withCores (
+      cores: with cores; [
+        dolphin
+        mgba
+        ppsspp
+        snes9x
+      ]
+    ))
   ];
 
   services.protonmail-bridge = {
@@ -193,7 +207,6 @@
     settings.devices.steamdeck.id = "2HHZQDW-2LYDBPN-AYIKXOV-BVYJURA-CZUFCXF-7TB4N5Q-W2FE36H-YRXUMAM";
     settings.devices.phone.id = "V2RPWUX-YHTMNN7-OV324QC-5S56VI7-NLZQIWI-JVMGL4P-VEJFVCQ-66IF5A4";
   };
-
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -212,7 +225,7 @@
 
   programs.direnv.enable = true;
   programs.direnv.enableZshIntegration = true;
-  
+
   programs.fzf.fuzzyCompletion = true;
   programs.fzf.keybindings = true;
 
@@ -252,6 +265,6 @@
   # Currently unused, but nice to have as a fallback
   services.flatpak = {
     enable = false;
-    packages = [];
+    packages = [ ];
   };
 }

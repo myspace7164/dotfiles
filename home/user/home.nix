@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   home.username = "user";
   home.homeDirectory = "/home/user";
@@ -47,35 +52,36 @@
 
   xdg.dataFile."applications/org-protocol.desktop".source = ../../config/emacs/org-protocol.desktop;
 
-  home.activation.updateDesktopDatabase = lib.hm.dag.entryAfter ["writeBoundary"] ''
-  ${pkgs.desktop-file-utils}/bin/update-desktop-database ~/.local/share/applications
-'';
+  home.activation.updateDesktopDatabase = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    ${pkgs.desktop-file-utils}/bin/update-desktop-database ~/.local/share/applications
+  '';
 
   # neovim
   programs.neovim.enable = true;
   programs.neovim.extraLuaConfig = lib.fileContents ../../config/nvim/init.lua;
   programs.neovim.plugins = with pkgs.vimPlugins; [
-		modus-themes-nvim
+    modus-themes-nvim
     nvim-treesitter.withAllGrammars
   ];
   programs.neovim.extraPackages = [ pkgs.tree-sitter ];
 
   # unison
-  xdg.configFile."systemd/user/unison-drive.service".source = ../../config/unison/unison-drive.service;
+  xdg.configFile."systemd/user/unison-drive.service".source =
+    ../../config/unison/unison-drive.service;
   xdg.configFile."systemd/user/unison-usb.service".source = ../../config/unison/unison-usb.service;
 
-  home.file = {    
+  home.file = {
     ".unison/backup-drive.prf".source = ../../config/unison/backup-drive.prf;
     ".unison/backup-usb.prf".source = ../../config/unison/backup-usb.prf;
   };
 
-  home.activation.daemonReload = lib.hm.dag.entryAfter ["writeBoundary"] ''
-  ${pkgs.systemd}/bin/systemctl --user daemon-reload
-  ${pkgs.systemd}/bin/systemctl --user start unison-drive.service
-  ${pkgs.systemd}/bin/systemctl --user enable unison-drive.service
-  ${pkgs.systemd}/bin/systemctl --user start unison-usb.service
-  ${pkgs.systemd}/bin/systemctl --user enable unison-usb.service
-'';
+  #  home.activation.daemonReload = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  #  ${pkgs.systemd}/bin/systemctl --user daemon-reload
+  #  ${pkgs.systemd}/bin/systemctl --user start unison-drive.service
+  #  ${pkgs.systemd}/bin/systemctl --user enable unison-drive.service
+  #  ${pkgs.systemd}/bin/systemctl --user start unison-usb.service
+  #  ${pkgs.systemd}/bin/systemctl --user enable unison-usb.service
+  #'';
 
   # mail
   home.file.".mbsyncrc".source = ../../config/mail/.mbsyncrc;

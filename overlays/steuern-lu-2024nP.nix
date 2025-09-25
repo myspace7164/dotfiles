@@ -5,6 +5,7 @@ let
     ref = "main";
   };
 
-in {
+in
+{
   steuern-lu-2024nP = super.callPackage (src + "/default.nix") { };
 }

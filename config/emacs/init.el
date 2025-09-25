@@ -381,17 +381,20 @@ will be selected, otherwise a dark theme will be selected."
 
   (when (or (find-font (font-spec :name "Iosevka"))
             (member system-name '("thinkpad"))) ;; Workaround because emacsclient doesnt find iosevka on sway at startup
-    (add-to-list 'default-frame-alist '(font . "Iosevka-10"))
-    (set-face-attribute 'default nil :font "Iosevka-10")
 
-    (when (eq system-type 'android)
-      (add-to-list 'default-frame-alist '(font . "Iosevka-12"))
-      (set-face-attribute 'default nil :font "Iosevka-12")))
+    (cond ((eq system-type 'android)
+           (add-to-list 'default-frame-alist '(font . "Iosevka-12"))
+           (set-face-attribute 'default nil :font "Iosevka-12"))
+          (t
+           (add-to-list 'default-frame-alist '(font . "Iosevka-10"))
+           (set-face-attribute 'default nil :font "Iosevka-10"))))
 
   (setq read-buffer-completion-ignore-case t)
 
-  (when (eq system-type 'android)
-    (load-theme 'modus-vivendi :no-confirm)))
+  (cond ((eq system-type 'android)
+         (load-theme 'modus-vivendi :no-confirm))
+        ((equal system-name "wsl")
+         (load-theme 'modus-vivendi :no-confirm))))
 
 (use-package embark
   :ensure t

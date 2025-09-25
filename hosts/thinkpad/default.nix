@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ../..
+    ../../modules/boot
     ../../modules/development
     ../../modules/sway
     ../../modules/virtualisation
@@ -16,6 +17,9 @@
 
   services.syncthing = {
     enable = true;
-    settings.folders."~/cloud/games".devices = [ "phone" "steamdeck" ];
+    settings.folders."~/cloud/games".devices = [
+      "phone"
+      "steamdeck"
+    ];
   };
 }

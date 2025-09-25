@@ -17,11 +17,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-vim.lsp.enable({
-      'lua_ls',
-      'nixd'
-})
-
 vim.lsp.config('lua_ls', {
   on_init = function(client)
     if client.workspace_folders then
@@ -56,6 +51,25 @@ vim.lsp.config('lua_ls', {
         diagnostics = { disable = { 'missing-fields' } },
      }
   }
+})
+
+vim.lsp.config('nixd', {
+settings = {
+nixd = {
+	nixpkgs = {
+	expr = "import <nixpkgs> { }",
+	},
+	formatting = {
+	command = { "nixfmt" },
+	},
+}
+}
+})
+
+
+vim.lsp.enable({
+      'lua_ls',
+      'nixd'
 })
 
 vim.cmd[[set completeopt+=menuone,noselect,popup]]

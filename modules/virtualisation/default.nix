@@ -3,7 +3,7 @@
 {
   programs.virt-manager.enable = true;
 
-  users.groups.libvirtd.members = ["user"];
+  users.groups.libvirtd.members = [ "user" ];
 
   virtualisation.libvirtd.enable = true;
   virtualisation.libvirtd.qemu.swtpm.enable = true;

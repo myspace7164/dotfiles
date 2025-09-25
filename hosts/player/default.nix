@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ../..
+    ../../modules/boot
     ../../modules/gnome
     ../../modules/plymouth
   ];
