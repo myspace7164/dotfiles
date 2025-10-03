@@ -17,42 +17,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-vim.lsp.config('lua_ls', {
-  on_init = function(client)
-    if client.workspace_folders then
-      local path = client.workspace_folders[1].name
-      if
-        path ~= vim.fn.stdpath('config')
-        and (vim.uv.fs_stat(path .. '/.luarc.json') or vim.uv.fs_stat(path .. '/.luarc.jsonc'))
-      then
-        return
-      end
-    end
-
-    client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-      runtime = {
-        version = 'LuaJIT',
-        path = {
-          'lua/?.lua',
-          'lua/?/init.lua',
-        },
-      },
-      workspace = {
-        checkThirdParty = false,
-        library = {
-           vim.env.VIMRUNTIME,
-        },
-        userThirdParty = "~/.local/share/LuaAddons"
-      }
-    })
-  end,
-  settings = {
-     Lua = {
-        diagnostics = { disable = { 'missing-fields' } },
-     }
-  }
-})
-
 vim.lsp.config('nixd', {
 settings = {
 nixd = {
@@ -76,3 +40,10 @@ vim.cmd[[set completeopt+=menuone,noselect,popup]]
 
 require("modus-themes").setup()
 vim.cmd([[colorscheme modus]])
+
+vim.g.mapleader = " "
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
+vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })

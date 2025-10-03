@@ -62,8 +62,10 @@
   programs.neovim.plugins = with pkgs.vimPlugins; [
     modus-themes-nvim
     nvim-treesitter.withAllGrammars
+    telescope-nvim
   ];
   programs.neovim.extraPackages = [ pkgs.tree-sitter ];
+  xdg.configFile."nvim/lsp".source = ../../config/nvim/lsp;
 
   # unison
   xdg.configFile."systemd/user/unison-drive.service".source =

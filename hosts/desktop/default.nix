@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
     ../..
     ../../modules/boot
+    ../../modules/development
     ../../modules/plasma
     ../../modules/plymouth
     ../../modules/virtualisation
