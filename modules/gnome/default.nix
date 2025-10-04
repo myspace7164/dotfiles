@@ -29,7 +29,8 @@
     style = "adwaita-dark";
   };
 
-  # remove xterm
+  # remove gnome-console and xterm
+  environment.gnome.excludePackages = [ pkgs.gnome-console ];
   services.xserver.desktopManager.xterm.enable = false;
   services.xserver.excludePackages = [ pkgs.xterm ];
 }

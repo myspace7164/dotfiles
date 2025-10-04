@@ -90,5 +90,14 @@
   home.file.".mbsyncrc".source = ../../config/mail/.mbsyncrc;
   home.file.".msmtprc".source = ../../config/mail/.msmtprc;
 
+  # steam
+  xdg.desktopEntries.steam-pipewire = {
+    name = "Steam (PipeWire)";
+    exec = "steam -pipewire";
+    icon = "steam";
+    comment = "Launch Steam with PipeWire support";
+    categories = [ "Game" ];
+  };
+
   programs.man.generateCaches = true;
 }
