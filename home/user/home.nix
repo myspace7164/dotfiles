@@ -65,6 +65,7 @@
     telescope-nvim
   ];
   programs.neovim.extraPackages = [ pkgs.tree-sitter ];
+  xdg.configFile."nvim/.luarc.json".source = ../../config/nvim/.luarc.json;
   xdg.configFile."nvim/lsp".source = ../../config/nvim/lsp;
 
   # unison

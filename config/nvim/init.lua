@@ -17,20 +17,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-vim.lsp.config('nixd', {
-settings = {
-nixd = {
-	nixpkgs = {
-	expr = "import <nixpkgs> { }",
-	},
-	formatting = {
-	command = { "nixfmt" },
-	},
-}
-}
-})
-
-
 vim.lsp.enable({
       'lua_ls',
       'nixd'
