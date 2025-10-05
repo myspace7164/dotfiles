@@ -66,9 +66,6 @@
       telescope-nvim
     ];
     extraPackages = [ pkgs.tree-sitter ];
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
   };
   xdg.configFile."nvim/.luarc.json".source = ../../config/nvim/.luarc.json;
   xdg.configFile."nvim/lsp".source = ../../config/nvim/lsp;

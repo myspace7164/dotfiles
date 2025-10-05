@@ -5,6 +5,10 @@
 { pkgs, lib, ... }:
 
 {
+  imports = [
+    ./modules/zsh
+  ];
+
   # Enable networking
   networking.networkmanager.enable = true;
   networking.firewall.checkReversePath = false;
@@ -40,7 +44,7 @@
 
   fonts.packages = with pkgs; [
     iosevka
-    # nerdfonts
+    nerd-fonts.iosevka
     noto-fonts-color-emoji
   ];
 
@@ -52,7 +56,6 @@
       "networkmanager"
       "wheel"
     ];
-    shell = pkgs.zsh;
   };
 
   # Allow unfree packages
@@ -89,20 +92,16 @@
     easyeffects
     ente-auth
     ente-desktop
-    fd
-    gcc
     ghostty
     gimp
     git
     git-filter-repo
     gnucash
-    gnumake
     hunspell
     hunspellDicts.de_CH
     hunspellDicts.en_US
     hunspellDicts.sv_SE
     inkscape
-    isync
     libreoffice
     man-pages
     man-pages-posix
@@ -110,8 +109,6 @@
     metadata-cleaner
     mixxx
     mpv
-    msmtp
-    mu
     nextcloud-client
     nicotine-plus
     obs-studio
@@ -120,18 +117,15 @@
     protonvpn-gui
     qbittorrent
     reaper
-    ripgrep
     rsync
     signal-desktop
     standardnotes
     # steuern-lu-2024nP
-    stow
     stremio
     switcheroo
     texliveFull
     tmux
     tor-browser
-    tree
     unison
     unzip
     veracrypt
@@ -182,7 +176,8 @@
       ])
       ++ [
         epkgs.mu4e
-        (epkgs.treesit-grammars.with-all-grammars)
+        epkgs.treesit-grammars.with-all-grammars
+        pkgs.ripgrep
       ]
     ))
     (retroarch.withCores (
@@ -194,12 +189,6 @@
       ]
     ))
   ];
-
-  services.protonmail-bridge = {
-    enable = true;
-    package = pkgs.protonmail-bridge;
-    path = with pkgs; [ gnome-keyring ];
-  };
 
   services.syncthing = {
     openDefaultPorts = true;
@@ -216,22 +205,6 @@
     enable = true;
     # enableSSHSupport = true;
   };
-
-  # zsh
-  programs.zsh = {
-    enable = true;
-    histSize = 1000000;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-  };
-
-  programs.bat.enable = true;
-
-  programs.direnv.enable = true;
-  programs.direnv.enableZshIntegration = true;
-
-  programs.fzf.fuzzyCompletion = true;
-  programs.fzf.keybindings = true;
 
   # librewolf
   programs.firefox.enable = true;
