@@ -16,6 +16,8 @@ in
   # Enable the Plasma 6 (KDE 6) Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = lib.mkDefault true;
+  services.displayManager.sddm.wayland.compositor = "weston";
+  services.displayManager.defaultSession = "plasma";
   services.desktopManager.plasma6.enable = true;
 
   programs.kdeconnect.enable = true;

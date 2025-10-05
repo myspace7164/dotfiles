@@ -63,11 +63,29 @@
   ];
 
   # SDDM specific
-  services.displayManager.defaultSession = "plasma";
-  services.displayManager.sddm.wayland.enable = false; # force X11
-  services.xserver.displayManager.setupCommands = ''
-    ${pkgs.xorg.xrandr}/bin/xrandr --output DisplayPort-0 --primary --mode 1920x1080 --pos 0x0 --rate 165 --rotate normal
-  '';
+  services.displayManager.sddm.settings = {
+    Wayland = {
+      CompositorCommand =
+        let
+        westonIni = (pkgs.formats.ini { }).generate "weston.ini" {
+          libinput = {
+            enable-tap = config.services.libinput.mouse.tapping;
+            left-handed = config.services.libinput.mouse.leftHanded;
+          };
+          keyboard = {
+            keymap_model = config.services.xserver.xkb.model;
+            keymap_layout = config.services.xserver.xkb.layout;
+            keymap_variant = config.services.xserver.xkb.variant;
+            keymap_options = config.services.xserver.xkb.options;
+          };
+          output = {
+            transform = "normal";
+          };
+        };
+      in
+      "${pkgs.weston}/bin/weston --shell=kiosk -c ${westonIni} --refresh-rate=165,000";
+    };
+  };
 
   # External monitor backlight control
   hardware.i2c.enable = true;
