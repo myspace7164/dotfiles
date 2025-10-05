@@ -63,7 +63,7 @@
   ];
 
   # SDDM specific
-  services.displayManager.defaultSession = "plasmax11";
+  services.displayManager.defaultSession = "plasma";
   services.displayManager.sddm.wayland.enable = false; # force X11
   services.xserver.displayManager.setupCommands = ''
     ${pkgs.xorg.xrandr}/bin/xrandr --output DisplayPort-0 --primary --mode 1920x1080 --pos 0x0 --rate 165 --rotate normal
