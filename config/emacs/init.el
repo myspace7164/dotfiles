@@ -481,7 +481,7 @@ will be selected, otherwise a dark theme will be selected."
          ("M-<down>" . move-text-down)))
 
 (use-package mu4e
-  :if (executable-find "mu") ;; when there is mu, there should be mu4e
+  :if (and (executable-find "mu") (not (member system-name '("desktop")))) ;; when there is mu, there should be mu4e
   :commands (mu4e)
   :hook (;; start mu4e in background, allows to immediately compose-mail
          (after-init . (lambda () (mu4e t)))
