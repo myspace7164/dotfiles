@@ -129,8 +129,9 @@
     stremio
     switcheroo
     texliveFull
-    tor-browser
     tmux
+    tor-browser
+    tree
     unison
     unzip
     veracrypt
@@ -217,9 +218,12 @@
   };
 
   # zsh
-  programs.zsh.enable = true;
-  programs.zsh.autosuggestions.enable = true;
-  programs.zsh.syntaxHighlighting.enable = true;
+  programs.zsh = {
+    enable = true;
+    histSize = 1000000;
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
+  };
 
   programs.bat.enable = true;
 

@@ -57,14 +57,19 @@
   '';
 
   # neovim
-  programs.neovim.enable = true;
-  programs.neovim.extraLuaConfig = lib.fileContents ../../config/nvim/init.lua;
-  programs.neovim.plugins = with pkgs.vimPlugins; [
-    modus-themes-nvim
-    nvim-treesitter.withAllGrammars
-    telescope-nvim
-  ];
-  programs.neovim.extraPackages = [ pkgs.tree-sitter ];
+  programs.neovim = {
+    enable = true;
+    extraLuaConfig = lib.fileContents ../../config/nvim/init.lua;
+    plugins = with pkgs.vimPlugins; [
+      modus-themes-nvim
+      nvim-treesitter.withAllGrammars
+      telescope-nvim
+    ];
+    extraPackages = [ pkgs.tree-sitter ];
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+  };
   xdg.configFile."nvim/.luarc.json".source = ../../config/nvim/.luarc.json;
   xdg.configFile."nvim/lsp".source = ../../config/nvim/lsp;
 
