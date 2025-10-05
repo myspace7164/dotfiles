@@ -17,7 +17,7 @@ HISTSIZE=1000000
 SAVEHIST=1000000
 
 # Alias
-alias ls='ls --color=auto'
+alias ls='ls --almost-all --color=auto'
 alias grep='grep --color=auto'
 alias vim='nvim'
 
