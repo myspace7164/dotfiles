@@ -166,8 +166,6 @@
         move-text
         nix-mode
         nov
-        org-caldav
-        org-contacts
         org-pdftools
         pdf-tools
         plantuml-mode
@@ -175,7 +173,6 @@
         yaml-mode
       ])
       ++ [
-        epkgs.mu4e
         epkgs.treesit-grammars.with-all-grammars
         pkgs.ripgrep
       ]

@@ -6,7 +6,6 @@
     ../..
     ../../modules/boot
     ../../modules/development
-    ../../modules/mu
     ../../modules/sway
     ../../modules/virtualisation
     ../../modules/hack-the-box.nix

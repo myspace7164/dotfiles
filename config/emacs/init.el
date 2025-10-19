@@ -480,79 +480,6 @@ will be selected, otherwise a dark theme will be selected."
   :bind (("M-<up>" . move-text-up)
          ("M-<down>" . move-text-down)))
 
-(use-package mu4e
-  :if (and (executable-find "mu") (not (member system-name '("desktop")))) ;; when there is mu, there should be mu4e
-  :commands (mu4e)
-  :hook (;; start mu4e in background, allows to immediately compose-mail
-         (after-init . (lambda () (mu4e t)))
-         (dired-mode . turn-on-gnus-dired-mode)
-         (mu4e-compose-mode . flyspell-mode))
-  :bind (nil
-         :map mu4e-headers-mode-map
-         ("C-c c" . mu4e-org-store-and-capture)
-         :map mu4e-view-mode-map
-         ("C-c c" . mu4e-org-store-and-capture))
-  :init
-  (setq mail-user-agent 'mu4e-user-agent)
-  :config
-  (setq message-mail-user-agent 'mu4e-user-agent)
-  (set-variable 'read-mail-command 'mu4e)
-
-  (setq mu4e-change-filenames-when-moving t)
-  (setq mu4e-get-mail-command "mbsync -a")
-  (setq mu4e-update-interval 300)
-  (setq mu4e-attachment-dir "~/tmp")
-
-  (setq mu4e-context-policy 'pick-first)
-  (setq mu4e-compose-context-policy 'pick-first)
-
-  (setq mu4e-read-option-use-builtin nil)
-  (setq mu4e-completing-read-function 'completing-read)
-  (setq mu4e-confirm-quit nil)
-  (setq mu4e-notification-support t)
-
-  (when (and (auth-source-search :host "127.0.0.1" :max 1) (auth-source-search :host "personal" :max 1))
-    (setq mu4e-contexts
-          `(,(let ((auth-info (car (auth-source-search :host "127.0.0.1" :max 1))))
-               (when auth-info
-                 (make-mu4e-context
-                  :name (plist-get auth-info :user)
-                  :vars `((user-mail-address . ,(plist-get auth-info :user))
-                          (user-full-name . ,(plist-get auth-info :name))
-                          (message-signature . ,(plist-get auth-info :name))))))
-            ,(let ((auth-info (car (auth-source-search :host "personal" :max 1))))
-               (when auth-info
-                 (make-mu4e-context
-                  :name (plist-get auth-info :user)
-                  :vars `((user-mail-address . ,(plist-get auth-info :user))
-                          (user-full-name . ,(plist-get auth-info :name))
-                          (message-signature . ,(plist-get auth-info :name)))))))))
-
-  (setq mu4e-sent-folder "/Sent")
-  (setq mu4e-drafts-folder "/Drafts")
-  (setq mu4e-trash-folder "/Trash")
-  (setq mu4e-refile-folder "/Archive")
-
-  (when (executable-find "msmtp")
-    (setq sendmail-program (executable-find "msmtp")))
-  (setq message-sendmail-f-is-evil t)
-  (setq message-sendmail-extra-arguments '("--read-envelope-from"))
-  (setq send-mail-function 'smtpmail-send-it)
-  (setq message-send-mail-function 'message-send-mail-with-sendmail)
-  (setq message-kill-buffer-on-exit t)
-
-  (setq mu4e-org-contacts-file (concat org-directory "/people.org"))
-  (add-to-list 'mu4e-headers-actions '("org-contact-add" . mu4e-action-add-org-contact) t)
-  (add-to-list 'mu4e-view-actions '("org-contact-add" . mu4e-action-add-org-contact) t))
-
-(use-package mu4e-icalendar
-  :after mu4e org-agenda
-  :config
-  (mu4e-icalendar-setup)
-  (setq gnus-icalendar-org-capture-file "~/cloud/org/calendar.org")
-  (setq gnus-icalendar-org-capture-headline '("iCalendar events"))
-  (gnus-icalendar-org-setup))
-
 (use-package nix-mode
   :ensure t
   :defer t)
@@ -661,9 +588,6 @@ This works across multiple Org files."
   (setq org-default-notes-file (concat org-directory "/notes.org"))
   (setq org-agenda-files (list org-directory))
 
-  (when (file-exists-p "~/.local/share/org/caldav.org")
-    (add-to-list 'org-agenda-files "~/.local/share/org/caldav.org" t))
-
   (when (eq system-type 'ms-dos)
     (org-add-link-type "onenote" 'my/org-onenote-open))
 
@@ -739,23 +663,8 @@ This works across multiple Org files."
   (setf (alist-get 'todo org-agenda-prefix-format) "%(my/org-category-truncate (org-get-category) 4) "))
 
 (use-package org-capture
-  :after org-contacts
   :bind ("C-c c" . org-capture)
   :preface
-  (defvar my/org-contacts-template
-    (concat "* %(org-contacts-template-name)\n"
-            ":PROPERTIES:\n"
-            ":EMAIL: %(org-contacts-template-email)\n"
-            ":PHONE:\n"
-            ":ALIAS:\n"
-            ":NICKNAME:\n"
-            ":IGNORE:\n"
-            ":ICON:\n"
-            ":NOTE: %^{NOTE}\n"
-            ":ADDRESS: %^{123 Street, 0001 State, Country}\n"
-            ":BIRTHDAY: %^{YYYY-MM-DD}\n"
-            ":END:") "Template for a contact.")
-
   (defvar my/org-capture-created-property
     (concat ":PROPERTIES:\n"
             ":CREATED:  %U\n"
@@ -790,14 +699,6 @@ This works across multiple Org files."
      ("N" "Meeting notes (custom datetime)" entry (file+headline "notes.org" "Meetings")
       "* %^U %^{Title}\n%?")
 
-     ;; contacts
-     ("c" "Contacts" entry (file "people.org")
-      ,my/org-contacts-template)
-
-     ;; mu4e
-     ("m" "Mail" entry (file "inbox.org")
-      "* %:fromname\n%U\n%a\n%?")
-
      ;; org-capture-extension specific (https://github.com/sprig/org-capture-extension)
      ("p" "Protocol" entry (file "inbox.org")
       "* %^{Title}\n%U\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
@@ -809,26 +710,6 @@ This works across multiple Org files."
 ;; (use-package org-fragtog
 ;;   :ensure t
 ;;   :hook (org-mode . org-fragtog-mode))
-
-(use-package org-caldav
-  :if (member (system-name) '("caldav"))
-  :ensure t
-  :custom
-  (org-caldav-inbox "~/.local/share/org/caldav.org")
-  (org-caldav-sync-direction 'cal->org)
-  (org-caldav-show-sync-results nil)
-  :config
-  (let ((auth-info (car (auth-source-search :host "caldav" :max 1))))
-    (setq org-caldav-url (plist-get auth-info :url))
-    (setq org-caldav-calendar-id (plist-get auth-info :id)))
-  (run-at-time nil (* 5 60) 'org-caldav-sync))
-
-
-(use-package org-contacts
-  :ensure t
-  :after org
-  :custom
-  (org-contacts-files (list (concat org-directory "/people.org"))))
 
 (use-package org-faces
   :after org
