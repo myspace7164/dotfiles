@@ -1,4 +1,4 @@
-root = /home/user/cloud
+root = /home/user/Nextcloud
 root = /run/media/user/DRIVE/backup
 batch = true
 auto = true

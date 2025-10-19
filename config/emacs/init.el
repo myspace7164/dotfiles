@@ -50,9 +50,9 @@
   :hook ((LaTeX-mode . citar-capf-setup)
          (org-mode . citar-capf-setup))
   :custom
-  (citar-bibliography '("~/cloud/ref/books/references.bib"))
-  (citar-library-paths '("~/cloud/ref/books"))
-  (citar-notes-paths '("~/cloud/notes")))
+  (citar-bibliography '("~/Nextcloud/ref/books/references.bib"))
+  (citar-library-paths '("~/Nextcloud/ref/books"))
+  (citar-notes-paths '("~/Nextcloud/notes")))
 
 (use-package citar-denote
   :ensure t
@@ -272,7 +272,7 @@ will be selected, otherwise a dark theme will be selected."
   (defun my/denote-uml-file (description)
     (concat (file-name-sans-extension (file-name-nondirectory buffer-file-name)) "-" description "__"  "uml" ".svg"))
   :config
-  (setq denote-directory "~/cloud/org/notes")
+  (setq denote-directory "~/Nextcloud/org/notes")
   (setq denote-dired-directories (list denote-directory)))
 
 (use-package dired
@@ -448,7 +448,7 @@ will be selected, otherwise a dark theme will be selected."
   :ensure t
   :defer t
   :config
-  (setq magit-repository-directories '(("~/repos" . 1))))
+  (setq magit-repository-directories '(("~/Repos" . 1))))
 
 (use-package marginalia
   :ensure t
@@ -580,8 +580,8 @@ This works across multiple Org files."
       "Open the OneNote item identified by the unique OneNote URL."
       (w32-shell-execute "open" "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\ONENOTE.exe" (concat "/hyperlink " "onenote:" (shell-quote-argument link)))))
   :config
-  (when (file-directory-p "~/cloud/org")
-    (setq org-directory "~/cloud/org"))
+  (when (file-directory-p "~/Nextcloud/org")
+    (setq org-directory "~/Nextcloud/org"))
   (when (file-directory-p "/content/storage/org.nextcloud.documents/8d646530e3ce90d4419bac7207b2f88e%2F8")
     (setq org-directory "/content/storage/org.nextcloud.documents/8d646530e3ce90d4419bac7207b2f88e%2F8"))
   

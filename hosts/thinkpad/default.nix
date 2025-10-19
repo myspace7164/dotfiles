@@ -17,7 +17,7 @@
 
   services.syncthing = {
     enable = true;
-    settings.folders."~/cloud/games".devices = [
+    settings.folders."~/Nextcloud/games".devices = [
       "phone"
       "steamdeck"
     ];
