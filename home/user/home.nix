@@ -17,6 +17,9 @@
     ".zprofile".source = ../../config/zsh/.zprofile;
     ".zshenv".source = ../../config/zsh/.zshenv;
     ".zshrc".source = ../../config/zsh/.zshrc;
+    # emacs
+    ".emacs.d/init.el".source = ../../config/emacs/init.el;
+    ".emacs.d/early-init.el".source = ../../config/emacs/early-init.el;
   };
 
   xdg.configFile = {
@@ -43,18 +46,6 @@
     pictures = "${config.home.homeDirectory}/.user-dirs.dirs/Pictures";
     videos = "${config.home.homeDirectory}/.user-dirs.dirs/Videos";
   };
-
-  # emacs
-  home.file = {
-    ".emacs.d/init.el".source = ../../config/emacs/init.el;
-    ".emacs.d/early-init.el".source = ../../config/emacs/early-init.el;
-  };
-
-  xdg.dataFile."applications/org-protocol.desktop".source = ../../config/emacs/org-protocol.desktop;
-
-  home.activation.updateDesktopDatabase = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    ${pkgs.desktop-file-utils}/bin/update-desktop-database ~/.local/share/applications
-  '';
 
   # neovim
   programs.neovim = {
@@ -101,10 +92,6 @@
   #  ${pkgs.systemd}/bin/systemctl --user start unison-usb.service
   #  ${pkgs.systemd}/bin/systemctl --user enable unison-usb.service
   #'';
-
-  # mail
-  home.file.".mbsyncrc".source = ../../config/mail/.mbsyncrc;
-  home.file.".msmtprc".source = ../../config/mail/.msmtprc;
 
   # steam
   xdg.desktopEntries.steam-pipewire = {

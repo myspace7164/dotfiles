@@ -174,7 +174,6 @@
       ])
       ++ [
         epkgs.treesit-grammars.with-all-grammars
-        pkgs.ripgrep
       ]
     ))
     (retroarch.withCores (
