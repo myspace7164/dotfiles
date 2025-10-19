@@ -253,8 +253,8 @@ bindsym --locked XF86AudioNext exec playerctl next
 bindsym --locked XF86AudioPrev exec playerctl previous
 
 # Special keys to adjust brightness via brightnessctl
-set $brightness_up bash -c 'brightnessctl -l -c backlight -m | cut -d , -f1 | while IFS= read -r dev; do brightnessctl -d $dev -e set 5%+; done'
-set $brightness_down bash -c 'brightnessctl -l -c backlight -m | cut -d , -f1 | while IFS= read -r dev; do brightnessctl -d $dev -e set 5%-; done'
+set $brightness_up bash -c 'brightnessctl -c "backlight" -e set 5%+'
+set $brightness_down bash -c 'brightnessctl -c "backlight" -e set 5%-'
 bindsym --locked XF86MonBrightnessDown exec $brightness_down
 bindsym --locked XF86MonBrightnessUp exec $brightness_up
 bindsym --locked $mod+XF86AudioLowerVolume exec $brightness_down
