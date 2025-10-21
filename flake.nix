@@ -39,7 +39,13 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.user = import ./home/user/home.nix;
+              home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
+              home-manager.users.user = {
+                imports = [
+                  ./home/user/home.nix
+                  ./modules/plasma/home.nix
+                ];
+              };
             }
           ];
         };

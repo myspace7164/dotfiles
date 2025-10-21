@@ -20,8 +20,9 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  # Configure console keymap
+  # Configure keymap
   console.keyMap = "sg";
+  services.xserver.xkb.layout = "ch";
 
   # Enable CUPS to print documents.
   services.avahi.enable = true;
@@ -44,6 +45,7 @@
   };
 
   fonts.packages = with pkgs; [
+    font-awesome
     iosevka
     nerd-fonts.iosevka
     noto-fonts-color-emoji
@@ -150,7 +152,6 @@
         marginalia
         matlab-mode
         orderless
-        standard-themes
         vertico
       ])
       ++ (with epkgs.melpaPackages; [
@@ -158,19 +159,14 @@
         citar
         citar-denote
         citar-embark
-        dired-subtree
         direnv
         lua-mode
         magit
         markdown-mode
         minions
-        move-text
         nix-mode
         nov
-        org-pdftools
-        pdf-tools
         plantuml-mode
-        saveplace-pdf-view
         yaml-mode
       ])
       ++ [

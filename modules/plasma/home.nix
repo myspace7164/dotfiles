@@ -1,13 +1,51 @@
 {
-  programs.plasma.enable = true;
-
-  programs.plasma.workspace.wallpaper = ./10-3-6k.jpg;
-  programs.plasma.kscreenlocker.appearance.wallpaper = ./10-3-6k.jpg;
-
-  programs.plasma.shortcuts = {
-    "org_kde_powerdevil"."Decrease Screen Brightness" = [ "Meta+Volume Down" ];
-    "org_kde_powerdevil"."Decrease Screen Brightness Small" = [ "Meta+Shift+Volume Down" ];
-    "org_kde_powerdevil"."Increase Screen Brightness" = [ "Meta+Volume Up" ];
-    "org_kde_powerdevil"."Increase Screen Brightness Small" = [ "Meta+Shift+Volume Up" ];
+  programs.plasma = {
+    enable = true;
+    workspace.wallpaper = ./10-3-6k.jpg;
+    kscreenlocker.appearance.wallpaper = ./10-3-6k.jpg;
+    panels = [
+      {
+        widgets = [
+          {
+            name = "org.kde.plasma.kickoff";
+            config = {
+              General = {
+                icon = "nix-snowflake";
+                alphaSort = true;
+              };
+            };
+          }
+          "org.kde.plasma.pager"
+          {
+            iconTasks = {
+              launchers = [
+                "applications:systemsettings.desktop"
+                "preferred://filemanager"
+                "preferred://browser"
+                "applications:com.mitchellh.ghostty.desktop"
+              ];
+            };
+          }
+          "org.kde.plasma.marginsseparator"
+          {
+            systemTray.items = {
+              hidden = [
+                "Nextcloud"
+                "chrome_status_icon_1"
+                "proton-vpn-app"
+              ];
+            };
+          }
+          "org.kde.plasma.digitalclock"
+          "org.kde.plasma.showdesktop"
+        ];
+      }
+    ];
+    shortcuts = {
+      "org_kde_powerdevil"."Decrease Screen Brightness" = [ "Meta+Volume Down" ];
+      "org_kde_powerdevil"."Decrease Screen Brightness Small" = [ "Meta+Shift+Volume Down" ];
+      "org_kde_powerdevil"."Increase Screen Brightness" = [ "Meta+Volume Up" ];
+      "org_kde_powerdevil"."Increase Screen Brightness Small" = [ "Meta+Shift+Volume Up" ];
+    };
   };
 }

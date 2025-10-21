@@ -296,16 +296,6 @@ will be selected, otherwise a dark theme will be selected."
   :config
   (setq dired-use-ls-dired nil))
 
-(use-package dired-subtree
-  :ensure t
-  :after dired
-  :bind (nil
-         :map dired-mode-map
-         ("<tab>" . dired-subtree-toggle)
-         ("<backtab>" . dired-subtree-cycle))
-  :custom
-  (dired-subtree-use-backgrounds nil))
-
 (use-package direnv
   :if (executable-find "direnv")
   :ensure t
@@ -474,11 +464,6 @@ will be selected, otherwise a dark theme will be selected."
   (minions-mode-line-lighter ":")
   :config
   (minions-mode 1))
-
-(use-package move-text
-  :ensure t
-  :bind (("M-<up>" . move-text-up)
-         ("M-<down>" . move-text-down)))
 
 (use-package nix-mode
   :ensure t
@@ -728,11 +713,6 @@ This works across multiple Org files."
   :config
   (setq org-use-speed-commands t))
 
-(use-package org-pdftools
-  :ensure t
-  :if (eq system-type 'gnu/linux)
-  :hook (org-mode . org-pdftools-setup-link))
-
 (use-package org-protocol)
 
 (use-package org-refile
@@ -788,13 +768,6 @@ This works across multiple Org files."
 (use-package pascal-mode
   :mode "\\.\\(pou\\|st\\)\\'")
 
-(use-package pdf-tools
-  :if (eq system-type 'gnu/linux)
-  :ensure t
-  :magic ("%PDF" . pdf-view-mode)
-  :config
-  (pdf-tools-install :no-query))
-
 (use-package pixel-scroll
   :if (version<= "29.1" emacs-version)
   :config
@@ -829,9 +802,6 @@ This works across multiple Org files."
 (use-package saveplace
   :config
   (save-place-mode 1))
-
-(use-package saveplace-pdf-view
-  :ensure t)
 
 (use-package simple
   :config

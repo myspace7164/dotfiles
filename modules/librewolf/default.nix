@@ -7,6 +7,7 @@
     policies = {
       DisableFirefoxAccounts = true;
       ExtensionSettings = {
+        "*".installation_mode = "blocked";
         # addy.io
         "browser-extension@anonaddy" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/addy_io/latest.xpi";

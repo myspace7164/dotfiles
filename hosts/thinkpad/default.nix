@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   imports = [
@@ -6,7 +6,8 @@
     ../..
     ../../modules/boot
     ../../modules/development
-    ../../modules/sway
+    ../../modules/plasma
+    ../../modules/plymouth
     ../../modules/virtualisation
     ../../modules/hack-the-box.nix
   ];
