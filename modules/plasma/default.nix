@@ -11,8 +11,6 @@ let
   '';
 in
 {
-  boot.plymouth.theme = "breeze";
-
   # Enable the Plasma 6 (KDE 6) Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = lib.mkDefault true;

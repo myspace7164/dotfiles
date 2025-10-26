@@ -27,15 +27,7 @@
             };
           }
           "org.kde.plasma.marginsseparator"
-          {
-            systemTray.items = {
-              hidden = [
-                "Nextcloud"
-                "chrome_status_icon_1"
-                "proton-vpn-app"
-              ];
-            };
-          }
+          "org.kde.plasma.systemtray"
           "org.kde.plasma.digitalclock"
           "org.kde.plasma.showdesktop"
         ];

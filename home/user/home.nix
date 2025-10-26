@@ -25,8 +25,7 @@
   xdg.configFile = {
     "beets/config.yaml".source = ../../config/beets/config.yaml;
     "ghostty/config".source = ../../config/ghostty/config;
-    "ghostty/themes/modus-vivendi".source = ../../config/ghostty/themes/modus-vivendi;
-    "ghostty/themes/modus-operandi".source = ../../config/ghostty/themes/modus-operandi;
+    "ghostty/themes".source = ../../config/ghostty/themes;
     "git/config".source = ../../config/git/config;
     "i3status/config".source = ../../config/i3status/config;
     "kanshi/config".source = ../../config/kanshi/config;
@@ -51,20 +50,6 @@
   };
   xdg.configFile."nvim/.luarc.json".source = ../../config/nvim/.luarc.json;
   xdg.configFile."nvim/lsp".source = ../../config/nvim/lsp;
-  home.activation.updateRepo = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    REPO_URL="https://github.com/LuaCATS/love2d.git"
-    TARGET_DIR="$HOME/.local/share/LuaAddons/love2d"
-    mkdir -p $TARGET_DIR
-
-    if [ ! -d "$TARGET_DIR/.git" ]; then
-      echo "Cloning repository into $TARGET_DIR..."
-      ${pkgs.git}/bin/git clone "$REPO_URL" "$TARGET_DIR"
-    else
-      echo "Repository exists, updating..."
-      cd "$TARGET_DIR"
-      ${pkgs.git}/bin/git pull --rebase
-    fi
-  '';
 
   # unison
   xdg.configFile."systemd/user/unison-drive.service".source =

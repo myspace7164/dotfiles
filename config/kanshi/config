@@ -1,22 +1,7 @@
 profile desktop {
-        output "LG Electronics LG ULTRAWIDE 0x00019F72" enable mode 3440x1440 position 0,0
-        output "Philips Consumer Electronics Company 24M1N3200V UK02207014698" enable mode 1920x1080@165Hz position 3440,0
+        output "Philips Consumer Electronics Company 24M1N3200V UK02207014698" enable mode 1920x1080@165Hz
 }
 
-profile macbook-mini {
+profile pocket {
         output DSI-1 enable mode 1200x1920 scale 2 transform 270
-}
-
-profile macbook-mini-ext {
-        output DSI-1 enable mode 1200x1920 position 1200,1440 scale 2 transform 270
-        output "LG Electronics LG ULTRAWIDE 0x00019F72" enable mode 3440x1440 position 0,0
-}
-
-profile lg-ultrawide {
-        output "LG Electronics LG ULTRAWIDE 0x00019F72" enable mode 3440x1440
-}
-
-profile {
-        output eDP-1 enable mode 1920x1200 position 1920,0
-        output "Philips Consumer Electronics Company PHL 241B7Q UHB1916011872" enable mode 1920x1080 position 0,0
 }

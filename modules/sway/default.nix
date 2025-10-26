@@ -8,7 +8,6 @@
       adwaita-icon-theme
       brightnessctl
       cliphist
-      dex
       glib
       gnome-themes-extra
       grim
@@ -32,7 +31,12 @@
 
   hardware.bluetooth.enable = true;
 
+  services.getty.autologinUser = "user";
+
   services.gnome.gnome-keyring.enable = true;
+  security.pam.services.login.enableGnomeKeyring = true;
+  programs.seahorse.enable = true;
+
   services.libinput.enable = true;
   services.playerctld.enable = true;
   services.udisks2.enable = true;

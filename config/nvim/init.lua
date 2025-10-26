@@ -24,7 +24,6 @@ vim.lsp.enable({
 
 vim.cmd [[set completeopt+=menuone,noselect,popup]]
 
-require("modus-themes").setup()
 vim.cmd([[colorscheme modus]])
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')

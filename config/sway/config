@@ -24,7 +24,7 @@ workspace_layout tabbed
 
 ### Startup programs
 
-exec dex -a
+exec nextcloud --background
 exec protonvpn-app
 exec udiskie
 exec wl-paste --watch cliphist store
@@ -47,9 +47,9 @@ bindsym $mod+f5 exec ~/.local/share/scripts/toggle-theme.sh
 
 ### Window rules
 
-for_window [class=".*"] inhibit_idle fullscreen
-for_window [app_id=".*"] inhibit_idle fullscreen
+for_window [class=".*" app_id=".*"] inhibit_idle fullscreen
 for_window [title="^RPCS3.*$"] inhibit_idle open
+for_window [app_id="^\.protonvpn-app-wrapped$"] move container to workspace 10
 
 ### Output configuration
 

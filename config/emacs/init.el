@@ -276,25 +276,17 @@ will be selected, otherwise a dark theme will be selected."
   (setq denote-dired-directories (list denote-directory)))
 
 (use-package dired
-  :bind (nil
-         :map dired-mode-map
-         ("b" . dired-up-directory))
-  :hook (dired-mode . dired-hide-details-mode)
   :custom
   (dired-auto-revert-buffer t)
-  (dired-recursive-copies 'always)
-  (dired-recursive-deletes 'always)
-  (dired-listing-switches "-AGhlv --group-directories-first")
-
   (dired-create-destination-dirs 'always)
   (dired-create-destination-dirs-on-trailing-dirsep t)
+  (dired-listing-switches "-AGhlv --group-directories-first")
+  (dired-recursive-copies 'always)
+  (dired-recursive-deletes 'always))
 
+(use-package wdired
+  :custom
   (wdired-allow-to-change-permissions t))
-
-(use-package dired
-  :if (eq system-type 'darwin)
-  :config
-  (setq dired-use-ls-dired nil))
 
 (use-package direnv
   :if (executable-find "direnv")

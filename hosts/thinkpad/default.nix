@@ -6,8 +6,7 @@
     ../..
     ../../modules/boot
     ../../modules/development
-    ../../modules/plasma
-    ../../modules/plymouth
+    ../../modules/sway
     ../../modules/virtualisation
     ../../modules/hack-the-box.nix
   ];
