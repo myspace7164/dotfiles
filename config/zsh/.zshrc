@@ -27,33 +27,25 @@ PROMPT='%F{cyan}%n@%m%f:%F{yellow}%~%f ${vcs_info_msg_0_}%(!.#.>) '
 alias ls="ls --almost-all --color=auto"
 alias grep="grep --color=auto"
 
+# Color man pages
+man() {
+	env \
+		LESS_TERMCAP_md=$(tput bold; tput setaf 4) \
+		LESS_TERMCAP_me=$(tput sgr0) \
+		LESS_TERMCAP_mb=$(tput blink) \
+		LESS_TERMCAP_us=$(tput setaf 2) \
+		LESS_TERMCAP_ue=$(tput sgr0) \
+		LESS_TERMCAP_so=$(tput smso) \
+		LESS_TERMCAP_se=$(tput rmso) \
+		man "$@"
+}
+export GROFF_NO_SGR=1
+
 executable_find() {
     command -v $1 >/dev/null 2>&1
 }
 
 executable_find direnv && eval "$(direnv hook zsh)"
-
-if executable_find nvim; then
-    export EDITOR="nvim"
-    export VISUAL="nvim"
-    export MANPAGER="nvim +Man!"
-    alias vim="nvim"
-    alias vi="nvim"
-else
-    # If neovim is not installed color the man pages
-    man() {
-	    env \
-		    LESS_TERMCAP_md=$(tput bold; tput setaf 4) \
-		    LESS_TERMCAP_me=$(tput sgr0) \
-		    LESS_TERMCAP_mb=$(tput blink) \
-		    LESS_TERMCAP_us=$(tput setaf 2) \
-		    LESS_TERMCAP_ue=$(tput sgr0) \
-		    LESS_TERMCAP_so=$(tput smso) \
-		    LESS_TERMCAP_se=$(tput rmso) \
-		    man "$@"
-    }
-    export GROFF_NO_SGR=1
-fi
 
 if executable_find fzf; then
     source <(fzf --zsh)

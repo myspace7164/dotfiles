@@ -6,6 +6,7 @@
 
 {
   imports = [
+    ./modules/emacs
     ./modules/librewolf
     ./modules/zsh
   ];
@@ -135,44 +136,6 @@
     vlc
     vscode
     wget
-    ((emacsPackagesFor emacs).emacsWithPackages (
-      epkgs:
-      (with epkgs.elpaPackages; [
-        auctex
-        gcmh
-        cape
-        consult
-        corfu
-        csv-mode
-        denote
-        djvu
-        embark
-        embark-consult
-        json-mode
-        marginalia
-        matlab-mode
-        orderless
-        vertico
-      ])
-      ++ (with epkgs.melpaPackages; [
-        cdlatex
-        citar
-        citar-denote
-        citar-embark
-        direnv
-        lua-mode
-        magit
-        markdown-mode
-        minions
-        nix-mode
-        nov
-        plantuml-mode
-        yaml-mode
-      ])
-      ++ [
-        epkgs.treesit-grammars.with-all-grammars
-      ]
-    ))
     (retroarch.withCores (
       cores: with cores; [
         dolphin

@@ -17,9 +17,9 @@
     ".zprofile".source = ../../config/zsh/.zprofile;
     ".zshenv".source = ../../config/zsh/.zshenv;
     ".zshrc".source = ../../config/zsh/.zshrc;
-    # emacs
-    ".emacs.d/init.el".source = ../../config/emacs/init.el;
-    ".emacs.d/early-init.el".source = ../../config/emacs/early-init.el;
+    # mail
+    ".mbsyncrc".source = ../../config/mail/.mbsyncrc;
+    ".msmtprc".source = ../../config/mail/.msmtprc;
   };
 
   xdg.configFile = {
@@ -36,6 +36,24 @@
 
   xdg.userDirs.enable = true;
   xdg.userDirs.createDirectories = true;
+
+  # emacs
+  home.file = {
+    ".emacs.d/init.el".source = ../../config/emacs/init.el;
+    ".emacs.d/early-init.el".source = ../../config/emacs/early-init.el;
+  };
+
+  xdg.desktopEntries = {
+    org-protocol = {
+      name = "org-protocol";
+      comment = "Intercept calls from emacsclient to trigger custom actions";
+      icon = "emacs";
+      type = "Application";
+      exec = "emacsclient -- %u";
+      terminal = false;
+      mimeType = [ "x-scheme-handler/org-protocol" ];
+    };
+  };
 
   # neovim
   programs.neovim = {
