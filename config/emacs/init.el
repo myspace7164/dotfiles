@@ -458,11 +458,8 @@ will be selected, otherwise a dark theme will be selected."
   (minions-mode 1))
 
 (use-package mu4e
-  :if (and (executable-find "mu") (not (member system-name '("desktop")))) ;; when there is mu, there should be mu4e
-  :commands (mu4e)
-  :hook (;; start mu4e in background, allows to immediately compose-mail
-         (after-init . (lambda () (mu4e t)))
-         (dired-mode . turn-on-gnus-dired-mode)
+  :if (executable-find "mu") ;; when there is mu, there should be mu4e
+  :hook ((dired-mode . turn-on-gnus-dired-mode)
          (mu4e-compose-mode . flyspell-mode))
   :bind (nil
          :map mu4e-headers-mode-map
