@@ -38,8 +38,7 @@
   (add-hook 'completion-at-point-functions #'cape-emoji)
   (add-hook 'completion-at-point-functions #'cape-file))
 
-(use-package cdlatex
-  :ensure t)
+(use-package cdlatex :ensure t)
 
 (use-package citar
   :ensure t
@@ -419,16 +418,12 @@ will be selected, otherwise a dark theme will be selected."
          (prog-mode . hl-line-mode)
          (tabulated-list-mode . hl-line-mode)))
 
-(use-package json-mode
-  :ensure t
-  :mode "\\.json\\'")
+(use-package json-mode :ensure t)
 
-(use-package lua-mode
-  :ensure t)
+(use-package lua-mode :ensure t)
 
 (use-package magit
   :ensure t
-  :defer t
   :config
   (setq magit-repository-directories '(("~/Repos" . 1))))
 
@@ -437,13 +432,9 @@ will be selected, otherwise a dark theme will be selected."
   :config
   (marginalia-mode 1))
 
-(use-package markdown-mode
-  :ensure t
-  :mode "\\.md\\'")
+(use-package markdown-mode :ensure t)
 
-(use-package matlab-mode
-  :if (equal system-name "CHLFSTL0014")
-  :ensure t)
+(use-package matlab-mode :ensure t)
 
 (use-package minibuffer
   :config
@@ -527,9 +518,7 @@ will be selected, otherwise a dark theme will be selected."
   (setq gnus-icalendar-org-capture-headline '("iCalendar events"))
   (gnus-icalendar-org-setup))
 
-(use-package nix-mode
-  :ensure t
-  :defer t)
+(use-package nix-mode :ensure t)
 
 (use-package ob-core
   :hook (org-babel-after-execute . org-redisplay-inline-images))
@@ -834,7 +823,6 @@ This works across multiple Org files."
   (outline-minor-mode-cycle t))
 
 (use-package ox-publish
-  :defer t
   :config
   (setq org-publish-project-alist
         '(("org-notes"
@@ -988,5 +976,4 @@ This works across multiple Org files."
 (use-package window
   :bind ("M-o" . other-window))
 
-(use-package yaml-mode
-  :ensure t)
+(use-package yaml-mode :ensure t)
