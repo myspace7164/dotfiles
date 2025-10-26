@@ -515,7 +515,7 @@ will be selected, otherwise a dark theme will be selected."
   (setq message-send-mail-function 'message-send-mail-with-sendmail)
   (setq message-kill-buffer-on-exit t)
 
-  (setq mu4e-org-contacts-file (concat org-directory "/people.org"))
+  (setq mu4e-org-contacts-file (concat org-directory "/contacts.org"))
   (add-to-list 'mu4e-headers-actions '("org-contact-add" . mu4e-action-add-org-contact) t)
   (add-to-list 'mu4e-view-actions '("org-contact-add" . mu4e-action-add-org-contact) t))
 
@@ -523,7 +523,7 @@ will be selected, otherwise a dark theme will be selected."
   :after mu4e org-agenda
   :config
   (mu4e-icalendar-setup)
-  (setq gnus-icalendar-org-capture-file "~/cloud/org/calendar.org")
+  (setq gnus-icalendar-org-capture-file "~/Nextcloud/org/calendar.org")
   (setq gnus-icalendar-org-capture-headline '("iCalendar events"))
   (gnus-icalendar-org-setup))
 
