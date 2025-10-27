@@ -116,6 +116,7 @@
     nextcloud-client
     nicotine-plus
     obs-studio
+    obsidian
     onionshare
     p7zip
     protonvpn-gui
@@ -136,6 +137,7 @@
     vlc
     vscode
     wget
+    zotero
     (retroarch.withCores (
       cores: with cores; [
         dolphin

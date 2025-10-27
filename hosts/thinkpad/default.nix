@@ -21,5 +21,6 @@
       "phone"
       "steamdeck"
     ];
+    settings.folders."~/Vault".devices = [ "phone" ];
   };
 }
