@@ -137,6 +137,7 @@
     vlc
     vscode
     wget
+    zathura
     zotero
     (retroarch.withCores (
       cores: with cores; [
