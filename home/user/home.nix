@@ -61,13 +61,12 @@
     extraLuaConfig = lib.fileContents ../../config/nvim/init.lua;
     plugins = with pkgs.vimPlugins; [
       modus-themes-nvim
+      nvim-lspconfig
       nvim-treesitter.withAllGrammars
       telescope-nvim
     ];
     extraPackages = [ pkgs.tree-sitter ];
   };
-  xdg.configFile."nvim/.luarc.json".source = ../../config/nvim/.luarc.json;
-  xdg.configFile."nvim/lsp".source = ../../config/nvim/lsp;
 
   # unison
   xdg.configFile."systemd/user/unison-drive.service".source =
