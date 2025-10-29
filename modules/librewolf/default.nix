@@ -23,6 +23,11 @@
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/floccus/latest.xpi";
           installation_mode = "force_installed";
         };
+        # Org Capture
+        "{ddefd400-12ea-4264-8166-481f23abaa87}" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/org-capture/latest.xpi";
+          installation_mode = "force_installed";
+        };
         # Proton Pass
         "78272b6fa58f4a1abaac99321d503a20@proton.me" = {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/proton-pass/latest.xpi";

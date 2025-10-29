@@ -108,6 +108,7 @@ input "1046:911:Goodix_Capacitive_TouchScreen" map_to_output DSI-1
 
 ### Key bindings
 
+bindsym $mod+e exec emacsclient --create-frame --alternate-editor=""
 bindsym $mod+o exec enteauth
 bindsym $mod+Shift+o exec cycle-sink
 
