@@ -51,6 +51,8 @@
     nerd-fonts.iosevka
     noto-fonts-color-emoji
   ];
+	fonts.enableDefaultPackages = true;
+	fonts.fontconfig.useEmbeddedBitmaps = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.user = {
@@ -174,6 +176,10 @@
     remotePlay.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
   };
+
+	programs.thunderbird.enable = true;
+	services.protonmail-bridge.enable = true;
+	services.protonmail-bridge.path = [ pkgs.gnome-keyring ];
 
   system.stateVersion = "25.05"; # Did you read the comment?
   system.autoUpgrade.enable = true;
