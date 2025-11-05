@@ -6,9 +6,9 @@
 
 {
   imports = [
+    ./modules/core
     ./modules/emacs
     ./modules/librewolf
-    ./modules/zsh
   ];
 
   # Enable networking
@@ -44,33 +44,6 @@
     alsa.support32Bit = true;
     pulse.enable = true;
   };
-
-  fonts.packages = with pkgs; [
-    font-awesome
-    iosevka
-    nerd-fonts.iosevka
-    noto-fonts-color-emoji
-  ];
-	fonts.enableDefaultPackages = true;
-	fonts.fontconfig.useEmbeddedBitmaps = true;
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.user = {
-    description = "User";
-    isNormalUser = true;
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-  };
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
 
   nixpkgs.overlays = [
     # (import ./overlays/steuern-lu-2024nP.nix)
@@ -111,14 +84,13 @@
     libreoffice
     man-pages
     man-pages-posix
-    mat2
+    # mat2
     metadata-cleaner
     mixxx
     mpv
     nextcloud-client
     nicotine-plus
     obs-studio
-    obsidian
     onionshare
     p7zip
     protonvpn-gui
@@ -177,21 +149,9 @@
     localNetworkGameTransfers.openFirewall = true;
   };
 
-	programs.thunderbird.enable = true;
-	services.protonmail-bridge.enable = true;
-	services.protonmail-bridge.path = [ pkgs.gnome-keyring ];
-
-  system.stateVersion = "25.05"; # Did you read the comment?
-  system.autoUpgrade.enable = true;
-  system.autoUpgrade.flake = "github:myspace7164/dotfiles";
-
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-  };
-
-  documentation.dev.enable = true;
-  documentation.man.generateCaches = true; # https://nixos.wiki/wiki/Apropos
+  programs.thunderbird.enable = true;
+  services.protonmail-bridge.enable = true;
+  services.protonmail-bridge.path = [ pkgs.gnome-keyring ];
 
   # Currently unused, but nice to have as a fallback
   services.flatpak = {

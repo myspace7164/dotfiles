@@ -5,7 +5,6 @@
     ./hardware-configuration.nix
     ../..
     ../../modules/boot
-    ../../modules/development
     ../../modules/sway
     ../../modules/virtualisation
   ];
