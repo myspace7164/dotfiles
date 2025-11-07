@@ -42,6 +42,19 @@ if executable_find fzf; then
     export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -200'"
 fi
 
+if executable_find lazygit; then
+	function lg() {
+    export LAZYGIT_NEW_DIR_FILE=~/.lazygit/newdir
+
+    lazygit "$@"
+
+    if [ -f $LAZYGIT_NEW_DIR_FILE ]; then
+            cd "$(cat $LAZYGIT_NEW_DIR_FILE)"
+            rm -f $LAZYGIT_NEW_DIR_FILE > /dev/null
+    fi
+	}
+fi
+
 if executable_find nvim; then
     export EDITOR="nvim"
     export VISUAL="nvim"
