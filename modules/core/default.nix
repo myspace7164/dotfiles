@@ -19,6 +19,7 @@
     git
     fd
     fzf
+    lazygit
     ripgrep
     tree
     (yazi.override {
