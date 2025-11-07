@@ -3,8 +3,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../..
     ../../modules/boot
+    ../../modules/desktop
     ../../modules/gnome
     ../../modules/plymouth
   ];

@@ -3,8 +3,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../..
     ../../modules/boot
+    ../../modules/desktop
     ../../modules/hack-the-box.nix
 		../../modules/plymouth
     ../../modules/sway
