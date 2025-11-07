@@ -20,16 +20,17 @@
     fd
     fzf
     lazygit
+    lua-language-server
+    nixd
+    nixfmt-rfc-style
+    python313
+    python313Packages.python-lsp-server
     ripgrep
+		texlab
     tree
     (yazi.override {
       _7zz = _7zz-rar; # Support for RAR extraction
     })
-    nixd
-    nixfmt-rfc-style
-    lua-language-server
-    python313
-    python313Packages.python-lsp-server
   ];
 
   nix.settings.experimental-features = [

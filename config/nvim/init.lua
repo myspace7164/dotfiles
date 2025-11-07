@@ -27,7 +27,8 @@ vim.lsp.config('nixd', {
 
 vim.lsp.enable({
 	'lua_ls',
-	'nixd'
+	'nixd',
+	'texlab'
 })
 
 vim.cmd [[set completeopt+=menuone,noselect,popup]]
