@@ -6,9 +6,9 @@
 
 {
   imports = [
-    ./modules/core
-    ./modules/emacs
-    ./modules/librewolf
+    ../core
+    ../emacs
+    ../librewolf
   ];
 
   # Enable networking
