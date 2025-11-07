@@ -85,7 +85,7 @@
     man-pages
     man-pages-posix
     # mat2
-    metadata-cleaner
+    # metadata-cleaner
     mixxx
     mpv
     nextcloud-client
