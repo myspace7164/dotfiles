@@ -114,7 +114,3 @@ xdg-desktop-portal
 xdg-desktop-portal-gtk
 xdg-desktop-portal-wlr
 xorg-xwayland
-zsh
-zsh-autosuggestions
-zsh-completions
-zsh-syntax-highlighting

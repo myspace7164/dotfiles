@@ -110,15 +110,8 @@ elif [[ $hostname == "CHLFSTL0014" ]]; then
     mkdir $HOME/.config/tmux
     ln -sf $scriptdir/config/tmux/tmux.conf $HOME/.config/tmux
 
-    ln -sf $scriptdir/config/zsh/.zprofile $HOME
-    ln -sf $scriptdir/config/zsh/.zshenv $HOME
-    ln -sf $scriptdir/config/zsh/.zshrc $HOME
-fi
-
-# zsh
-if [[ $distro != nixos && $SHELL != /bin/zsh ]]; then
-    echo "Switching to zsh"
-    chsh -s /bin/zsh
+    ln -sf $scriptdir/config/bash/.bashrc $HOME
+    ln -sf $scriptdir/config/bash/.bash_profile $HOME
 fi
 
 if [[ $hostname =~ thinkpad|desktop|pocket ]]; then

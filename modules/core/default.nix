@@ -8,7 +8,6 @@
       "networkmanager"
       "wheel"
     ];
-    shell = pkgs.zsh;
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -37,12 +36,6 @@
     "nix-command"
     "flakes"
   ];
-
-  programs.zsh = {
-    enable = true;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-  };
 
   system.stateVersion = "25.05"; # Did you read the comment?
   system.autoUpgrade.enable = true;

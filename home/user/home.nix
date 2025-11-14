@@ -10,12 +10,10 @@
   home.stateVersion = "25.05";
 
   home.file = {
+		".bashrc".source = ../../config/bash/.bashrc;
+		".bash_profile".source = ../../config/bash/.bash_profile;
     ".local/bin".source = ../../bin;
     ".local/share/scripts".source = ../../scripts;
-    # zsh
-    ".zprofile".source = ../../config/zsh/.zprofile;
-    ".zshenv".source = ../../config/zsh/.zshenv;
-    ".zshrc".source = ../../config/zsh/.zshrc;
   };
 
   xdg.configFile = {

@@ -17,4 +17,3 @@ tmux
 tree
 unzip
 xclip
-zsh
