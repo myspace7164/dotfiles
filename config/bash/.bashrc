@@ -1,12 +1,13 @@
 # options
 shopt -s autocd
+HISTSIZE=1000000
 
 # aliases
 alias ls="ls --color=auto"
 alias grep="grep --color=auto"
 
 # prompt
-PS1='\u@\h:\w > '
+PS1='\e[34m\u@\h\e[0m \e[32m\w\e[0m $ '
 
 # config based on availability of executables
 executable_find() {
