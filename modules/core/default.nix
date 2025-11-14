@@ -15,7 +15,7 @@
   environment.systemPackages = with pkgs; [
     bat
     direnv
-    git
+		git-filter-repo
     fd
     fzf
     lazygit
@@ -25,12 +25,17 @@
     python313
     python313Packages.python-lsp-server
     ripgrep
-		texlab
+    texlab
     tree
     (yazi.override {
       _7zz = _7zz-rar; # Support for RAR extraction
     })
   ];
+
+  programs.git = {
+    enable = true;
+    prompt.enable = true;
+  };
 
   nix.settings.experimental-features = [
     "nix-command"

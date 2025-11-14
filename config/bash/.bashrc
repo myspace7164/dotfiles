@@ -6,17 +6,26 @@ HISTSIZE=1000000
 alias ls="ls --color=auto"
 alias grep="grep --color=auto"
 
-# prompt
-CYAN="\e[36m"
-YELLOW="\e[33m"
-RESET="\e[0m"
-PS1="$CYAN\u@\h $YELLOW\w$RESET $ "
-
-# config based on availability of executables
-executable_find() {
+# function for finding executables
+function executable_find() {
     command -v $1 >/dev/null 2>&1
 }
 
+# prompt
+CYAN="\e[36m"
+MAGENTA="\e[35m"
+YELLOW="\e[33m"
+RESET="\e[0m"
+PS1="$CYAN\u@\h $YELLOW\w"
+
+# add git prompt if available
+if executable_find __git_ps1; then
+	PS1="$PS1$MAGENTA\$(__git_ps1)"
+fi
+
+PS1="$PS1$RESET $ "
+
+# config based on availability of executables
 executable_find direnv && eval "$(direnv hook bash)"
 
 if executable_find fzf; then

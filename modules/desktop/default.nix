@@ -73,8 +73,6 @@
     ente-desktop
     ghostty
     gimp
-    git
-    git-filter-repo
     gnucash
     hunspell
     hunspellDicts.de_CH
