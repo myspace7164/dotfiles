@@ -7,7 +7,10 @@ alias ls="ls --color=auto"
 alias grep="grep --color=auto"
 
 # prompt
-PS1='\e[36m\u@\h\e[0m \e[33m\w\e[0m $ '
+CYAN="\e[36m"
+YELLOW="\e[33m"
+RESET="\e[0m"
+PS1="$CYAN\u@\h $YELLOW\w$RESET $ "
 
 # config based on availability of executables
 executable_find() {
