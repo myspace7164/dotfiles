@@ -84,8 +84,8 @@
     libreoffice
     man-pages
     man-pages-posix
-    # mat2
-    # metadata-cleaner
+    mat2
+    metadata-cleaner
     mixxx
     mpv
     nextcloud-client
@@ -148,10 +148,6 @@
     remotePlay.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
   };
-
-  programs.thunderbird.enable = true;
-  services.protonmail-bridge.enable = true;
-  services.protonmail-bridge.path = [ pkgs.gnome-keyring ];
 
   # Currently unused, but nice to have as a fallback
   services.flatpak = {

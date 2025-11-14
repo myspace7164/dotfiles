@@ -16,9 +16,6 @@
     ".zprofile".source = ../../config/zsh/.zprofile;
     ".zshenv".source = ../../config/zsh/.zshenv;
     ".zshrc".source = ../../config/zsh/.zshrc;
-    # mail
-    ".mbsyncrc".source = ../../config/mail/.mbsyncrc;
-    ".msmtprc".source = ../../config/mail/.msmtprc;
   };
 
   xdg.configFile = {
