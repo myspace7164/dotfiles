@@ -1,6 +1,18 @@
 { inputs, pkgs, ... }:
 
 {
+  nixpkgs = {
+    overlays = [
+      inputs.self.overlays.additions
+    ];
+    config.allowUnfree = true;
+  };
+
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+
   users.users.user = {
     description = "User";
     isNormalUser = true;
@@ -10,12 +22,10 @@
     ];
   };
 
-  nixpkgs.config.allowUnfree = true;
-
   environment.systemPackages = with pkgs; [
     bat
     direnv
-		git-filter-repo
+    git-filter-repo
     fd
     fzf
     lazygit
@@ -37,19 +47,10 @@
     prompt.enable = true;
   };
 
-	programs.tmux = {
-		enable = true;
-		package = pkgs.my-tmux-git;
-	};
-
-	nixpkgs.overlays = [
-		inputs.self.overlays.additions
-	];
-
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  programs.tmux = {
+    enable = true;
+    package = pkgs.my-tmux-git;
+  };
 
   system.stateVersion = "25.05"; # Did you read the comment?
   system.autoUpgrade.enable = true;
