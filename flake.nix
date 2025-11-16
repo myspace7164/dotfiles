@@ -22,7 +22,6 @@
       self,
       nixpkgs,
       home-manager,
-      plasma-manager,
       nix-flatpak,
       nixos-wsl,
       ...
@@ -39,7 +38,7 @@
       nixosConfigurations = {
         thinkpad = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-					specialArgs = {inherit inputs;};
+          specialArgs = { inherit inputs; };
           modules = [
             nix-flatpak.nixosModules.nix-flatpak
 
@@ -49,19 +48,14 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.sharedModules = [ plasma-manager.homeModules.plasma-manager ];
-              home-manager.users.user = {
-                imports = [
-                  ./home/user/home.nix
-                  ./modules/plasma/home.nix
-                ];
-              };
+              home-manager.users.user = import ./home/user/home.nix;
             }
           ];
         };
 
         desktop = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
           modules = [
             nix-flatpak.nixosModules.nix-flatpak
 
@@ -78,6 +72,7 @@
 
         player = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
           modules = [
             nix-flatpak.nixosModules.nix-flatpak
 
@@ -94,9 +89,10 @@
 
         wsl = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
           modules = [
-            nix-flatpak.nixosModules.nix-flatpak
             nixos-wsl.nixosModules.default
+
             ./hosts/wsl
 
             home-manager.nixosModules.home-manager
