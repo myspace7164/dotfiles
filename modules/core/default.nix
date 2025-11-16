@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   users.users.user = {
@@ -36,6 +36,15 @@
     enable = true;
     prompt.enable = true;
   };
+
+	programs.tmux = {
+		enable = true;
+		package = pkgs.my-tmux-git;
+	};
+
+	nixpkgs.overlays = [
+		inputs.self.overlays.additions
+	];
 
   nix.settings.experimental-features = [
     "nix-command"

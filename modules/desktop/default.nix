@@ -1,9 +1,4 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ pkgs, lib, ... }:
-
+{ inputs, pkgs, lib, ... }:
 {
   imports = [
     ../core
@@ -46,7 +41,7 @@
   };
 
   nixpkgs.overlays = [
-    # (import ./overlays/steuern-lu-2024nP.nix)
+		inputs.self.overlays.additions
   ];
 
   environment.systemPackages = with pkgs; [
@@ -86,6 +81,7 @@
     metadata-cleaner
     mixxx
     mpv
+    my-steuern-lu-2024nP
     nextcloud-client
     nicotine-plus
     obs-studio
@@ -97,11 +93,9 @@
     rsync
     signal-desktop
     standardnotes
-    # steuern-lu-2024nP
     stremio
     switcheroo
     texliveFull
-    tmux
     tor-browser
     unison
     unzip
