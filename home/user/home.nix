@@ -24,6 +24,7 @@
     "i3status/config".source = ../../config/i3status/config;
     "kanshi/config".source = ../../config/kanshi/config;
     "mako/config".source = ../../config/mako/config;
+		"nix/nix.conf".source = ../../config/nix/nix.conf;
     "sway/config".source = ../../config/sway/config;
     "tmux/tmux.conf".source = ../../config/tmux/tmux.conf;
   };
