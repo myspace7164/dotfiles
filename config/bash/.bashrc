@@ -53,6 +53,7 @@ if executable_find nvim; then
     export EDITOR="nvim"
     export VISUAL="nvim"
     export MANPAGER="nvim +Man!"
+		export MANWIDTH=999
     alias vim="nvim"
     alias vi="nvim"
 fi
