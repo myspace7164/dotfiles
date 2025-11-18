@@ -65,8 +65,11 @@ before-sleep $swaylock
 
 ### Input configuration
 
-# ch layout by default
-input type:keyboard xkb_layout ch
+# default keyboard settings
+input type:keyboard {
+xkb_layout ch
+xkb_numlock enabled
+}
 
 # Set up PrintScreen as the compose key
 input * xkb_options compose:prsc
