@@ -10,8 +10,8 @@
   home.stateVersion = "25.05";
 
   home.file = {
-		".bashrc".source = ../../config/bash/.bashrc;
-		".bash_profile".source = ../../config/bash/.bash_profile;
+    ".bashrc".source = ../../config/bash/.bashrc;
+    ".bash_profile".source = ../../config/bash/.bash_profile;
     ".local/bin".source = ../../bin;
     ".local/share/scripts".source = ../../scripts;
   };
@@ -24,9 +24,10 @@
     "i3status/config".source = ../../config/i3status/config;
     "kanshi/config".source = ../../config/kanshi/config;
     "mako/config".source = ../../config/mako/config;
-		"nix/nix.conf".source = ../../config/nix/nix.conf;
+    "nix/nix.conf".source = ../../config/nix/nix.conf;
     "sway/config".source = ../../config/sway/config;
     "tmux/tmux.conf".source = ../../config/tmux/tmux.conf;
+    "yazi".source = ../../config/yazi;
   };
 
   xdg.userDirs.enable = true;

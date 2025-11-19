@@ -65,53 +65,30 @@ before-sleep $swaylock
 
 ### Input configuration
 
-# default keyboard settings
 input type:keyboard {
-xkb_layout ch
-xkb_numlock enabled
+	xkb_layout ch
+	xkb_numlock enabled
+	xkb_options compose:prsc
 }
 
-# Set up PrintScreen as the compose key
-input * xkb_options compose:prsc
-
-# Input specific config
-input "1452:613:Apple_Inc._Magic_Trackpad" {
-tap enabled
-natural_scroll enabled
-pointer_accel 0.5
-}
-
-input "76:613:Apple_Inc._Magic_Trackpad_2" {
-tap enabled
-natural_scroll enabled
-pointer_accel 0.5
-}
-
-input "1739:52619:SYNA8004:00_06CB:CD8B_Touchpad" {
-tap enabled
-natural_scroll enabled
-pointer_accel 0.5
-}
-
-input "1739:52828:SYNA8020:00_06CB:CE5C_Touchpad" {
-tap enabled
-natural_scroll enabled
-pointer_accel 0.5
+input type:touchpad {
+	tap enabled
+	natural_scroll enabled
+	pointer_accel 0.5
 }
 
 input "9610:273:SINO_WEALTH_Gaming_Keyboard" xkb_layout us
 
 input "9610:273:SINO_WEALTH_Gaming_Keyboard_Mouse" {
-middle_emulation enabled
-scroll_button button3
-scroll_method on_button_down
+	middle_emulation enabled
+	scroll_button button3
+	scroll_method on_button_down
 }
 
 input "1046:911:Goodix_Capacitive_TouchScreen" map_to_output DSI-1
 
 ### Key bindings
 
-bindsym $mod+e exec emacsclient --create-frame --alternate-editor=""
 bindsym $mod+o exec enteauth
 bindsym $mod+Shift+o exec cycle-sink
 
