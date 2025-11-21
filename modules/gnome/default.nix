@@ -1,10 +1,11 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # Enable the GNOME Desktop Environment.
   services.xserver.enable = true;
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.autoLogin.user = "user";
 
   programs.dconf.enable = true;
   programs.kdeconnect = {
@@ -15,7 +16,6 @@
   # GNOME specific packages
   environment.systemPackages = with pkgs; [
     dconf-editor
-    gnome-console
     gnome-themes-extra
     gnome-tweaks
     gnomeExtensions.appindicator
