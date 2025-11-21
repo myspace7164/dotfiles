@@ -60,6 +60,7 @@
       nvim-lspconfig
       nvim-treesitter.withAllGrammars
       telescope-nvim
+      typst-preview-nvim
     ];
     extraPackages = [ pkgs.tree-sitter ];
   };
