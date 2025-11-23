@@ -18,6 +18,8 @@
 
   xdg.configFile = {
     "beets/config.yaml".source = ../../config/beets/config.yaml;
+    "emacs/init.el".source = ../../config/emacs/init.el;
+    "emacs/early-init.el".source = ../../config/emacs/early-init.el;
     "ghostty/config".source = ../../config/ghostty/config;
     "ghostty/themes".source = ../../config/ghostty/themes;
     "git/config".source = ../../config/git/config;
@@ -32,38 +34,6 @@
 
   xdg.userDirs.enable = true;
   xdg.userDirs.createDirectories = true;
-
-  # emacs
-  home.file = {
-    ".emacs.d/init.el".source = ../../config/emacs/init.el;
-    ".emacs.d/early-init.el".source = ../../config/emacs/early-init.el;
-  };
-
-  xdg.desktopEntries = {
-    org-protocol = {
-      name = "org-protocol";
-      comment = "Intercept calls from emacsclient to trigger custom actions";
-      icon = "emacs";
-      type = "Application";
-      exec = "emacsclient -- %u";
-      terminal = false;
-      mimeType = [ "x-scheme-handler/org-protocol" ];
-    };
-  };
-
-  # neovim
-  programs.neovim = {
-    enable = true;
-    extraLuaConfig = lib.fileContents ../../config/nvim/init.lua;
-    plugins = with pkgs.vimPlugins; [
-      modus-themes-nvim
-      nvim-lspconfig
-      nvim-treesitter.withAllGrammars
-      telescope-nvim
-      typst-preview-nvim
-    ];
-    extraPackages = [ pkgs.tree-sitter ];
-  };
 
   # unison
   xdg.configFile."systemd/user/unison-drive.service".source =

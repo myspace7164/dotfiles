@@ -1,4 +1,9 @@
-{ inputs, pkgs, lib, ... }:
+{
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
 {
   imports = [
     ../core
@@ -40,8 +45,8 @@
     pulse.enable = true;
   };
 
-  nixpkgs.overlays = [
-		inputs.self.overlays.additions
+  nixpkgs.config.permittedInsecurePackages = [
+    "qtwebengine-5.15.19"
   ];
 
   environment.systemPackages = with pkgs; [
@@ -56,7 +61,7 @@
       ]
     ))
     audacity
-    bitwarden
+    bitwarden-desktop
     bleachbit
     blender
     calibre
@@ -81,9 +86,10 @@
     metadata-cleaner
     mixxx
     mpv
-    my-steuern-lu-2024nP
+    steuern-lu-2024nP
     nextcloud-client
     nicotine-plus
+    obsidian
     obs-studio
     onionshare
     p7zip
@@ -93,7 +99,7 @@
     rsync
     signal-desktop
     standardnotes
-    stremio
+    # stremio
     switcheroo
     texliveFull
     tor-browser
@@ -123,8 +129,8 @@
     openDefaultPorts = true;
     user = "user";
     dataDir = "/home/user";
+    settings.devices.device.id = "V2RPWUX-YHTMNN7-OV324QC-5S56VI7-NLZQIWI-JVMGL4P-VEJFVCQ-66IF5A4";
     settings.devices.steamdeck.id = "2HHZQDW-2LYDBPN-AYIKXOV-BVYJURA-CZUFCXF-7TB4N5Q-W2FE36H-YRXUMAM";
-    settings.devices.phone.id = "V2RPWUX-YHTMNN7-OV324QC-5S56VI7-NLZQIWI-JVMGL4P-VEJFVCQ-66IF5A4";
   };
 
   # Some programs need SUID wrappers, can be configured further or are

@@ -1,4 +1,9 @@
-{ inputs, pkgs, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   nixpkgs = {
@@ -36,9 +41,10 @@
     python313Packages.python-lsp-server
     ripgrep
     texlab
-		tinymist
+    tinymist
     tree
-		typst
+    tree-sitter
+    typst
     (yazi.override {
       _7zz = _7zz-rar; # Support for RAR extraction
     })
@@ -51,7 +57,23 @@
 
   programs.tmux = {
     enable = true;
-    package = pkgs.my-tmux-git;
+    package = pkgs.tmux-git;
+  };
+
+  programs.neovim = {
+    enable = true;
+    configure = {
+      customLuaRC = lib.fileContents ../../config/nvim/init.lua;
+      packages.myVimPackage = with pkgs.vimPlugins; {
+        start = [
+          modus-themes-nvim
+          nvim-lspconfig
+          nvim-treesitter.withAllGrammars
+          telescope-nvim
+          typst-preview-nvim
+        ];
+      };
+    };
   };
 
   system.stateVersion = "25.05"; # Did you read the comment?
