@@ -5,7 +5,16 @@
   services.xserver.enable = true;
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-  services.displayManager.autoLogin.user = "user";
+
+	# disable GNOME's suite of applications
+  services.gnome.core-apps.enable = false;
+  services.gnome.core-developer-tools.enable = false;
+  services.gnome.games.enable = false;
+  environment.gnome.excludePackages = with pkgs; [
+    gnome-console
+    gnome-tour
+    gnome-user-docs
+  ];
 
   programs.dconf.enable = true;
   programs.kdeconnect = {
@@ -29,8 +38,7 @@
     style = "adwaita-dark";
   };
 
-  # remove gnome-console and xterm
-  environment.gnome.excludePackages = [ pkgs.gnome-console ];
+  # remove xterm
   services.xserver.desktopManager.xterm.enable = false;
   services.xserver.excludePackages = [ pkgs.xterm ];
 }
