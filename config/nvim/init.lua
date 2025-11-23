@@ -27,6 +27,7 @@ vim.lsp.config('nixd', {
 
 vim.lsp.enable({
 	'lua_ls',
+	'markdown_oxide',
 	'nixd',
 	'texlab',
 	'tinymist',

@@ -35,6 +35,7 @@
     fzf
     lazygit
     lua-language-server
+    markdown-oxide
     nixd
     nixfmt-rfc-style
     python313
