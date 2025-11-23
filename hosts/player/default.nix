@@ -16,7 +16,6 @@
   services.syncthing = {
     enable = true;
     settings.folders."~/Nextcloud/games".devices = [ "device" "steamdeck" ];
-    settings.folders."~/Nextcloud/obsidian".devices = [ "device" ];
   };
 
   system.autoUpgrade.allowReboot = true;

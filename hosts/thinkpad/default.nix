@@ -20,6 +20,5 @@
       "device"
       "steamdeck"
     ];
-    settings.folders."~/Nextcloud/obsidian".devices = [ "device" ];
   };
 }
