@@ -45,10 +45,6 @@
     pulse.enable = true;
   };
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "qtwebengine-5.15.19"
-  ];
-
   environment.systemPackages = with pkgs; [
     (aspellWithDicts (
       dicts: with dicts; [
@@ -99,7 +95,7 @@
     rsync
     signal-desktop
     standardnotes
-    # stremio
+    stremio
     switcheroo
     texliveFull
     tor-browser

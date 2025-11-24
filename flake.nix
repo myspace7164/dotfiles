@@ -2,16 +2,16 @@
   description = "my-nixos-flake";
 
   inputs = {
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    home-manager.url = "github:nix-community/home-manager/release-25.05";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nixos-wsl.url = "github:nix-community/nixos-wsl";
 
     plasma-manager.url = "github:nix-community/plasma-manager";
-    plasma-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
     plasma-manager.inputs.home-manager.follows = "home-manager";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
@@ -20,7 +20,7 @@
   outputs =
     {
       self,
-      nixpkgs-unstable,
+      nixpkgs,
       home-manager,
       nix-flatpak,
       nixos-wsl,
@@ -28,15 +28,15 @@
     }@inputs:
     let
       systems = [ "x86_64-linux" ];
-      forAllSystems = nixpkgs-unstable.lib.genAttrs systems;
+      forAllSystems = nixpkgs.lib.genAttrs systems;
     in
     {
-      packages = forAllSystems (system: import ./pkgs nixpkgs-unstable.legacyPackages.${system});
-      formatter = forAllSystems (system: nixpkgs-unstable.legacyPackages.${system}.nixfmt-rfc-style);
+      packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
       overlays = import ./overlays { inherit inputs; };
 
       nixosConfigurations = {
-        thinkpad = nixpkgs-unstable.lib.nixosSystem {
+        thinkpad = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
@@ -53,7 +53,7 @@
           ];
         };
 
-        desktop = nixpkgs-unstable.lib.nixosSystem {
+        desktop = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
@@ -70,7 +70,7 @@
           ];
         };
 
-        player = nixpkgs-unstable.lib.nixosSystem {
+        player = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
@@ -87,7 +87,7 @@
           ];
         };
 
-        wsl = nixpkgs-unstable.lib.nixosSystem {
+        wsl = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [

@@ -61,22 +61,6 @@
     package = pkgs.tmux-git;
   };
 
-  programs.neovim = {
-    enable = true;
-    configure = {
-      customLuaRC = lib.fileContents ../../config/nvim/init.lua;
-      packages.myVimPackage = with pkgs.vimPlugins; {
-        start = [
-          modus-themes-nvim
-          nvim-lspconfig
-          nvim-treesitter.withAllGrammars
-          telescope-nvim
-          typst-preview-nvim
-        ];
-      };
-    };
-  };
-
   system.stateVersion = "25.05"; # Did you read the comment?
   system.autoUpgrade.enable = true;
   system.autoUpgrade.flake = "github:myspace7164/dotfiles";

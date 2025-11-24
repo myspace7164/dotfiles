@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   ...
@@ -34,6 +33,20 @@
 
   xdg.userDirs.enable = true;
   xdg.userDirs.createDirectories = true;
+
+  # neovim
+  programs.neovim = {
+    enable = true;
+    extraLuaConfig = lib.fileContents ../../config/nvim/init.lua;
+    plugins = with pkgs.vimPlugins; [
+      modus-themes-nvim
+      nvim-lspconfig
+      nvim-treesitter.withAllGrammars
+      telescope-nvim
+      typst-preview-nvim
+    ];
+    extraPackages = [ pkgs.tree-sitter ];
+  };
 
   # unison
   xdg.configFile."systemd/user/unison-drive.service".source =
