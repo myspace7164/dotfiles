@@ -19,7 +19,6 @@
       "device"
       "steamdeck"
     ];
-    settings.folders."~/Nextcloud/notes".devices = [ "device" ];
   };
 
   system.autoUpgrade.allowReboot = true;

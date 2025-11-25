@@ -85,7 +85,6 @@
     steuern-lu-2024nP
     nextcloud-client
     nicotine-plus
-    obsidian
     obs-studio
     onionshare
     p7zip

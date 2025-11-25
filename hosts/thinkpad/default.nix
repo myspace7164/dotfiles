@@ -20,6 +20,5 @@
       "device"
       "steamdeck"
     ];
-    settings.folders."~/Nextcloud/notes".devices = [ "device" ];
   };
 }
