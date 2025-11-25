@@ -45,6 +45,17 @@ vim.keymap.set('n', '<leader>lf', function()
 	vim.lsp.buf.format({ async = true })
 end, { desc = 'LSP Format buffer' })
 
+require('telescope').setup({
+	pickers = {
+		find_files = {
+			hidden = true,
+		},
+		man_pages = {
+			sections = { "ALL" },
+		},
+	},
+})
+
 vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', require('telescope.builtin').buffers, { desc = 'Telescope buffers' })
