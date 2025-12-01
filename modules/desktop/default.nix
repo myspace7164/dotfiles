@@ -97,6 +97,7 @@
     stremio
     switcheroo
     texliveFull
+    ticktick
     tor-browser
     unison
     unzip
