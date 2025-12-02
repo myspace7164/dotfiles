@@ -94,10 +94,9 @@
     rsync
     signal-desktop
     standardnotes
-    stremio
     switcheroo
     texliveFull
-    ticktick
+    todoist-electron
     tor-browser
     unison
     unzip
@@ -149,7 +148,10 @@
 
   # Currently unused, but nice to have as a fallback
   services.flatpak = {
-    enable = false;
-    packages = [ ];
+    enable = true;
+    uninstallUnmanaged = true;
+    packages = [
+      "com.stremio.Stremio"
+    ];
   };
 }
