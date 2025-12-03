@@ -34,20 +34,6 @@
   xdg.userDirs.enable = true;
   xdg.userDirs.createDirectories = true;
 
-  # neovim
-  programs.neovim = {
-    enable = true;
-    extraLuaConfig = lib.fileContents ../../config/nvim/init.lua;
-    plugins = with pkgs.vimPlugins; [
-      modus-themes-nvim
-      nvim-lspconfig
-      nvim-treesitter.withAllGrammars
-      telescope-nvim
-      typst-preview-nvim
-    ];
-    extraPackages = [ pkgs.tree-sitter ];
-  };
-
   # unison
   xdg.configFile."systemd/user/unison-drive.service".source =
     ../../config/unison/unison-drive.service;
@@ -65,15 +51,6 @@
   #  ${pkgs.systemd}/bin/systemctl --user start unison-usb.service
   #  ${pkgs.systemd}/bin/systemctl --user enable unison-usb.service
   #'';
-
-  # steam
-  xdg.desktopEntries.steam-pipewire = {
-    name = "Steam (PipeWire)";
-    exec = "steam -pipewire";
-    icon = "steam";
-    comment = "Launch Steam with PipeWire support";
-    categories = [ "Game" ];
-  };
 
   programs.man.generateCaches = true;
 }

@@ -56,6 +56,22 @@
     prompt.enable = true;
   };
 
+  programs.neovim = {
+    enable = true;
+    configure = {
+      customLuaRC = lib.fileContents ../../config/nvim/init.lua;
+      packages.myVimPackage = with pkgs.vimPlugins; {
+        start = [
+          modus-themes-nvim
+          nvim-lspconfig
+          nvim-treesitter.withAllGrammars
+          telescope-nvim
+          typst-preview-nvim
+        ];
+      };
+    };
+  };
+
   programs.tmux = {
     enable = true;
     package = pkgs.tmux-git;
