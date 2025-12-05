@@ -46,16 +46,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    (aspellWithDicts (
-      dicts: with dicts; [
-        de
-        en
-        en-computers
-        en-science
-        fi
-        sv
-      ]
-    ))
     audacity
     bitwarden-desktop
     bleachbit
@@ -70,14 +60,8 @@
     ghostty
     gimp
     gnucash
-    hunspell
-    hunspellDicts.de_CH
-    hunspellDicts.en_US
-    hunspellDicts.sv_SE
     inkscape
     libreoffice
-    man-pages
-    man-pages-posix
     mat2
     metadata-cleaner
     mixxx
@@ -87,23 +71,18 @@
     nicotine-plus
     obs-studio
     onionshare
-    p7zip
     protonvpn-gui
     qbittorrent
     reaper
-    rsync
     signal-desktop
     standardnotes
     switcheroo
-    texliveFull
     todoist-electron
     tor-browser
     unison
-    unzip
     veracrypt
     vlc
     vscode
-    wget
     zathura
     zotero
     (retroarch.withCores (
@@ -152,6 +131,7 @@
     uninstallUnmanaged = true;
     packages = [
       "com.stremio.Stremio"
+			"me.proton.Mail"
     ];
   };
 }

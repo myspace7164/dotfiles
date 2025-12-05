@@ -30,22 +30,29 @@
   environment.systemPackages = with pkgs; [
     bat
     direnv
-    git-filter-repo
     fd
     fzf
+    git-filter-repo
     lazygit
     lua-language-server
+    man-pages
+    man-pages-posix
     markdown-oxide
     nixd
     nixfmt-rfc-style
+    p7zip
     python313
     python313Packages.python-lsp-server
     ripgrep
+    rsync
     texlab
+    texliveFull
     tinymist
     tree
     tree-sitter
     typst
+    unzip
+    wget
     (yazi.override {
       _7zz = _7zz-rar; # Support for RAR extraction
     })

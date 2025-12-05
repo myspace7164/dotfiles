@@ -48,22 +48,4 @@
       ));
     startWithGraphical = true;
   };
-
-  environment.variables = {
-    ALTERNATE_EDITOR = "";
-    EDITOR = "emacsclient -t";
-    VISUAL = "emacsclient -c -a emacs";
-  };
-
-  environment.systemPackages = with pkgs; [
-    isync
-    msmtp
-    mu
-  ];
-
-  services.protonmail-bridge = {
-    enable = true;
-    package = pkgs.protonmail-bridge;
-    path = with pkgs; [ gnome-keyring ];
-  };
 }
