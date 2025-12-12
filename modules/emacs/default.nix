@@ -1,51 +1,35 @@
 { pkgs, ... }:
 {
-  services.emacs = {
-    enable = true;
-    install = true;
-    package =
-      with pkgs;
-      ((emacsPackagesFor emacs-pgtk).emacsWithPackages (
-        epkgs:
-        (with epkgs.elpaPackages; [
-          auctex
-          gcmh
-          cape
-          consult
-          corfu
-          csv-mode
-          denote
-          djvu
-          embark
-          embark-consult
-          json-mode
-          marginalia
-          matlab-mode
-          orderless
-          vertico
-        ])
-        ++ (with epkgs.melpaPackages; [
-          cdlatex
-          citar
-          citar-denote
-          citar-embark
-          direnv
-          lua-mode
-          magit
-          markdown-mode
-          minions
-          nix-mode
-          org-caldav
-          org-contacts
-          plantuml-mode
-          yaml-mode
-        ])
-        ++ [
-          epkgs.mu4e
-          epkgs.treesit-grammars.with-all-grammars
-          epkgs.ripgrep
-        ]
-      ));
-    startWithGraphical = true;
-  };
+  environment.systemPackages = with pkgs; [
+    ((emacsPackagesFor emacs-pgtk).emacsWithPackages (
+      epkgs:
+      (with epkgs.elpaPackages; [
+        cape
+        consult
+        corfu
+        csv-mode
+        embark
+        embark-consult
+        json-mode
+        marginalia
+        matlab-mode
+        orderless
+        vertico
+      ])
+      ++ (with epkgs.melpaPackages; [
+        direnv
+        lua-mode
+        magit
+        markdown-mode
+        minions
+        nix-mode
+        plantuml-mode
+        yaml-mode
+      ])
+      ++ [
+        epkgs.ripgrep
+        epkgs.treesit-grammars.with-all-grammars
+      ]
+    ))
+  ];
 }
