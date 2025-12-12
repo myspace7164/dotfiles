@@ -4,7 +4,6 @@
   pkgs,
   ...
 }:
-
 {
   nixpkgs = {
     overlays = [
@@ -13,10 +12,18 @@
     config.allowUnfree = true;
   };
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+  };
+
+  nix.settings = {
+    auto-optimise-store = true;
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+  };
 
   users.users.user = {
     description = "User";
@@ -87,11 +94,6 @@
   system.stateVersion = "25.11";
   system.autoUpgrade.enable = true;
   system.autoUpgrade.flake = "github:myspace7164/dotfiles";
-
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-  };
 
   fonts.packages = with pkgs; [
     font-awesome

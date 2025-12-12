@@ -1,9 +1,4 @@
-{
-  inputs,
-  pkgs,
-  lib,
-  ...
-}:
+{ pkgs, lib, ... }:
 {
   imports = [
     ../core
@@ -20,6 +15,15 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+
+  i18n.inputMethod = {
+    type = "fcitx5";
+    enable = true;
+    fcitx5.addons = with pkgs; [
+      fcitx5-mozc
+      fcitx5-gtk
+    ];
+  };
 
   # Configure keymap
   console.keyMap = "sg";
@@ -131,7 +135,7 @@
     uninstallUnmanaged = true;
     packages = [
       "com.stremio.Stremio"
-			"me.proton.Mail"
+      "me.proton.Mail"
     ];
   };
 }

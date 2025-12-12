@@ -68,7 +68,6 @@ before-sleep $swaylock
 input type:keyboard {
 	xkb_layout ch
 	xkb_numlock enabled
-	xkb_options compose:prsc
 }
 
 input type:touchpad {
