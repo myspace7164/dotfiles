@@ -8,22 +8,14 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.firewall.checkReversePath = false;
 
   # Set your time zone.
   time.timeZone = lib.mkDefault "Europe/Zurich";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.inputMethod = {
-    type = "fcitx5";
-    enable = true;
-    fcitx5.addons = with pkgs; [
-      fcitx5-mozc
-      fcitx5-gtk
-    ];
-  };
+  i18n.inputMethod.type = "ibus";
+  i18n.inputMethod.enable = true;
 
   # Configure keymap
   console.keyMap = "sg";
