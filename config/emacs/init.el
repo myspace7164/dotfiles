@@ -58,14 +58,13 @@
          ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
          ("M-g g" . consult-goto-line)             ;; orig. goto-line
          ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
-         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+         ("M-g o" . consult-outline)
          ("M-g m" . consult-mark)
          ("M-g k" . consult-global-mark)
          ("M-g i" . consult-imenu)
          ("M-g I" . consult-imenu-multi)
          ;; M-s bindings in `search-map'
-         ("M-s a" . consult-org-agenda)
-         ("M-s d" . consult-find)                  ;; Alternative: consult-fd
+         ("M-s d" . consult-fd)
          ("M-s c" . consult-locate)
          ("M-s g" . consult-grep)
          ("M-s G" . consult-git-grep)
@@ -76,8 +75,6 @@
          ("M-s u" . consult-focus-lines)
          ;; Isearch integration
          ("M-s e" . consult-isearch-history)
-         ;; Org-mode
-         ("C-c s" . (lambda () (interactive) (consult-ripgrep (org-agenda-files))))
          :map isearch-mode-map
          ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
          ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
@@ -86,9 +83,7 @@
          ;; Minibuffer history
          :map minibuffer-local-map
          ("M-s" . consult-history)                 ;; orig. next-matching-history-element
-         ("M-r" . consult-history)
-         :map org-mode-map :package org
-         ("M-g o" . consult-org-heading))
+         ("M-r" . consult-history))
 
   :init
   (setq register-preview-delay 0.5)
@@ -288,7 +283,6 @@ will be selected, otherwise a dark theme will be selected."
 
 (use-package hl-line
   :hook ((dired-mode . hl-line-mode)
-         (org-agenda-mode . hl-line-mode)
          (prog-mode . hl-line-mode)
          (tabulated-list-mode . hl-line-mode)))
 
