@@ -725,18 +725,18 @@ This works across multiple Org files."
       ,(concat "* TODO %?\n" my/org-capture-created-property))
 
      ;; journaling
-     ("j" "Journal templates")
-     ("jj" "Journal" entry (file+olp+datetree "journal.org")
+     ("j" "Journal")
+     ("jj" "Journal entry" entry (file+olp+datetree "journal.org")
       "* %U %^{Title}\n%?")
-     ("jJ" "Journal (custom datetime)" entry (file+olp+datetree "journal.org")
+     ("jJ" "Journal entry (time-prompt)" entry (file+olp+datetree "journal.org")
       "* %U %^{Title}\n%?" :time-prompt t)
      ("jd" "Daily review" entry (file+olp+datetree "journal.org")
       "* %U Daily review\n%?")
-     ("jD" "Daily review (custom datetime)" entry (file+olp+datetree "journal.org")
+     ("jD" "Daily review (time-prompt)" entry (file+olp+datetree "journal.org")
       "* %U Daily review\n%?" :time-prompt t)
      ("jt" "Daily todo" entry (file+olp+datetree "journal.org")
       ,(concat "* TODO Todo for today\nSCHEDULED: %t\n" my/org-capture-created-property "%?"))
-     ("jT" "Daily todo (custom datetime)" entry (file+olp+datetree "journal.org")
+     ("jT" "Daily todo (time-prompt)" entry (file+olp+datetree "journal.org")
       ,(concat "* TODO Todo for today\nSCHEDULED: %t\n" my/org-capture-created-property "%?") :time-prompt t)
 
      ;; meeting notes
