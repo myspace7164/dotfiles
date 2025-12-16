@@ -616,12 +616,10 @@ This works across multiple Org files."
       "Open the OneNote item identified by the unique OneNote URL."
       (w32-shell-execute "open" "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\ONENOTE.exe" (concat "/hyperlink " "onenote:" (shell-quote-argument link)))))
   :config
-  (when (file-directory-p "~/Nextcloud/org")
-    (setq org-directory "~/Nextcloud/org"))
   (when (file-directory-p "/content/storage/org.nextcloud.documents/8d646530e3ce90d4419bac7207b2f88e%2F8")
     (setq org-directory "/content/storage/org.nextcloud.documents/8d646530e3ce90d4419bac7207b2f88e%2F8"))
 
-  (setq org-default-notes-file (concat org-directory "/notes.org"))
+  (setq org-default-notes-file (concat org-directory "/inbox.org"))
   (setq org-agenda-files (list org-directory))
 
   (when (eq system-type 'ms-dos)
