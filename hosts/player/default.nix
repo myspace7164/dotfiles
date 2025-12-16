@@ -15,10 +15,11 @@
 
   services.syncthing = {
     enable = true;
-    settings.folders."~/Nextcloud/games".devices = [
-      "device"
-      "steamdeck"
-    ];
+    settings.folders."~/Nextcloud/games".devices = [ "steamdeck" ];
+    settings.folders."~/org" = {
+      devices = [ "device" ];
+      label = "org-directory";
+    };
   };
 
   system.autoUpgrade.allowReboot = true;
