@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -22,6 +22,10 @@
   };
 
   system.autoUpgrade.allowReboot = true;
+
+  environment.systemPackages = with pkgs; [
+    gitwatch
+  ];
 
   systemd.tmpfiles.rules =
     let
