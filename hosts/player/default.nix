@@ -21,7 +21,6 @@
         "device"
         "thinkpad"
       ];
-      label = "org-directory";
     };
   };
 
