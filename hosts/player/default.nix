@@ -17,7 +17,10 @@
     enable = true;
     settings.folders."~/Nextcloud/games".devices = [ "steamdeck" ];
     settings.folders."~/org" = {
-      devices = [ "device" ];
+      devices = [
+        "device"
+        "thinkpad"
+      ];
       label = "org-directory";
     };
   };
