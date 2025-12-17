@@ -30,6 +30,18 @@
   xdg.userDirs.enable = true;
   xdg.userDirs.createDirectories = true;
 
+  xdg.desktopEntries = {
+    org-protocol = {
+      name = "org-protocol";
+      comment = "Intercept calls from emacsclient to trigger custom actions";
+      icon = "emacs";
+      type = "Application";
+      exec = "emacsclient -- %u";
+      terminal = false;
+      mimeType = [ "x-scheme-handler/org-protocol" ];
+    };
+  };
+
   # unison
   xdg.configFile."systemd/user/unison-drive.service".source =
     ../../config/unison/unison-drive.service;
