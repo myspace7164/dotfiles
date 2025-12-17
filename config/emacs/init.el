@@ -751,9 +751,9 @@ This works across multiple Org files."
 
      ;; org-capture-extension specific (https://github.com/sprig/org-capture-extension)
      ("p" "Protocol" entry (file "inbox.org")
-      "* %^{Title}\n%U\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+      ,(concat "* %^{Title}\n" my/org-capture-created-property "\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?"))
 	 ("L" "Protocol Link" entry (file "inbox.org")
-      "* %?[[%:link][%:description]] \n%U"))))
+      ,(concat "* %?[[%:link][%:description]] \n" my/org-capture-created-property)))))
 
 (use-package org-caldav
   :if (member (system-name) '("caldav"))
@@ -785,6 +785,8 @@ This works across multiple Org files."
   :after org
   :config
   (setq org-id-link-to-org-use-id t))
+
+(use-package org-inlinetask :after org)
 
 (use-package org-keys
   :after org
