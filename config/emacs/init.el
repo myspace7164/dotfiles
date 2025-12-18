@@ -294,6 +294,7 @@ will be selected, otherwise a dark theme will be selected."
   (direnv-mode 1))
 
 (use-package display-line-numbers
+  :if (not (eq system-type 'android))
   :hook ((conf-mode . display-line-numbers-mode)
          (prog-mode . display-line-numbers-mode)))
 
