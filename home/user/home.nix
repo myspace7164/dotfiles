@@ -7,14 +7,14 @@
   home.file = {
     ".bashrc".source = ../../config/bash/.bashrc;
     ".bash_profile".source = ../../config/bash/.bash_profile;
+    ".mbsyncrc".source = ../../config/mail/.mbsyncrc;
+    ".msmtprc".source = ../../config/mail/.msmtprc;
     ".local/bin".source = ../../bin;
     ".local/share/scripts".source = ../../scripts;
   };
 
   xdg.configFile = {
     "beets/config.yaml".source = ../../config/beets/config.yaml;
-    "emacs/init.el".source = ../../config/emacs/init.el;
-    "emacs/early-init.el".source = ../../config/emacs/early-init.el;
     "ghostty/config".source = ../../config/ghostty/config;
     "ghostty/themes".source = ../../config/ghostty/themes;
     "git/config".source = ../../config/git/config;
@@ -29,6 +29,12 @@
 
   xdg.userDirs.enable = true;
   xdg.userDirs.createDirectories = true;
+
+  # emacs
+  home.file = {
+    ".emacs.d/early-init.el".source = ../../config/emacs/early-init.el;
+    ".emacs.d/init.el".source = ../../config/emacs/init.el;
+  };
 
   xdg.desktopEntries = {
     org-protocol = {

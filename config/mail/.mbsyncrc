@@ -1,0 +1,20 @@
+IMAPStore proton-remote
+Host 127.0.0.1
+Port 1143
+UserCmd "cat ~/.authinfo | grep 127.0.0.1  | awk '{print $4}'"
+PassCmd "cat ~/.authinfo | grep 127.0.0.1  | awk '{print $6}'"
+TLSType STARTTLS
+CertificateFile ~/.local/share/protonmail/cert.pem
+
+MaildirStore proton-local
+SubFolders Verbatim
+Path ~/.mail/protonmail/
+Inbox ~/.mail/protonmail/Inbox
+
+Channel proton
+Far :proton-remote:
+Near :proton-local:
+Patterns * !Labels* !"All Mail"
+Create Both
+Expunge Both
+SyncState *
