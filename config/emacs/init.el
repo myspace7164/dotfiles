@@ -777,9 +777,7 @@ This works across multiple Org files."
 (use-package org-faces
   :after org
   :config
-  (setq org-todo-keyword-faces '(("STARTED" . "yellow4")
-                                 ("WAITING" . "orange")
-                                 ("CANCELED" . "gray"))))
+  (setq org-todo-keyword-faces '(("STARTED" . "yellow4") ("WAITING" . "orange") ("CANCELED" . "gray"))))
 
 (use-package org-id
   :after org
