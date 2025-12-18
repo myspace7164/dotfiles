@@ -755,19 +755,6 @@ This works across multiple Org files."
 	 ("L" "Protocol Link" entry (file "inbox.org")
       ,(concat "* %?[[%:link][%:description]] \n" my/org-capture-created-property)))))
 
-(use-package org-caldav
-  :if (member (system-name) '("caldav"))
-  :ensure t
-  :custom
-  (org-caldav-inbox "~/.local/share/org/caldav.org")
-  (org-caldav-sync-direction 'cal->org)
-  (org-caldav-show-sync-results nil)
-  :config
-  (let ((auth-info (car (auth-source-search :host "caldav" :max 1))))
-    (setq org-caldav-url (plist-get auth-info :url))
-    (setq org-caldav-calendar-id (plist-get auth-info :id)))
-  (run-at-time nil (* 5 60) 'org-caldav-sync))
-
 (use-package org-contacts
   :ensure t
   :after org

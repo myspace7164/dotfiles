@@ -35,7 +35,6 @@
           markdown-mode
           minions
           nix-mode
-          org-caldav
           org-contacts
           plantuml-mode
           yaml-mode
