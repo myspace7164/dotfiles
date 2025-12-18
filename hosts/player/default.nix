@@ -13,17 +13,6 @@
 
   services.xserver.xkb.layout = "ch";
 
-  services.syncthing = {
-    enable = true;
-    settings.folders."~/Nextcloud/games".devices = [ "steamdeck" ];
-    settings.folders."~/org" = {
-      devices = [
-        "device"
-        "thinkpad"
-      ];
-    };
-  };
-
   system.autoUpgrade.allowReboot = true;
 
   environment.systemPackages = with pkgs; [
