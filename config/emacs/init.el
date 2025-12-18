@@ -466,7 +466,7 @@ will be selected, otherwise a dark theme will be selected."
   (setq mu4e-change-filenames-when-moving t)
   (setq mu4e-get-mail-command "mbsync -a")
   (setq mu4e-update-interval 300)
-  (setq mu4e-attachment-dir "~/tmp")
+  (setq mu4e-attachment-dir "~/Downloads")
 
   (setq mu4e-context-policy 'pick-first)
   (setq mu4e-compose-context-policy 'pick-first)
@@ -511,10 +511,10 @@ will be selected, otherwise a dark theme will be selected."
   (add-to-list 'mu4e-view-actions '("org-contact-add" . mu4e-action-add-org-contact) t))
 
 (use-package mu4e-icalendar
-  :after mu4e org-agenda
+  :after mu4e org org-agenda
   :config
   (mu4e-icalendar-setup)
-  (setq gnus-icalendar-org-capture-file "~/Nextcloud/org/calendar.org")
+  (setq gnus-icalendar-org-capture-file (concat org-directory "/calendar.org"))
   (setq gnus-icalendar-org-capture-headline '("iCalendar events"))
   (gnus-icalendar-org-setup))
 
