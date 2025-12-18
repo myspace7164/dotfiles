@@ -73,7 +73,6 @@
     signal-desktop
     standardnotes
     switcheroo
-    todoist-electron
     tor-browser
     unison
     veracrypt
@@ -127,9 +126,6 @@
   services.flatpak = {
     enable = true;
     uninstallUnmanaged = true;
-    packages = [
-      "com.stremio.Stremio"
-      "me.proton.Mail"
-    ];
+    packages = [ "com.stremio.Stremio" ];
   };
 }
