@@ -832,6 +832,12 @@ This works across multiple Org files."
 (use-package pascal-mode
   :mode "\\.\\(pou\\|st\\)\\'")
 
+(use-package pdf-tools
+  :ensure t
+  :magic ("%PDF" . pdf-view-mode)
+  :config
+  (pdf-tools-install :no-query))
+
 (use-package pixel-scroll
   :if (version<= "29.1" emacs-version)
   :config

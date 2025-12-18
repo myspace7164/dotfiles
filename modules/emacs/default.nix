@@ -36,6 +36,7 @@
           minions
           nix-mode
           org-contacts
+          pdf-tools
           plantuml-mode
           yaml-mode
         ])
