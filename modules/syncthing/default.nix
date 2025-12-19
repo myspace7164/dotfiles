@@ -18,7 +18,10 @@
       "~/Nextcloud/games".devices = [ "steamdeck" ];
       "~/org" = {
         devices = [
+          "desktop"
           "device"
+          "player"
+          "steamdeck"
           "thinkpad"
         ];
       };
