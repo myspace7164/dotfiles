@@ -190,8 +190,7 @@
 
 (use-package cus-edit
   :config
-  (setq custom-file (locate-user-emacs-file "custom.el"))
-  (load custom-file))
+  (setq custom-file (make-temp-file "emacs-custom-")))
 
 (use-package dbus
   :if (not (eq system-type 'android))
@@ -400,7 +399,10 @@ will be selected, otherwise a dark theme will be selected."
   (setq backup-directory-alist `(("." . ,(locate-user-emacs-file "backups"))))
   (setq backup-by-copying t)
   (setq version-control t)
-  (setq delete-old-versions t))
+  (setq delete-old-versions t)
+
+  (auto-save-visited-mode)
+  (setq auto-save-visited-interval 1))
 
 (use-package flyspell
   :bind (nil
