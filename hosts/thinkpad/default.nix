@@ -14,11 +14,5 @@
 
   time.timeZone = "Europe/Zurich";
 
-  services.syncthing = {
-    enable = true;
-    settings.folders."~/Nextcloud/games".devices = [
-      "device"
-      "steamdeck"
-    ];
-  };
+  services.tlp.enable = true;
 }
