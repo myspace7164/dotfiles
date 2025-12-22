@@ -451,6 +451,11 @@ will be selected, otherwise a dark theme will be selected."
   :config
   (minions-mode 1))
 
+(use-package mm-decode
+  :config
+  (add-to-list 'mm-discouraged-alternatives "text/html")
+  (add-to-list 'mm-discouraged-alternatives "text/richtext"))
+
 (use-package mu4e
   :if (executable-find "mu") ;; when there is mu, there should be mu4e
   :hook ((dired-mode . turn-on-gnus-dired-mode)

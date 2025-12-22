@@ -8,8 +8,8 @@ CertificateFile ~/.local/share/protonmail/cert.pem
 
 MaildirStore proton-local
 SubFolders Verbatim
-Path ~/.mail/protonmail/
-Inbox ~/.mail/protonmail/Inbox
+Path ~/.local/share/mail/protonmail/
+Inbox ~/.local/share/mail/protonmail/Inbox
 
 Channel proton
 Far :proton-remote:
