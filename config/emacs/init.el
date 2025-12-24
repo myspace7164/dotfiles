@@ -458,16 +458,16 @@ will be selected, otherwise a dark theme will be selected."
 
 (use-package mu4e
   :if (executable-find "mu") ;; when there is mu, there should be mu4e
+  :demand t
   :hook ((dired-mode . turn-on-gnus-dired-mode)
-         (mu4e-compose-mode . flyspell-mode))
-  :bind (nil
-         :map mu4e-headers-mode-map
+         (mu4e-compose-mode . flyspell-mode)
+         (after-init . (lambda () (mu4e 'background))))
+  :bind (:map mu4e-headers-mode-map
          ("C-c c" . mu4e-org-store-and-capture)
          :map mu4e-view-mode-map
          ("C-c c" . mu4e-org-store-and-capture))
-  :init
-  (setq mail-user-agent 'mu4e-user-agent)
   :config
+  (setq mail-user-agent 'mu4e-user-agent)
   (setq message-mail-user-agent 'mu4e-user-agent)
   (set-variable 'read-mail-command 'mu4e)
 

@@ -18,6 +18,7 @@ set $menu wmenu-run -i -f "Iosevka 10" | xargs swaymsg exec --
 ### Config
 
 focus_follows_mouse no
+focus_on_window_activation focus
 font pango:Iosevka 10
 titlebar_padding 4 1
 workspace_layout tabbed
