@@ -458,6 +458,16 @@ will be selected, otherwise a dark theme will be selected."
   (add-to-list 'mm-discouraged-alternatives "text/html")
   (add-to-list 'mm-discouraged-alternatives "text/richtext"))
 
+(use-package move-text
+  :ensure t
+  :bind (nil
+         :map prog-mode-map
+         ("M-p" . move-text-up)
+         ("M-n" . move-text-down)
+         :map text-mode-map
+         ("M-p" . move-text-up)
+         ("M-n" . move-text-down)))
+
 (use-package mu4e
   :if (executable-find "mu") ;; when there is mu, there should be mu4e
   :demand t
@@ -527,6 +537,15 @@ will be selected, otherwise a dark theme will be selected."
   (setq gnus-icalendar-org-capture-file (concat org-directory "/calendar.org"))
   (setq gnus-icalendar-org-capture-headline '("iCalendar events"))
   (gnus-icalendar-org-setup))
+
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-S-c C-S-c" . mc/edit-lines)
+         ("C->" . mc/mark-next-like-this)
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)
+         ("C-\"" . mc/skip-to-next-like-this)
+         ("C-:" . mc/skip-to-previous-like-this)))
 
 (use-package nix-mode :ensure t)
 
@@ -875,6 +894,8 @@ This works across multiple Org files."
   :config
   (repeat-mode 1))
 
+(use-package rust-mode :ensure t)
+
 (use-package savehist
   :config
   (savehist-mode 1))
@@ -961,6 +982,8 @@ This works across multiple Org files."
   :config
   (vertico-multiform-mode 1))
 
+(use-package vterm :ensure t)
+
 (use-package which-key
   :ensure t
   :custom
@@ -978,3 +1001,5 @@ This works across multiple Org files."
   :bind ("M-o" . other-window))
 
 (use-package yaml-mode :ensure t)
+
+(use-package zig-mode :ensure t)

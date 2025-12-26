@@ -31,11 +31,16 @@ let
         magit
         markdown-mode
         minions
+        move-text
+        multiple-cursors
         nix-mode
         org-contacts
         pdf-tools
         plantuml-mode
+        rust-mode
+        vterm
         yaml-mode
+        zig-mode
       ])
       ++ [
         epkgs.mu4e
