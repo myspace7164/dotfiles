@@ -404,7 +404,11 @@ will be selected, otherwise a dark theme will be selected."
   (setq delete-old-versions t)
 
   (auto-save-visited-mode)
-  (setq auto-save-visited-interval 1))
+  (setq auto-save-visited-interval 1)
+  (setq auto-save-visited-predicate
+        (lambda () (and (eq major-mode 'org-mode)
+                        (string-match (concat "^" (expand-file-name "~/org") "/")
+                                      buffer-file-name)))))
 
 (use-package flyspell
   :bind (nil
