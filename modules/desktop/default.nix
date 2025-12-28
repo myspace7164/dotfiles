@@ -29,6 +29,7 @@
 
   services.printing.enable = true;
   services.printing.drivers = with pkgs; [
+    cnijfilter2
     cups-brother-hll2350dw
   ];
 
