@@ -395,6 +395,12 @@ will be selected, otherwise a dark theme will be selected."
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package files
+  :custom
+  (auto-save-visited-interval 1)
+  (auto-save-visited-predicate
+        (lambda () (and (eq major-mode 'org-mode)
+                        (string-match (concat "^" (expand-file-name "~/org") "/")
+                                      buffer-file-name))))
   :config
   (make-directory (locate-user-emacs-file "lock-files") t)
   (setq lock-file-name-transforms `((".*" ,(locate-user-emacs-file "lock-files/\\1") t)))
@@ -403,12 +409,7 @@ will be selected, otherwise a dark theme will be selected."
   (setq version-control t)
   (setq delete-old-versions t)
 
-  (auto-save-visited-mode)
-  (setq auto-save-visited-interval 1)
-  (setq auto-save-visited-predicate
-        (lambda () (and (eq major-mode 'org-mode)
-                        (string-match (concat "^" (expand-file-name "~/org") "/")
-                                      buffer-file-name)))))
+  (auto-save-visited-mode))
 
 (use-package flyspell
   :bind (nil
@@ -909,6 +910,9 @@ This works across multiple Org files."
   (save-place-mode 1))
 
 (use-package simple
+  :demand t
+  :bind ("C-c z" . delete-trailing-whitespace)
+  :hook (before-save . delete-trailing-whitespace)
   :config
   (setq-default indent-tabs-mode nil)
   (column-number-mode 1))
@@ -998,8 +1002,7 @@ This works across multiple Org files."
   (which-key-mode 1))
 
 (use-package whitespace
-  :bind (("<f6>" . whitespace-mode)
-         ("C-c z" . delete-trailing-whitespace)))
+  :bind ("<f6>" . whitespace-mode))
 
 (use-package window
   :bind ("M-o" . other-window))
