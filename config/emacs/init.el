@@ -757,6 +757,8 @@ This works across multiple Org files."
       ,(concat "* TODO %?\n" my/org-capture-created-property))
      ("s" "Shopping List" entry (file "shopping_list.org")
       ,(concat "* TODO %?\n" my/org-capture-created-property))
+     ("c" "Contact" entry (file "contacts.org")
+      ,my/org-contacts-template)
 
      ;; journaling
      ("j" "Journal")
@@ -990,7 +992,9 @@ This works across multiple Org files."
   :config
   (vertico-multiform-mode 1))
 
-(use-package vterm :ensure t)
+(use-package vterm
+  :if (not (eq system-type 'android))
+  :ensure t)
 
 (use-package which-key
   :ensure t
