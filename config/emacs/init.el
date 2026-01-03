@@ -994,7 +994,8 @@ This works across multiple Org files."
 
 (use-package vterm
   :if (not (eq system-type 'android))
-  :ensure t)
+  :ensure t
+  :bind ("C-c C-t" . vterm))
 
 (use-package which-key
   :ensure t
