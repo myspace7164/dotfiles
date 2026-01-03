@@ -30,6 +30,7 @@ executable_find direnv && eval "$(direnv hook bash)"
 if executable_find fzf; then
     source <(fzf --bash)
     export FZF_DEFAULT_COMMAND="fd --hidden --follow --strip-cwd-prefix --exclude .git --exclude compatdata"
+    export FZF_DEFAULT_OPTS="--reverse"
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND --type f"
     export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
     export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always {}'"
