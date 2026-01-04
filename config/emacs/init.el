@@ -651,6 +651,8 @@ This works across multiple Org files."
     (defun my/org-onenote-open (link)
       "Open the OneNote item identified by the unique OneNote URL."
       (w32-shell-execute "open" "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\ONENOTE.exe" (concat "/hyperlink " "onenote:" (shell-quote-argument link)))))
+  :custom
+  (org-tags-column 0)
   :config
   (when (file-directory-p "/sdcard/Documents/Org")
     (setq org-directory "/sdcard/Documents/Org"))
@@ -697,9 +699,7 @@ This works across multiple Org files."
                     :transparent-image-converter
                     ("dvipng -D 300 -T tight -bg Transparent -o %O %f")))))
 
-  (add-to-list 'org-default-properties "CREATED" t)
-
-  (setq org-tags-column 0))
+  (add-to-list 'org-default-properties "CREATED" t))
 
 (use-package org-agenda
   :bind ("C-c a" . org-agenda)
