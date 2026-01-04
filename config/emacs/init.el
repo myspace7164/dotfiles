@@ -483,6 +483,8 @@ will be selected, otherwise a dark theme will be selected."
          ("C-c c" . mu4e-org-store-and-capture)
          :map mu4e-view-mode-map
          ("C-c c" . mu4e-org-store-and-capture))
+  :custom
+  (mu4e-modeline-mode nil)
   :config
   (setq mail-user-agent 'mu4e-user-agent)
   (setq message-mail-user-agent 'mu4e-user-agent)
