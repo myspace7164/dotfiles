@@ -73,6 +73,7 @@
     qbittorrent
     reaper
     signal-desktop
+    spotify
     standardnotes
     switcheroo
     tor-browser
