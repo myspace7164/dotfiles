@@ -886,6 +886,11 @@ This works across multiple Org files."
   :custom
   (plantuml-jar-path "~/.local/share/plantuml/plantuml.jar"))
 
+(use-package pretty-sha-path
+  :ensure t
+  :init
+  (global-pretty-sha-path-mode 1))
+
 (use-package python
   :bind (nil
          :repeat-map python-repeat-map
@@ -963,6 +968,8 @@ This works across multiple Org files."
   :if (eq system-type 'android)
   :custom
   (touch-screen-display-keyboard t))
+
+(use-package trashed :ensure t)
 
 (use-package vc
   :config

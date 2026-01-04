@@ -37,7 +37,9 @@ let
         org-contacts
         pdf-tools
         plantuml-mode
+        pretty-sha-path
         rust-mode
+        trashed
         vterm
         yaml-mode
         zig-mode
