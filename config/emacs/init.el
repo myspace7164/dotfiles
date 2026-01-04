@@ -363,7 +363,7 @@ will be selected, otherwise a dark theme will be selected."
   (setq tab-always-indent 'complete)
 
   (when (or (find-font (font-spec :name "Iosevka"))
-            (member system-name '("desktop" "thinkpad"))) ;; Workaround because emacsclient doesnt find iosevka on sway at startup
+            (member system-name '("desktop" "player" "thinkpad"))) ;; Workaround because emacsclient doesnt find iosevka on sway at startup
 
     (cond ((eq system-type 'android)
            (add-to-list 'default-frame-alist '(font . "Iosevka-12"))
