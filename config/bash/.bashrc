@@ -19,7 +19,7 @@ PROMPT_RESET="\e[0m"
 
 PROMPT_GIT=""
 if executable_find __git_ps1; then
-	PROMPT_GIT="$PROMPT_MAGENTA\$(__git_ps1)"
+    PROMPT_GIT="$PROMPT_MAGENTA\$(__git_ps1)"
 fi
 
 PS1="$PROMPT_CYAN\u@\h $PROMPT_YELLOW\w$PROMPT_GIT$PROMPT_RESET $ "
@@ -38,33 +38,35 @@ if executable_find fzf; then
 fi
 
 if executable_find lazygit; then
-	function lg() {
-    export LAZYGIT_NEW_DIR_FILE=~/.lazygit/newdir
+    function lg() {
+        export LAZYGIT_NEW_DIR_FILE=~/.lazygit/newdir
 
-    lazygit "$@"
+        lazygit "$@"
 
-    if [ -f $LAZYGIT_NEW_DIR_FILE ]; then
+        if [ -f $LAZYGIT_NEW_DIR_FILE ]; then
             cd "$(cat $LAZYGIT_NEW_DIR_FILE)"
             rm -f $LAZYGIT_NEW_DIR_FILE > /dev/null
-    fi
-	}
+        fi
+    }
 fi
 
 if executable_find nvim; then
-    export EDITOR="nvim"
-    export VISUAL="nvim"
+    if [[ -z $EDITOR ]] && [[ -z $VISUAL ]]; then
+        export EDITOR="nvim"
+        export VISUAL="nvim"
+    fi
     export MANPAGER="nvim +Man!"
-		export MANWIDTH=999
+    export MANWIDTH=999
     alias vim="nvim"
     alias vi="nvim"
 fi
 
 if executable_find yazi; then
-	function y() {
-	    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	    yazi "$@" --cwd-file="$tmp"
-	    IFS= read -r -d '' cwd < "$tmp"
-	    [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-	    rm -f -- "$tmp"
+    function y() {
+        local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+        yazi "$@" --cwd-file="$tmp"
+        IFS= read -r -d '' cwd < "$tmp"
+        [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+        rm -f -- "$tmp"
     }
 fi
