@@ -921,7 +921,12 @@ This works across multiple Org files."
 (use-package simple
   :demand t
   :bind ("C-c z" . delete-trailing-whitespace)
-  :hook (before-save . delete-trailing-whitespace)
+  :hook (before-save . my/delete-trailing-whitespace)
+  :preface
+  (defun my/delete-trailing-whitespace ()
+    "Delete trailing whitespace unless in Org mode."
+    (unless (derived-mode-p 'org-mode)
+      (delete-trailing-whitespace)))
   :config
   (setq-default indent-tabs-mode nil)
   (column-number-mode 1))
