@@ -12,17 +12,17 @@ function executable_find() {
 }
 
 # prompt
-PROMPT_CYAN="\e[36m"
-PROMPT_MAGENTA="\e[35m"
-PROMPT_YELLOW="\e[33m"
-PROMPT_RESET="\e[0m"
+PROMPT_CYAN="\[\e[36m\]"
+PROMPT_MAGENTA="\[\e[35m\]"
+PROMPT_YELLOW="\[\e[33m\]"
+PROMPT_RESET="\[\e[0m\]"
 
 PROMPT_GIT=""
 if executable_find __git_ps1; then
-    PROMPT_GIT="$PROMPT_MAGENTA\$(__git_ps1)"
+    PROMPT_GIT="${PROMPT_MAGENTA}\$(__git_ps1)"
 fi
 
-PS1="$PROMPT_CYAN\u@\h $PROMPT_YELLOW\w$PROMPT_GIT$PROMPT_RESET $ "
+PS1="${PROMPT_CYAN}\u@\h ${PROMPT_YELLOW}\w${PROMPT_GIT}${PROMPT_RESET} $ "
 
 # config based on availability of executables
 executable_find direnv && eval "$(direnv hook bash)"
