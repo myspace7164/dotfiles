@@ -753,9 +753,9 @@ This works across multiple Org files."
   (org-capture-templates
    `(("i" "Inbox" entry (file "inbox.org")
       ,(concat "* %?\n" my/org-capture-created-property))
-     ("e" "Errand" entry (file "errands.org")
+     ("t" "Task" entry (file "tasks.org")
       ,(concat "* TODO %?\n" my/org-capture-created-property))
-     ("s" "Shopping List" entry (file "shopping_list.org")
+     ("b" "Buy" entry (file "buy.org")
       ,(concat "* TODO %?\n" my/org-capture-created-property))
      ("c" "Contact" entry (file "contacts.org")
       ,my/org-contacts-template)
