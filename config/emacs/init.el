@@ -14,6 +14,9 @@
   (auth-source-save-behavior nil))
 
 (use-package autorevert
+  :custom
+  (auto-revert-interval 1)
+  (global-auto-revert-non-file-buffers t)
   :config
   (global-auto-revert-mode 1))
 
