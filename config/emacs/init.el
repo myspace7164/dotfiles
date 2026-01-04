@@ -697,7 +697,9 @@ This works across multiple Org files."
                     :transparent-image-converter
                     ("dvipng -D 300 -T tight -bg Transparent -o %O %f")))))
 
-  (add-to-list 'org-default-properties "CREATED" t))
+  (add-to-list 'org-default-properties "CREATED" t)
+
+  (setq org-tags-column 0))
 
 (use-package org-agenda
   :bind ("C-c a" . org-agenda)
