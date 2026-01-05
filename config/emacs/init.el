@@ -761,9 +761,13 @@ This works across multiple Org files."
             ":END:")
     "Template for a contact.")
 
-  ;; TODO take inspiration from other calendar apps for properties
   (defvar my/org-event-template
-    (concat "* %?\n"))
+    (concat "* %?\n"
+            ":PROPERTIES:\n"
+            ":CREATED:  %U\n"
+            ":PARTICIPANTS:\n"
+            ":LOCATION:\n"
+            ":END:"))
 
   (defvar my/org-capture-created-property
     (concat ":PROPERTIES:\n"
