@@ -711,6 +711,8 @@ This works across multiple Org files."
 
 (use-package org-agenda
   :bind ("C-c a" . org-agenda)
+  :custom
+  (org-agenda-show-future-repeats 'next)
   :config
   (setq org-agenda-todo-keyword-format "%7s")
 
