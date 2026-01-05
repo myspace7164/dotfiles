@@ -431,6 +431,11 @@ will be selected, otherwise a dark theme will be selected."
          (prog-mode . hl-line-mode)
          (tabulated-list-mode . hl-line-mode)))
 
+(use-package hl-todo
+  :ensure t
+  :config
+  (global-hl-todo-mode 1))
+
 (use-package json-mode :ensure t)
 
 (use-package lua-mode :ensure t)
@@ -741,6 +746,7 @@ This works across multiple Org files."
   (defvar my/org-contacts-template
     (concat "* %(org-contacts-template-name)\n"
             ":PROPERTIES:\n"
+            ":CREATED:  %U\n"
             ":EMAIL: %(org-contacts-template-email)\n"
             ":PHONE:\n"
             ":ALIAS:\n"
@@ -750,7 +756,12 @@ This works across multiple Org files."
             ":NOTE: %^{NOTE}\n"
             ":ADDRESS: %^{123 Street, 0001 State, Country}\n"
             ":BIRTHDAY: %^{YYYY-MM-DD}\n"
-            ":END:") "Template for a contact.")
+            ":END:")
+    "Template for a contact.")
+
+  ;; TODO take inspiration from other calendar apps for properties
+  (defvar my/org-event-template
+    (concat "* %?\n"))
 
   (defvar my/org-capture-created-property
     (concat ":PROPERTIES:\n"
@@ -766,6 +777,8 @@ This works across multiple Org files."
       ,(concat "* TODO %?\n" my/org-capture-created-property))
      ("c" "Contact" entry (file "contacts.org")
       ,my/org-contacts-template)
+     ("e" "Event" entry (file "calendar.org")
+      ,my/org-event-template)
 
      ;; journaling
      ("j" "Journal")
@@ -776,7 +789,7 @@ This works across multiple Org files."
      ("jd" "Daily review" entry (file+olp+datetree "journal.org")
       "* %U Daily review\n%?")
      ("jD" "Daily review (time-prompt)" entry (file+olp+datetree "journal.org")
-      "* %U Daily review\n%?" :time-prompt t)
+      ,(concat "* %u Daily review\n" my/org-capture-created-property "%?") :time-prompt t)
      ("jt" "Daily todo" entry (file+olp+datetree "journal.org")
       ,(concat "* TODO Todo for today\nSCHEDULED: %t\n" my/org-capture-created-property "%?"))
      ("jT" "Daily todo (time-prompt)" entry (file+olp+datetree "journal.org")
@@ -1014,7 +1027,9 @@ This works across multiple Org files."
 (use-package vterm
   :if (not (eq system-type 'android))
   :ensure t
-  :bind ("C-c C-t" . vterm))
+  :bind ("C-c C-t" . vterm)
+  :custom
+  (vterm-max-scrollback 100000))
 
 (use-package which-key
   :ensure t

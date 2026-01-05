@@ -27,6 +27,7 @@ let
         citar-denote
         citar-embark
         direnv
+        hl-todo
         lua-mode
         magit
         markdown-mode
