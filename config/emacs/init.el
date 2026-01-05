@@ -767,6 +767,14 @@ This works across multiple Org files."
     (concat ":PROPERTIES:\n"
             ":CREATED:  %U\n"
             ":END:\n"))
+
+  ;; Thank you https://emacs.stackexchange.com/a/82754
+  ;; I'm not using it currently but who knows
+  (defun my/org-capture-add-id ()
+    "Add an ID property with a newly generated id to the current node.
+Also copy it to the kill ring for future reference."
+    (org-entry-put nil "ID" (org-id-new))
+    (org-id-copy))
   :custom
   (org-capture-templates
    `(("i" "Inbox" entry (file "inbox.org")
