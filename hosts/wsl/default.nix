@@ -1,8 +1,9 @@
-{ lib, ... }:
+{ ... }:
 
 {
   imports = [
     ../../modules/core
+    ../../modules/emacs
   ];
 
   wsl.enable = true;

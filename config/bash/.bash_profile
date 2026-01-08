@@ -1,3 +1,5 @@
+[[ -f $HOME/.bashrc ]] && source $HOME/.bashrc
+
 PATH="$HOME/.local/bin:$PATH"
 PATH="/var/lib/flatpak/exports/bin:$PATH"
 export PATH
