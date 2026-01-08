@@ -10,4 +10,6 @@
   wsl.defaultUser = "user";
 
   networking.hostName = "wsl";
+
+  environment.variables.GTK_THEME = "Adwaita:dark";
 }
