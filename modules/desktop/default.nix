@@ -80,7 +80,7 @@
     unison
     veracrypt
     vlc
-    vscode
+    vscodium
     zathura
     zotero
     (retroarch.withCores (
