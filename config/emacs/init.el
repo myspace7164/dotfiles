@@ -402,7 +402,7 @@ will be selected, otherwise a dark theme will be selected."
   (auto-save-visited-interval 1)
   (auto-save-visited-predicate
         (lambda () (and (eq major-mode 'org-mode)
-                        (string-match (concat "^" (expand-file-name "~/org") "/")
+                        (string-match (concat "^" (expand-file-name org-directory) "/")
                                       buffer-file-name))))
   :config
   (make-directory (locate-user-emacs-file "lock-files") t)
