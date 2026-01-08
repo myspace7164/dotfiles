@@ -482,7 +482,8 @@ will be selected, otherwise a dark theme will be selected."
          ("M-n" . move-text-down)))
 
 (use-package mu4e
-  :if (executable-find "mu") ;; when there is mu, there should be mu4e
+  :if (and (executable-find "mu") ;; when there is mu, there should be mu4e
+           (not (member system-name '("wsl"))))
   :demand t
   :hook ((dired-mode . turn-on-gnus-dired-mode)
          (mu4e-compose-mode . flyspell-mode)
