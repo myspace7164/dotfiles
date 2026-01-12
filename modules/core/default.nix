@@ -60,6 +60,7 @@
     typst
     unzip
     wget
+    zig_0_15
     zip
     zls_0_15
     (yazi.override {
