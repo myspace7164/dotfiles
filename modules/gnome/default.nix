@@ -10,7 +10,6 @@
   services.gnome.core-developer-tools.enable = false;
   services.gnome.games.enable = false;
   environment.gnome.excludePackages = with pkgs; [
-    gnome-console
     gnome-tour
     gnome-user-docs
   ];
