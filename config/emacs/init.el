@@ -404,6 +404,7 @@ will be selected, otherwise a dark theme will be selected."
         (lambda () (and (eq major-mode 'org-mode)
                         (string-match (concat "^" (expand-file-name org-directory) "/")
                                       buffer-file-name))))
+  (require-final-newline t)
   :config
   (make-directory (locate-user-emacs-file "lock-files") t)
   (setq lock-file-name-transforms `((".*" ,(locate-user-emacs-file "lock-files/\\1") t)))
