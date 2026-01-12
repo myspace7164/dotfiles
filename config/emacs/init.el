@@ -320,10 +320,12 @@ will be selected, otherwise a dark theme will be selected."
        ["Status" magit-status]))))
 
 (use-package eglot
-  :hook ((nix-mode . eglot-ensure)
-         (python-mode . eglot-ensure))
+  :hook ((lua-mode . eglot-ensure)
+         (nix-mode . eglot-ensure)
+         (python-mode . eglot-ensure)
+         (rust-mode . eglot-ensure)
+         (zig-mode . eglot-ensure))
   :config
-  (add-to-list 'eglot-server-programs '(nix-mode . ("nil")))
   (add-to-list 'eglot-server-programs '(nix-mode . ("nixd"))))
 
 (use-package eldoc

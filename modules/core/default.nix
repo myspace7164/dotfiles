@@ -44,14 +44,14 @@
     lua-language-server
     man-pages
     man-pages-posix
-    markdown-oxide
     nixd
     nixfmt-rfc-style
     p7zip
-    python313
-    python313Packages.python-lsp-server
+    python314
+    python314Packages.python-lsp-server
     ripgrep
     rsync
+    rust-analyzer
     texlab
     texliveFull
     tinymist
@@ -61,6 +61,7 @@
     unzip
     wget
     zip
+    zls_0_15
     (yazi.override {
       _7zz = _7zz-rar; # Support for RAR extraction
     })
