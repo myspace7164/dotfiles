@@ -47,8 +47,8 @@
     nixd
     nixfmt-rfc-style
     p7zip
-    python314
-    python314Packages.python-lsp-server
+    python313
+    python313Packages.python-lsp-server
     ripgrep
     rsync
     rust-analyzer
