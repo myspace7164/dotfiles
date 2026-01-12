@@ -403,9 +403,9 @@ will be selected, otherwise a dark theme will be selected."
   :custom
   (auto-save-visited-interval 1)
   (auto-save-visited-predicate
-        (lambda () (and (eq major-mode 'org-mode)
-                        (string-match (concat "^" (expand-file-name org-directory) "/")
-                                      buffer-file-name))))
+   (lambda () (and (eq major-mode 'org-mode)
+                   (string-match (concat "^" (expand-file-name org-directory) "/")
+                                 buffer-file-name))))
   (require-final-newline t)
   :config
   (make-directory (locate-user-emacs-file "lock-files") t)
@@ -491,7 +491,8 @@ will be selected, otherwise a dark theme will be selected."
   :hook ((dired-mode . turn-on-gnus-dired-mode)
          (mu4e-compose-mode . flyspell-mode)
          (after-init . (lambda () (mu4e 'background))))
-  :bind (:map mu4e-headers-mode-map
+  :bind (nil
+         :map mu4e-headers-mode-map
          ("C-c c" . mu4e-org-store-and-capture)
          :map mu4e-view-mode-map
          ("C-c c" . mu4e-org-store-and-capture))
@@ -592,7 +593,8 @@ will be selected, otherwise a dark theme will be selected."
 
 (use-package oc
   :after citar org
-  :bind (:map org-mode-map :package org
+  :bind (nil
+         :map org-mode-map :package org
          ("C-c b" . org-cite-insert))
   :custom
   (org-cite-global-bibliography citar-bibliography)
@@ -605,8 +607,8 @@ will be selected, otherwise a dark theme will be selected."
   :bind ("C-c l" . org-store-link)
   :preface
   (defun my/org-onenote-open (link)
-      "Open the OneNote item identified by the unique OneNote URL."
-      (w32-shell-execute "open" "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\ONENOTE.exe" (concat "/hyperlink " "onenote:" (shell-quote-argument link))))
+    "Open the OneNote item identified by the unique OneNote URL."
+    (w32-shell-execute "open" "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\ONENOTE.exe" (concat "/hyperlink " "onenote:" (shell-quote-argument link))))
   (defun my/org-id-complete-link (&optional arg)
     "Create an id: link using completion"
     (concat "id:"
@@ -850,26 +852,26 @@ Also copy it to the kill ring for future reference."
   (outline-minor-mode-cycle t))
 
 (use-package ox-publish
-  :config
-  (setq org-publish-project-alist
-        '(("org-notes"
-           :base-directory "~/Documents/notes"
-           :exclude ".*_nopublish.*"
-           :publishing-directory "/tmp/public"
-           :recursive t
-           :publishing-function org-html-publish-to-html
-           :headline-levels 4
-           :auto-preamble t
-           :auto-sitemap t
-           :sitemap-filename "sitemap.html"
-           :sitemap-title "Sitemap")
-          ("images"
-           :base-directory "~/Documents/notes/images"
-           :base-extension "png\\|svg"
-           :exclude ".*_nopublish.*"
-           :publishing-directory "/tmp/public/images"
-           :recursive t
-           :publishing-function org-publish-attachment))))
+  :custom
+  (org-publish-project-alist
+   '(("org-notes"
+      :base-directory "~/Documents/notes"
+      :exclude ".*_nopublish.*"
+      :publishing-directory "/tmp/public"
+      :recursive t
+      :publishing-function org-html-publish-to-html
+      :headline-levels 4
+      :auto-preamble t
+      :auto-sitemap t
+      :sitemap-filename "sitemap.html"
+      :sitemap-title "Sitemap")
+     ("images"
+      :base-directory "~/Documents/notes/images"
+      :base-extension "png\\|svg"
+      :exclude ".*_nopublish.*"
+      :publishing-directory "/tmp/public/images"
+      :recursive t
+      :publishing-function org-publish-attachment))))
 
 (use-package pascal-mode
   :mode "\\.\\(pou\\|st\\)\\'")
