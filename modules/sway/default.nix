@@ -8,6 +8,7 @@
       adwaita-icon-theme
       brightnessctl
       cliphist
+      foot
       glib
       gnome-themes-extra
       grim

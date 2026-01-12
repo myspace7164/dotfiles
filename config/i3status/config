@@ -7,6 +7,7 @@ order += "wireless _first_"
 order += "ethernet _first_"
 order += "volume master"
 order += "battery all"
+order += "disk /"
 order += "load"
 order += "memory"
 order += "tztime local"
@@ -31,6 +32,10 @@ battery all {
         format = "%status %percentage %remaining"
         low_threshold = 20
         threshold_type = "percentage"
+}
+
+disk "/" {
+        format = "%avail"
 }
 
 load {

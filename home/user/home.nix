@@ -15,6 +15,7 @@
 
   xdg.configFile = {
     "beets/config.yaml".source = ../../config/beets/config.yaml;
+    "foot/foot.ini".source = ../../config/foot/foot.ini;
     "ghostty/config".source = ../../config/ghostty/config;
     "ghostty/themes".source = ../../config/ghostty/themes;
     "git/config".source = ../../config/git/config;

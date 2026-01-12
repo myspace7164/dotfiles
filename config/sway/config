@@ -10,7 +10,7 @@ set $up k
 set $right l
 
 # Your preferred terminal emulator
-set $term ghostty
+set $term foot
 
 # Your preferred application launcher
 set $menu wmenu-run -i -f "Iosevka 10" | xargs swaymsg exec --
@@ -33,6 +33,7 @@ exec wl-paste --watch cliphist store
 ### Theming
 
 exec echo "dark" > ~/.local/state/theme
+exec echo "initial-color-theme=1" > ~/.config/foot/color-theme.ini
 
 seat seat0 xcursor_theme Adwaita 24
 
