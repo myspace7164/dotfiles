@@ -1,5 +1,0 @@
-font-family = Iosevka
-font-size = 10
-theme = light:modus-operandi,dark:modus-vivendi
-keybind = ctrl+shift+plus=increase_font_size:1
-keybind = ctrl+shift+equal=increase_font_size:1

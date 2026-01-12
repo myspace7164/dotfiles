@@ -55,7 +55,6 @@
     easyeffects
     ente-auth
     ente-desktop
-    ghostty
     gimp
     gnucash
     inkscape
@@ -64,7 +63,6 @@
     metadata-cleaner
     mixxx
     mpv
-    steuern-lu-2024nP
     nextcloud-client
     nicotine-plus
     obs-studio

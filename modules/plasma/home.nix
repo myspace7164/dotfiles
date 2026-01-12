@@ -22,7 +22,7 @@
                 "applications:systemsettings.desktop"
                 "preferred://filemanager"
                 "preferred://browser"
-                "applications:com.mitchellh.ghostty.desktop"
+                "applications:foot.desktop"
               ];
             };
           }
