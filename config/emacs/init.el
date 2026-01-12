@@ -584,8 +584,9 @@ will be selected, otherwise a dark theme will be selected."
 
 (use-package ob-plantuml
   :after (org plantuml-mode)
+  :custom
+  (org-plantuml-jar-path plantuml-jar-path)
   :config
-  (setq org-plantuml-jar-path plantuml-jar-path)
   (add-to-list 'org-src-lang-modes '("plantuml" . plantuml))
   (org-babel-do-load-languages 'org-babel-load-languages '((plantuml . t))))
 
@@ -603,6 +604,9 @@ will be selected, otherwise a dark theme will be selected."
   :after org-id
   :bind ("C-c l" . org-store-link)
   :preface
+  (defun my/org-onenote-open (link)
+      "Open the OneNote item identified by the unique OneNote URL."
+      (w32-shell-execute "open" "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\ONENOTE.exe" (concat "/hyperlink " "onenote:" (shell-quote-argument link))))
   (defun my/org-id-complete-link (&optional arg)
     "Create an id: link using completion"
     (concat "id:"
@@ -621,6 +625,8 @@ This works across multiple Org files."
                 (setq headline (nth 4 (org-heading-components))))))
           headline)))
   :config
+  (org-link-set-parameters "onenote"
+                           :follow #'my/org-onenote-open)
   (org-link-set-parameters "id"
                            :complete #'my/org-id-complete-link
                            :insert-description #'my/org-id-link-description))
@@ -658,80 +664,72 @@ This works across multiple Org files."
         (org-end-of-subtree)
         (newline)
         (org-paste-subtree 4))))
-
-  (when (eq system-type 'ms-dos)
-    (defun my/org-onenote-open (link)
-      "Open the OneNote item identified by the unique OneNote URL."
-      (w32-shell-execute "open" "C:\\Program Files (x86)\\Microsoft Office\\root\\Office16\\ONENOTE.exe" (concat "/hyperlink " "onenote:" (shell-quote-argument link)))))
   :custom
+  (org-agenda-files (list org-directory))
+  (org-archive-location "archive/%s::")
+  (org-complete-tags-always-offer-all-agenda-tags t)
+  (org-default-notes-file (concat org-directory "/inbox.org"))
+  (org-edit-src-content-indentation 0)
+  (org-id-link-to-org-use-id t)
+  (org-image-actual-width nil)
+  (org-log-done 'time)
+  (org-log-into-drawer t)
+  (org-outline-path-complete-in-steps nil)
+  (org-preview-latex-image-directory "~/.local/share/ltximg/")
+  (org-refile-allow-creating-parent-nodes 'confirm)
+  (org-refile-targets '((org-agenda-files . (:maxlevel . 9))))
+  (org-refile-use-outline-path 'file)
+  (org-special-ctrl-k t)
   (org-tags-column 0)
+  (org-todo-keyword-faces '(("STARTED" . "yellow4") ("WAITING" . "orange") ("CANCELED" . "gray")))
+  (org-todo-keywords '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@/!)" "|" "DONE(d)" "CANCELED(c@)")))
+  (org-use-fast-todo-selection 'expert)
+  (org-use-speed-commands t)
   :config
-  (when (file-directory-p "/sdcard/Documents/Org")
-    (setq org-directory "/sdcard/Documents/Org"))
-
-  (setq org-default-notes-file (concat org-directory "/inbox.org"))
-  (setq org-agenda-files (list org-directory))
-
-  (when (eq system-type 'ms-dos)
-    (org-add-link-type "onenote" 'my/org-onenote-open))
-
-  (setq org-complete-tags-always-offer-all-agenda-tags t)
-
-  (setq org-special-ctrl-k t)
-
-  (setq org-todo-keywords '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@/!)" "|" "DONE(d)" "CANCELED(c@)")))
-  (setq org-use-fast-todo-selection 'expert)
-
-  (setq org-log-done 'time)
-  (setq org-log-into-drawer t)
-
-  (setq org-archive-location "archive/%s::")
-
-  (setq org-image-actual-width nil)
-
   (add-to-list 'org-structure-template-alist '("p" . "src python") t)
   (add-to-list 'org-structure-template-alist '("P" . "src plantuml") t)
 
-  (setq org-preview-latex-image-directory "~/.local/share/ltximg/")
-
-  (when (not (eq system-type 'android))
+  (unless (eq system-type 'android)
     (setq org-preview-latex-default-process 'dvisvgm)
     (plist-put org-format-latex-options :foreground nil)
     (plist-put org-format-latex-options :background nil))
 
-  (when (eq system-type 'android)
-    (setq org-preview-latex-process-alist
-          '((dvipng :programs ("latex" "dvipng") :description "dvi > png"
-                    :message
-                    "you need to install the programs: latex and dvipng."
-                    :image-input-type "dvi" :image-output-type "png"
-                    :image-size-adjust (1.0 . 1.0) :latex-compiler
-                    ("latex -interaction nonstopmode -output-directory %o %f")
-                    :image-converter ("dvipng -D 300 -T tight -o %O %f")
-                    :transparent-image-converter
-                    ("dvipng -D 300 -T tight -bg Transparent -o %O %f")))))
-
   (add-to-list 'org-default-properties "CREATED" t))
+
+(use-package org
+  :if (eq system-type 'android)
+  :custom
+  (org-directory "/sdcard/Documents/Org")
+  :init
+  (setf (alist-get 'dvipng org-preview-latex-process-alist)
+        (list
+         :programs '("latex" "dvipng")
+         :description "dvi > png"
+         :message "you need to install the programs: latex and dvipng."
+         :image-input-type "dvi"
+         :image-output-type "png"
+         :image-size-adjust '(1.0 . 1.0)
+         :latex-compiler '("latex -interaction nonstopmode -output-directory %o %f")
+         :image-converter '("dvipng -D 300 -T tight -o %O %f")
+         :transparent-image-converter '("dvipng -D 300 -T tight -bg Transparent -o %O %f"))))
 
 (use-package org-agenda
   :bind ("C-c a" . org-agenda)
   :custom
   (org-agenda-show-future-repeats 'next)
-  :config
-  (setq org-agenda-todo-keyword-format "%7s")
-
-  (setq org-agenda-todo-ignore-deadlines 'future)
-  (setq org-agenda-todo-ignore-scheduled 'future)
-  (setq org-agenda-todo-ignore-timestamp 'future)
-
-  (setq org-agenda-custom-commands '(("i" "Inbox" tags-todo "+inbox")
-	                                 ("s" "Shopping List" tags-todo "+buy")
-                                     ("o" "Todo" tags-todo "-project-someday-@aabacka/!-WAITING"
-                                      ((org-agenda-skip-function '(org-agenda-skip-subtree-if 'scheduled))
-                                       (org-agenda-skip-function '(org-agenda-skip-subtree-if 'deadline))
-                                       (org-agenda-skip-function '(org-agenda-skip-subtree-if 'timestamp))))
-                                     ("w" "Waiting" tags "/WAITING")
-                                     ("S" "Someday" tags-todo "+someday"))))
+  (org-agenda-todo-ignore-deadlines 'future)
+  (org-agenda-todo-ignore-scheduled 'future)
+  (org-agenda-todo-ignore-timestamp 'future)
+  (org-agenda-todo-keyword-format "%7s")
+  (org-agenda-custom-commands
+   '(("i" "Inbox" tags "+inbox")
+	 ("s" "Shopping List" tags-todo "+buy-someday-@aabacka")
+     ("o" "Todo" tags-todo "-buy-project-someday-@aabacka/!-WAITING"
+      ((org-agenda-skip-function '(org-agenda-skip-subtree-if 'scheduled))
+       (org-agenda-skip-function '(org-agenda-skip-subtree-if 'deadline))
+       (org-agenda-skip-function '(org-agenda-skip-subtree-if 'timestamp))))
+     ("w" "Waiting" tags "/WAITING")
+     ("S" "Someday" tags-todo "+someday"))))
 
 (use-package org-agenda
   :if (eq system-type 'android)
@@ -835,39 +833,9 @@ Also copy it to the kill ring for future reference."
   :custom
   (org-contacts-files (list (concat org-directory "/contacts.org"))))
 
-(use-package org-faces
-  :after org
-  :config
-  (setq org-todo-keyword-faces '(("STARTED" . "yellow4") ("WAITING" . "orange") ("CANCELED" . "gray"))))
-
-(use-package org-id
-  :after org
-  :config
-  (setq org-id-link-to-org-use-id t))
-
 (use-package org-inlinetask :after org)
 
-(use-package org-keys
-  :after org
-  :config
-  (setq org-use-speed-commands t))
-
 (use-package org-protocol)
-
-(use-package org-refile
-  :commands (org-refile) ; not sure why this is required, without it, org-refile does not load lazily, and if i use :after org, the keybinding is not defined
-  :bind ("C-c o" . (lambda () (interactive) (org-refile '(1))))
-  :bind ("C-c C-w" . org-refile)
-  :config
-  (setq org-outline-path-complete-in-steps nil)
-  (setq org-refile-use-outline-path 'file)
-  (setq org-refile-allow-creating-parent-nodes 'confirm)
-  (setq org-refile-targets '((org-agenda-files . (:maxlevel . 9)))))
-
-(use-package org-src
-  :after org
-  :config
-  (setq org-edit-src-content-indentation 0))
 
 (use-package org-tempo :after org)
 
