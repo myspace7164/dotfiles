@@ -804,10 +804,10 @@ Also copy it to the kill ring for future reference."
       "* %:fromname\n%U\n%a\n%?")
 
      ;; org-capture-extension specific (https://github.com/sprig/org-capture-extension)
-     ("p" "Protocol" entry (file "inbox.org")
-      ,(concat "* %^{Title}\n" my/org-capture-created-property "\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?"))
-	   ("L" "Protocol Link" entry (file "inbox.org")
-      ,(concat "* %?[[%:link][%:description]] \n" my/org-capture-created-property)))))
+     ("p" "Protocol" entry (file "bookmarks.org")
+      ,(concat "* TODO %^{Title} :inbox:\n" my/org-capture-created-property "\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?"))
+	   ("L" "Protocol Link" entry (file "bookmarks.org")
+      ,(concat "* TODO %?[[%:link][%:description]] :inbox:\n" my/org-capture-created-property)))))
 
 (use-package org-contacts
   :ensure t
