@@ -336,59 +336,41 @@ will be selected, otherwise a dark theme will be selected."
 (use-package elec-pair
   :hook ((comint-mode . electric-pair-local-mode)
          (minibuffer-mode . electric-pair-local-mode)
-	     (prog-mode . electric-pair-local-mode)))
+	       (prog-mode . electric-pair-local-mode)))
 
 (use-package emacs
   :bind (("M-Q" . my/unfill-paragraph)
          ("<f5>" . modus-themes-toggle))
-
   :preface
   (defun my/unfill-paragraph (&optional region)
     "Takes a multi-line paragraph and makes it into a single line of text."
     (interactive (progn (barf-if-buffer-read-only) '(t)))
     (let ((fill-column (point-max))
-	      ;; This would override `fill-column' if it's an integer.
-	      (emacs-lisp-docstring-fill-column t))
+	        ;; This would override `fill-column' if it's an integer.
+	        (emacs-lisp-docstring-fill-column t))
       (fill-paragraph nil region)))
-
   :custom
-  ;; Emacs 30 and newer: Disable Ispell completion function.
-  (text-mode-ispell-word-completion nil)
-
+  (delete-by-moving-to-trash t)
+  (enable-recursive-minibuffers t)
+  (read-buffer-completion-ignore-case t)
   (read-extended-command-predicate #'command-completion-default-include-p)
-
+  (tab-always-indent 'complete)
+  (tab-width 2)
+  (text-mode-ispell-word-completion nil)
+  (use-short-answers t)
+  (visible-bell t)
   :config
-  (setq visible-bell t)
-
-  (setq delete-by-moving-to-trash t)
-  (setq enable-recursive-minibuffers t)
-  (setq use-short-answers t)
-
-  (setq-default tab-width 4)
-  (setq tab-always-indent 'complete)
-
-  (when (or (find-font (font-spec :name "Iosevka"))
-            (member system-name '("desktop" "player" "thinkpad"))) ;; Workaround because emacsclient doesnt find iosevka on sway at startup
-
-    (cond ((eq system-type 'android)
-           (add-to-list 'default-frame-alist '(font . "Iosevka-12"))
-           (set-face-attribute 'default nil :font "Iosevka-12"))
-          (t
-           (add-to-list 'default-frame-alist '(font . "Iosevka-10"))
-           (set-face-attribute 'default nil :font "Iosevka-10"))))
-
-  (setq read-buffer-completion-ignore-case t)
-
-  (cond ((eq system-type 'android)
-         (load-theme 'modus-vivendi :no-confirm))
-        ((equal system-name "wsl")
-         (load-theme 'modus-vivendi :no-confirm))))
+  (add-to-list 'default-frame-alist '(font . "Iosevka-10"))
+  (set-face-attribute 'default nil :font "Iosevka-10")
+  (when (or (eq system-type 'android)
+            (member system-name '("wsl")))
+    (load-theme 'modus-vivendi :no-confirm)))
 
 (use-package embark
   :ensure t
   :bind (("C-." . embark-act)
-	     ("C-;" . embark-dwim)
-	     ("C-h B" . embark-bindings))
+	       ("C-;" . embark-dwim)
+	       ("C-h B" . embark-bindings))
   :config
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
@@ -702,18 +684,16 @@ This works across multiple Org files."
   :if (eq system-type 'android)
   :custom
   (org-directory "/sdcard/Documents/Org")
-  :init
-  (setf (alist-get 'dvipng org-preview-latex-process-alist)
-        (list
-         :programs '("latex" "dvipng")
-         :description "dvi > png"
-         :message "you need to install the programs: latex and dvipng."
-         :image-input-type "dvi"
-         :image-output-type "png"
-         :image-size-adjust '(1.0 . 1.0)
-         :latex-compiler '("latex -interaction nonstopmode -output-directory %o %f")
-         :image-converter '("dvipng -D 300 -T tight -o %O %f")
-         :transparent-image-converter '("dvipng -D 300 -T tight -bg Transparent -o %O %f"))))
+  (org-preview-latex-process-alist
+   '((dvipng :programs '("latex" "dvipng")
+             :description "dvi > png"
+             :message "you need to install the programs: latex and dvipng."
+             :image-input-type "dvi"
+             :image-output-type "png"
+             :image-size-adjust '(1.0 . 1.0)
+             :latex-compiler '("latex -interaction nonstopmode -output-directory %o %f")
+             :image-converter '("dvipng -D 300 -T tight -o %O %f")))))
+
 
 (use-package org-agenda
   :bind ("C-c a" . org-agenda)
@@ -725,7 +705,7 @@ This works across multiple Org files."
   (org-agenda-todo-keyword-format "%7s")
   (org-agenda-custom-commands
    '(("i" "Inbox" tags "+inbox")
-	 ("s" "Shopping List" tags-todo "+buy-someday-@aabacka")
+	   ("s" "Shopping List" tags-todo "+buy-someday-@aabacka")
      ("o" "Todo" tags-todo "-buy-project-someday-@aabacka/!-WAITING"
       ((org-agenda-skip-function '(org-agenda-skip-subtree-if 'scheduled))
        (org-agenda-skip-function '(org-agenda-skip-subtree-if 'deadline))
@@ -826,7 +806,7 @@ Also copy it to the kill ring for future reference."
      ;; org-capture-extension specific (https://github.com/sprig/org-capture-extension)
      ("p" "Protocol" entry (file "inbox.org")
       ,(concat "* %^{Title}\n" my/org-capture-created-property "\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?"))
-	 ("L" "Protocol Link" entry (file "inbox.org")
+	   ("L" "Protocol Link" entry (file "inbox.org")
       ,(concat "* %?[[%:link][%:description]] \n" my/org-capture-created-property)))))
 
 (use-package org-contacts
@@ -961,7 +941,7 @@ Also copy it to the kill ring for future reference."
          (LaTeX-mode . prettify-symbols-mode)
          (LaTeX-mode . (lambda () (TeX-fold-mode 1)))
          (LaTeX-mode . (lambda () (set (make-local-variable 'TeX-electric-math)
-					                   (cons "\\(" "\\)")))))
+					                             (cons "\\(" "\\)")))))
   :config
   (setq TeX-auto-save t)
   (setq TeX-parse-self t)
