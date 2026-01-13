@@ -645,7 +645,7 @@ This works across multiple Org files."
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package org
-  :bind (nil
+  :bind (("C-c o" . my/org-refile-visit)
          :repeat-map org-mode-repeat-map
          ("<tab>" . org-cycle)
          ("<backtab>" . org-shifttab)
@@ -656,6 +656,11 @@ This works across multiple Org files."
   :hook ((org-mode . turn-on-org-cdlatex)
          (org-mode . visual-line-mode))
   :preface
+  (defun my/org-refile-visit ()
+      "Wraps org-refile with a single prefix"
+      (interactive)
+      (org-refile '(1)))
+
   (defun my/org-refile-to-datetree-with-prompt ()
     "Prompt for a date and refile the current entry into a datetree."
     (interactive)
