@@ -999,8 +999,7 @@ Also copy it to the kill ring for future reference."
 (use-package vterm
   :if (not (eq system-type 'android))
   :ensure t
-  :bind (("C-c t" . vterm)
-         ("C-c C-t" . vterm))
+  :bind ("C-c t" . vterm)
   :custom
   (vterm-max-scrollback 100000))
 
