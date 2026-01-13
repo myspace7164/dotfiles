@@ -1,3 +1,9 @@
+(defvar my/dark-theme 'modus-vivendi
+  "Default dark theme.")
+
+(defvar my/light-theme 'modus-operandi
+  "Default light theme.")
+
 (use-package package
   :init
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -200,22 +206,37 @@
 (use-package dbus
   :if (not (eq system-type 'android))
   :preface
-  (defvar my/dark-theme 'modus-vivendi
-    "Default dark theme.")
+  (defvar my/dark-theme-hook nil)
+  (defvar my/light-theme-hook nil)
 
-  (defvar my/light-theme 'modus-operandi
-    "Default light theme.")
+  (add-hook 'my/dark-theme-hook
+            (lambda ()
+              (dolist (buf (buffer-list))
+                (with-current-buffer buf
+                  (when (derived-mode-p 'pdf-view-mode)
+                    (pdf-view-midnight-minor-mode 1))))))
+
+  (add-hook 'my/light-theme-hook
+            (lambda ()
+              (dolist (buf (buffer-list))
+                (with-current-buffer buf
+                  (when (derived-mode-p 'pdf-view-mode)
+                    (pdf-view-midnight-minor-mode -1))))))
+
+  (defun my/apply-dark-theme ()
+    (load-theme my/dark-theme t)
+    (run-hooks 'my/dark-theme-hook))
+
+  (defun my/apply-light-theme ()
+    (load-theme my/light-theme t)
+    (run-hooks 'my/light-theme-hook))
 
   (defun my/theme-from-dbus (value)
-    "Change the theme based on a D-Bus property.
+    "Apply light or dark theme based on D-Bus VALUE."
+    (if (= 2 (car (flatten-list value)))
+        (my/apply-light-theme)
+      (my/apply-dark-theme)))
 
-VALUE should be an integer or an arbitrarily nested list that
-contains an integer.  When VALUE is equal to 2 then a light theme
-will be selected, otherwise a dark theme will be selected."
-    (load-theme (if (= 2 (car (flatten-list value)))
-                    my/light-theme
-                  my/dark-theme)
-                t))
   :config
   ;; Set the current theme based on what the system theme is right now:
   (dbus-call-method-asynchronously
@@ -863,6 +884,14 @@ Also copy it to the kill ring for future reference."
 (use-package pdf-tools
   :ensure t
   :magic ("%PDF" . pdf-view-mode)
+  :preface
+  (defun my/pdf-view-auto-midnight ()
+    "Enable or disable `pdf-view-midnight-minor-mode` based on current theme."
+    (if (equal my/dark-theme (car custom-enabled-themes))
+        (pdf-view-midnight-minor-mode 1)
+      (pdf-view-midnight-minor-mode -1)))
+  :hook ((pdf-view-mode . pdf-view-fit-page-to-window)
+         (pdf-view-mode . my/pdf-view-auto-midnight))
   :config
   (pdf-tools-install :no-query))
 
