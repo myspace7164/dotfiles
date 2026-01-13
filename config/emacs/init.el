@@ -777,6 +777,10 @@ Also copy it to the kill ring for future reference."
       ,my/org-contacts-template)
      ("e" "Event" entry (file "calendar.org")
       ,my/org-event-template)
+     ("w" "Wäsche abhängen" entry (file "tasks.org")
+      ,(concat "* TODO Wäsche abhängen :@home:\nSCHEDULED: <%(org-read-date nil nil \"+3d\")>\n" my/org-capture-created-property) :immediate-finish t)
+     ("W" "Wäsche abhängen (time-prompt)" entry (file "tasks.org")
+      ,(concat "* TODO Wäsche abhängen :@home:\nSCHEDULED: %^t\n" my/org-capture-created-property) :immediate-finish t)
 
      ;; journaling
      ("j" "Journal")
