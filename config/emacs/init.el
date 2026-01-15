@@ -748,20 +748,13 @@ This works across multiple Org files."
 
 (use-package org-agenda
   :if (eq system-type 'android)
-  :preface
-  (defun my/org-category-truncate (s &optional width)
-    "Truncate category S to WIDTH (default 12)."
-    (let ((w (or width 12)))
-      (if (> (length s) w)
-          (substring s 0 (- w 1))
-        (truncate-string-to-width s w))))
   :custom
   (org-agenda-tags-column 0)
-  (org-agenda-scheduled-leaders '("Sched.: " "Sched.%2dx: "))
+  (org-agenda-scheduled-leaders '("Sched.:" "Sched.%dx:"))
   (org-agenda-time-grid '((daily today require-timed) (800 1000 1200 1400 1600 1800 2000) "..." "----------------"))
   :config
   (setf (alist-get 'agenda org-agenda-prefix-format) "%?t%s")
-  (setf (alist-get 'todo org-agenda-prefix-format) "%(my/org-category-truncate (org-get-category) 4) "))
+  (setf (alist-get 'todo org-agenda-prefix-format) ""))
 
 (use-package org-capture
   :after org-contacts
