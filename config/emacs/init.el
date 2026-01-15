@@ -382,8 +382,8 @@
   (visible-bell t)
   :config
   (cond ((eq system-type 'android)
-         (add-to-list 'default-frame-alist '(font . "Iosevka-11"))
-         (set-face-attribute 'default nil :font "Iosevka-11"))
+         (add-to-list 'default-frame-alist '(font . "Iosevka-12"))
+         (set-face-attribute 'default nil :font "Iosevka-12"))
         (t
          (add-to-list 'default-frame-alist '(font . "Iosevka-10"))
          (set-face-attribute 'default nil :font "Iosevka-10"))))
