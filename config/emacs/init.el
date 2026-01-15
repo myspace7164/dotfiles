@@ -381,11 +381,12 @@
   (use-short-answers t)
   (visible-bell t)
   :config
-  (add-to-list 'default-frame-alist '(font . "Iosevka-10"))
-  (set-face-attribute 'default nil :font "Iosevka-10")
-  (when (or (eq system-type 'android)
-            (member system-name '("wsl")))
-    (load-theme 'modus-vivendi :no-confirm)))
+  (cond ((eq system-type 'android)
+         (add-to-list 'default-frame-alist '(font . "Iosevka-11"))
+         (set-face-attribute 'default nil :font "Iosevka-11"))
+        (t
+         (add-to-list 'default-frame-alist '(font . "Iosevka-10"))
+         (set-face-attribute 'default nil :font "Iosevka-10"))))
 
 (use-package embark
   :ensure t
@@ -476,6 +477,12 @@
   :config
   (add-to-list 'mm-discouraged-alternatives "text/html")
   (add-to-list 'mm-discouraged-alternatives "text/richtext"))
+
+(use-package modus-themes
+  :if (or (eq system-type 'android)
+          (member system-name '("wsl")))
+  :config
+  (load-theme 'modus-vivendi :no-confirm))
 
 (use-package move-text
   :ensure t
@@ -645,8 +652,8 @@ This works across multiple Org files."
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package org
-  :bind (("C-c o" . my/org-refile-visit)
          :repeat-map org-mode-repeat-map
+  :bind (("C-c o" . my/org-refile-visit)
          ("<tab>" . org-cycle)
          ("<backtab>" . org-shifttab)
          ("C-n" . org-next-visible-heading)
