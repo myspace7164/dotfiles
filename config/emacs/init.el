@@ -755,7 +755,12 @@ This works across multiple Org files."
       (if (> (length s) w)
           (substring s 0 (- w 1))
         (truncate-string-to-width s w))))
+  :custom
+  (org-agenda-tags-column 0)
+  (org-agenda-scheduled-leaders '("Sched.: " "Sched.%2dx: "))
+  (org-agenda-time-grid '((daily today require-timed) (800 1000 1200 1400 1600 1800 2000) "..." "----------------"))
   :config
+  (setf (alist-get 'agenda org-agenda-prefix-format) "%?t%s")
   (setf (alist-get 'todo org-agenda-prefix-format) "%(my/org-category-truncate (org-get-category) 4) "))
 
 (use-package org-capture
