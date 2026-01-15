@@ -479,6 +479,7 @@
   (add-to-list 'mm-discouraged-alternatives "text/richtext"))
 
 (use-package modus-themes
+  :no-require
   :if (or (eq system-type 'android)
           (member system-name '("wsl")))
   :config
