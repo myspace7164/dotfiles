@@ -735,7 +735,6 @@ This works across multiple Org files."
   (org-agenda-todo-ignore-deadlines 'future)
   (org-agenda-todo-ignore-scheduled 'future)
   (org-agenda-todo-ignore-timestamp 'future)
-  (org-agenda-todo-keyword-format "%7s")
   (org-agenda-custom-commands
    '(("i" "Inbox" tags "+inbox")
 	   ("s" "Shopping List" tags-todo "+buy-someday-@aabacka")
@@ -750,7 +749,7 @@ This works across multiple Org files."
   :if (eq system-type 'android)
   :custom
   (org-agenda-tags-column 0)
-  (org-agenda-scheduled-leaders '("Sched.:" "Sched.%dx:"))
+  (org-agenda-scheduled-leaders '("Sched.: " "Sched.%dx: "))
   (org-agenda-time-grid '((daily today require-timed) (800 1000 1200 1400 1600 1800 2000) "..." "----------------"))
   :config
   (setf (alist-get 'agenda org-agenda-prefix-format) "%?t%s")
