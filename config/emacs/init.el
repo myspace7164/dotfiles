@@ -653,8 +653,8 @@ This works across multiple Org files."
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package org
-         :repeat-map org-mode-repeat-map
   :bind (("C-c o" . my/org-refile-visit)
+         :repeat-map org-mode-repeat-map
          ("<tab>" . org-cycle)
          ("<backtab>" . org-shifttab)
          ("C-n" . org-next-visible-heading)
