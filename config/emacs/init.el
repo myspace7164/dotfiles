@@ -204,7 +204,7 @@
   (setq custom-file (make-temp-file "emacs-custom-")))
 
 (use-package dbus
-  ;; :if (not (eq system-type 'android))
+  :if (featurep 'dbusbind)
   :preface
   (defvar my/dark-theme-hook nil)
   (defvar my/light-theme-hook nil)
@@ -478,12 +478,11 @@
   (add-to-list 'mm-discouraged-alternatives "text/html")
   (add-to-list 'mm-discouraged-alternatives "text/richtext"))
 
-;; (use-package modus-themes
-;;   :no-require
-;;   :if (or (eq system-type 'android)
-;;           (member system-name '("wsl")))
-;;   :config
-;;   (load-theme 'modus-vivendi :no-confirm))
+(use-package modus-themes
+  :no-require
+  :if (not (featurep 'dbusbind))
+  :config
+  (load-theme 'modus-vivendi :no-confirm))
 
 (use-package move-text
   :ensure t
