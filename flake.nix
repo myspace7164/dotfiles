@@ -87,6 +87,23 @@
           ];
         };
 
+        pocket = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            nix-flatpak.nixosModules.nix-flatpak
+
+            ./hosts/pocket
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.user = import ./home/user/home.nix;
+            }
+          ];
+        };
+
         wsl = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };

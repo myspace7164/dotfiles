@@ -19,8 +19,8 @@
   i18n.inputMethod.enable = true;
 
   # Configure keymap
-  console.keyMap = "sg";
-  services.xserver.xkb.layout = "ch";
+  console.keyMap = lib.mkDefault "sg";
+  services.xserver.xkb.layout = lib.mkDefault "ch";
 
   # Enable CUPS to print documents.
   services.avahi.enable = true;
