@@ -1052,6 +1052,11 @@ Also copy it to the kill ring for future reference."
   :config
   (setq vc-follow-symlinks t))
 
+(use-package vc-hooks
+  :if (eq system-type 'android)
+  :config
+  (setq vc-handled-backends nil))
+
 (use-package vertico
   :ensure t
   :custom
