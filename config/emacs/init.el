@@ -800,6 +800,15 @@ This works across multiple Org files."
             my/org-capture-created-line
             ":END:\n"))
 
+  (defvar my/org-capture-log
+    (concat "* %^{Title} %^G\n"
+            ":PROPERTIES:\n"
+            ":VALUE:  %^{value}\n"
+            ":UNIT:  %^{unit}\n"
+            ":EFFECT:  %^{effect|neutral|neutral|positive|negative}\n"
+            my/org-capture-created-line
+            ":END:\n"))
+
   (defvar my/org-capture-log-weight
     (concat "* Weight :health:\n"
             ":PROPERTIES:\n"
@@ -850,6 +859,8 @@ Also copy it to the kill ring for future reference."
 
      ;; logging
      ("l" "Log")
+     ("ll" "Log" entry (file "log.org")
+       ,my/org-capture-log)
      ("lw" "Weight" entry (file "log.org")
        ,my/org-capture-log-weight :immediate-finish t)
 
