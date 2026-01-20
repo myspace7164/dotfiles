@@ -783,9 +783,30 @@ This works across multiple Org files."
             ":LOCATION:\n"
             ":END:"))
 
+  (defvar my/org-capture-created-line
+    ":CREATED:  %U\n")
+
   (defvar my/org-capture-created-property
     (concat ":PROPERTIES:\n"
-            ":CREATED:  %U\n"
+            my/org-capture-created-line
+            ":END:\n"))
+
+  (defvar my/org-capture-log-weight
+    (concat "* Weight :health:\n"
+            ":PROPERTIES:\n"
+            ":VALUE:  %^{weight}\n"
+            ":UNIT:  kg\n"
+            ":EFFECT:  neutral\n"
+            my/org-capture-created-line
+            ":END:\n"))
+
+  (defvar my/org-capture-log-weight
+    (concat "* Weight :health:\n"
+            ":PROPERTIES:\n"
+            ":VALUE:  %^{weight}\n"
+            ":UNIT:  kg\n"
+            ":EFFECT:  neutral\n"
+            my/org-capture-created-line
             ":END:\n"))
 
   ;; Thank you https://emacs.stackexchange.com/a/82754
@@ -826,6 +847,11 @@ Also copy it to the kill ring for future reference."
       ,(concat "* TODO Todo for today\nSCHEDULED: %t\n" my/org-capture-created-property "%?"))
      ("jT" "Daily todo (time-prompt)" entry (file+olp+datetree "journal.org")
       ,(concat "* TODO Todo for today\nSCHEDULED: %t\n" my/org-capture-created-property "%?") :time-prompt t)
+
+     ;; logging
+     ("l" "Log")
+     ("lw" "Weight" entry (file "log.org")
+       ,my/org-capture-log-weight :immediate-finish t)
 
      ;; meeting notes
      ("n" "Meeting notes" entry (file+headline "notes.org" "Meetings")
