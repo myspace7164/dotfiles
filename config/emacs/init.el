@@ -747,6 +747,7 @@ This works across multiple Org files."
 
 (use-package org-agenda
   :if (eq system-type 'android)
+  :hook (org-agenda-mode . (lambda () (delete-other-windows)))
   :custom
   (org-agenda-tags-column 0)
   (org-agenda-scheduled-leaders '("Sched.: " "Sched.%dx: "))
@@ -879,6 +880,10 @@ Also copy it to the kill ring for future reference."
       ,(concat "* TODO %^{Title} :inbox:\n" my/org-capture-created-property "\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?") :immediate-finish t)
 	   ("L" "Protocol Link" entry (file "bookmarks.org")
       ,(concat "* TODO %?[[%:link][%:description]] :inbox:\n" my/org-capture-created-property) :immediate-finish t))))
+
+(use-package org-capture
+  :if (eq system-type 'android)
+  :hook (org-capture-mode . (lambda () (delete-other-windows))))
 
 (use-package org-contacts
   :ensure t
