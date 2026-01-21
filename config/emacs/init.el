@@ -996,7 +996,7 @@ Also copy it to the kill ring for future reference."
 
 (use-package rust-mode
   :ensure t
-  :mode :mode "\\.rs\\'")
+  :mode "\\.rs\\'")
 
 (use-package savehist
   :config
