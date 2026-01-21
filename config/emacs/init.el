@@ -353,7 +353,8 @@
          (rust-mode . eglot-ensure)
          (zig-mode . eglot-ensure))
   :config
-  (add-to-list 'eglot-server-programs '(nix-mode . ("nixd"))))
+  (add-to-list 'eglot-server-programs '(nix-mode . ("nixd")))
+  (add-to-list 'eglot-server-programs '(text-mode . ("harper-ls" "--stdio"))))
 
 (use-package eldoc
   :custom
@@ -761,11 +762,11 @@ This works across multiple Org files."
 
 (use-package org-agenda
   :if (eq system-type 'android)
-  :hook (org-agenda-mode . (lambda () (delete-other-windows)))
   :custom
-  (org-agenda-tags-column 0)
   (org-agenda-scheduled-leaders '("Sched.: " "Sched.%dx: "))
+  (org-agenda-tags-column 0)
   (org-agenda-time-grid '((daily today require-timed) (800 1000 1200 1400 1600 1800 2000) "..." "----------------"))
+  (org-agenda-window-setup 'only-window)
   :config
   (setf (alist-get 'agenda org-agenda-prefix-format) "%?t%s")
   (setf (alist-get 'todo org-agenda-prefix-format) ""))
