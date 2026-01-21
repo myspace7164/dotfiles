@@ -1055,7 +1055,9 @@ Also copy it to the kill ring for future reference."
   :custom
   (touch-screen-display-keyboard t))
 
-(use-package trashed :ensure t)
+(use-package trashed
+  :ensure t
+  :commands trashed)
 
 (use-package vc
   :config
