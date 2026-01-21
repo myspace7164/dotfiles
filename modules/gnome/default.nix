@@ -23,11 +23,13 @@
   # GNOME specific packages
   environment.systemPackages = with pkgs; [
     dconf-editor
+    gnome-console
     gnome-themes-extra
     gnome-tweaks
     gnomeExtensions.appindicator
     gnomeExtensions.bing-wallpaper-changer
     gnomeExtensions.status-area-horizontal-spacing
+    nautilus
   ];
 
   qt = {
