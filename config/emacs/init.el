@@ -10,6 +10,10 @@
   (unless package--initialized
     (package-initialize)))
 
+(use-package use-package
+  :custom
+  (use-package-compute-statistics t))
+
 (use-package gcmh
   :ensure t
   :init
@@ -189,7 +193,7 @@
 
 (use-package csv-mode
   :ensure t
-  :mode "\\.csv\\'"
+  :mode "\\.[Cc][Ss][Vv]\\'"
   :hook (csv-mode . csv-guess-set-separator)
   :bind (("C-c C-b" . csv-backward-field)
          ("C-c C-f" . csv-forward-field)
@@ -300,6 +304,7 @@
   (setq denote-dired-directories (list denote-directory)))
 
 (use-package dired
+  :defer t
   :custom
   (dired-auto-revert-buffer t)
   (dired-create-destination-dirs 'always)
@@ -309,6 +314,7 @@
   (dired-recursive-deletes 'always))
 
 (use-package wdired
+  :defer t
   :custom
   (wdired-allow-to-change-permissions t))
 
@@ -443,23 +449,32 @@
   :config
   (global-hl-todo-mode 1))
 
-(use-package json-mode :ensure t)
+(use-package json-mode
+  :ensure t
+  :mode "\\.json\\'")
 
-(use-package lua-mode :ensure t)
+(use-package lua-mode
+  :ensure t
+  :mode "\\.lua\\'")
 
 (use-package magit
   :ensure t
-  :config
-  (setq magit-repository-directories '(("~/Repos" . 1))))
+  :bind ("C-x g" . magit-status)
+  :custom
+  (magit-repository-directories '(("~/Repos" . 1))))
 
 (use-package marginalia
   :ensure t
   :config
   (marginalia-mode 1))
 
-(use-package markdown-mode :ensure t)
+(use-package markdown-mode
+  :ensure t
+  :mode "\\.\\(?:md\\|markdown\\|mkd\\|mdown\\|mkdn\\|mdwn\\)\\'")
 
-(use-package matlab-mode :ensure t)
+(use-package matlab-mode
+  :ensure t
+  :mode "\\.m\\'")
 
 (use-package minibuffer
   :config
@@ -479,8 +494,8 @@
   (add-to-list 'mm-discouraged-alternatives "text/richtext"))
 
 (use-package modus-themes
-  :no-require
   :if (not (featurep 'dbusbind))
+  :no-require
   :config
   (load-theme 'modus-vivendi :no-confirm))
 
@@ -495,12 +510,9 @@
          ("M-n" . move-text-down)))
 
 (use-package mu4e
-  :if (and (executable-find "mu") ;; when there is mu, there should be mu4e
-           (not (member system-name '("wsl"))))
-  :demand t
+  :if (executable-find "mu") ;; when there is mu, there should be mu4e
   :hook ((dired-mode . turn-on-gnus-dired-mode)
-         (mu4e-compose-mode . flyspell-mode)
-         (after-init . (lambda () (mu4e 'background))))
+         (mu4e-compose-mode . flyspell-mode))
   :bind (nil
          :map mu4e-headers-mode-map
          ("C-c c" . mu4e-org-store-and-capture)
@@ -577,7 +589,9 @@
          ("C-\"" . mc/skip-to-next-like-this)
          ("C-:" . mc/skip-to-previous-like-this)))
 
-(use-package nix-mode :ensure t)
+(use-package nix-mode
+  :ensure t
+  :mode "\\.nix\\'")
 
 (use-package ob-core
   :hook (org-babel-after-execute . org-redisplay-inline-images))
@@ -747,6 +761,7 @@ This works across multiple Org files."
 
 (use-package org-agenda
   :if (eq system-type 'android)
+  :hook (org-agenda-mode . (lambda () (delete-other-windows)))
   :custom
   (org-agenda-tags-column 0)
   (org-agenda-scheduled-leaders '("Sched.: " "Sched.%dx: "))
@@ -756,7 +771,6 @@ This works across multiple Org files."
   (setf (alist-get 'todo org-agenda-prefix-format) ""))
 
 (use-package org-capture
-  :after org-contacts
   :bind ("C-c c" . org-capture)
   :preface
   (defvar my/org-contacts-template
@@ -783,9 +797,30 @@ This works across multiple Org files."
             ":LOCATION:\n"
             ":END:"))
 
+  (defvar my/org-capture-created-line
+    ":CREATED:  %U\n")
+
   (defvar my/org-capture-created-property
     (concat ":PROPERTIES:\n"
-            ":CREATED:  %U\n"
+            my/org-capture-created-line
+            ":END:\n"))
+
+  (defvar my/org-capture-log-weight
+    (concat "* Weight :health:\n"
+            ":PROPERTIES:\n"
+            ":VALUE:  %^{weight}\n"
+            ":UNIT:  kg\n"
+            ":EFFECT:  neutral\n"
+            my/org-capture-created-line
+            ":END:\n"))
+
+  (defvar my/org-capture-log
+    (concat "* %^{Title} %^G\n"
+            ":PROPERTIES:\n"
+            ":VALUE:  %^{value}\n"
+            ":UNIT:  %^{unit}\n"
+            ":EFFECT:  %^{effect|neutral|neutral|positive|negative}\n"
+            my/org-capture-created-line
             ":END:\n"))
 
   ;; Thank you https://emacs.stackexchange.com/a/82754
@@ -795,6 +830,7 @@ This works across multiple Org files."
 Also copy it to the kill ring for future reference."
     (org-entry-put nil "ID" (org-id-new))
     (org-id-copy))
+
   :custom
   (org-capture-templates
    `(("i" "Inbox" entry (file "inbox.org")
@@ -808,9 +844,9 @@ Also copy it to the kill ring for future reference."
      ("e" "Event" entry (file "calendar.org")
       ,my/org-event-template)
      ("w" "Wäsche abhängen" entry (file "tasks.org")
-      ,(concat "* TODO Wäsche abhängen :@home:\nSCHEDULED: <%(org-read-date nil nil \"+3d\")>\n" my/org-capture-created-property) :immediate-finish t)
+      ,(concat "* TODO Wäsche abhängen :@home:errand:\nSCHEDULED: <%(org-read-date nil nil \"+3d\")>\n" my/org-capture-created-property) :immediate-finish t)
      ("W" "Wäsche abhängen (time-prompt)" entry (file "tasks.org")
-      ,(concat "* TODO Wäsche abhängen :@home:\nSCHEDULED: %^t\n" my/org-capture-created-property) :immediate-finish t)
+      ,(concat "* TODO Wäsche abhängen :@home:errand:\nSCHEDULED: %^t\n" my/org-capture-created-property) :immediate-finish t)
 
      ;; journaling
      ("j" "Journal")
@@ -827,6 +863,13 @@ Also copy it to the kill ring for future reference."
      ("jT" "Daily todo (time-prompt)" entry (file+olp+datetree "journal.org")
       ,(concat "* TODO Todo for today\nSCHEDULED: %t\n" my/org-capture-created-property "%?") :time-prompt t)
 
+     ;; logging
+     ("l" "Log")
+     ("ll" "Log" entry (file "log.org")
+       ,my/org-capture-log)
+     ("lw" "Weight" entry (file "log.org")
+       ,my/org-capture-log-weight :immediate-finish t)
+
      ;; meeting notes
      ("n" "Meeting notes" entry (file+headline "notes.org" "Meetings")
       "* %U %^{Title}\n%?")
@@ -839,19 +882,25 @@ Also copy it to the kill ring for future reference."
 
      ;; org-capture-extension specific (https://github.com/sprig/org-capture-extension)
      ("p" "Protocol" entry (file "bookmarks.org")
-      ,(concat "* TODO %^{Title} :inbox:\n" my/org-capture-created-property "\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?"))
+      ,(concat "* TODO %^{Title} :inbox:\n" my/org-capture-created-property "\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?") :immediate-finish t)
 	   ("L" "Protocol Link" entry (file "bookmarks.org")
-      ,(concat "* TODO %?[[%:link][%:description]] :inbox:\n" my/org-capture-created-property)))))
+      ,(concat "* TODO %?[[%:link][%:description]] :inbox:\n" my/org-capture-created-property) :immediate-finish t))))
+
+(use-package org-capture
+  :if (eq system-type 'android)
+  :hook (org-capture-mode . (lambda () (delete-other-windows))))
 
 (use-package org-contacts
   :ensure t
   :after org
+  :defer t
   :custom
   (org-contacts-files (list (concat org-directory "/contacts.org"))))
 
 (use-package org-inlinetask :after org)
 
-(use-package org-protocol)
+(use-package org-protocol
+  :if (not (eq system-type 'android)))
 
 (use-package org-tempo :after org)
 
@@ -866,6 +915,7 @@ Also copy it to the kill ring for future reference."
   (outline-minor-mode-cycle t))
 
 (use-package ox-publish
+  :defer t
   :custom
   (org-publish-project-alist
    '(("org-notes"
@@ -911,8 +961,7 @@ Also copy it to the kill ring for future reference."
 
 (use-package plantuml-mode
   :ensure t
-  :demand t
-  :mode "\\.plantuml\\'"
+  :mode "\\.\\(pu\\|uml\\|plantuml\\|pum\\|plu\\)\\'"
   :custom
   (plantuml-jar-path "~/.local/share/plantuml/plantuml.jar"))
 
@@ -936,7 +985,9 @@ Also copy it to the kill ring for future reference."
   :config
   (repeat-mode 1))
 
-(use-package rust-mode :ensure t)
+(use-package rust-mode
+  :ensure t
+  :mode "\\.rs\\'")
 
 (use-package savehist
   :config
@@ -1004,11 +1055,18 @@ Also copy it to the kill ring for future reference."
   :custom
   (touch-screen-display-keyboard t))
 
-(use-package trashed :ensure t)
+(use-package trashed
+  :ensure t
+  :commands trashed)
 
 (use-package vc
   :config
   (setq vc-follow-symlinks t))
+
+(use-package vc-hooks
+  :if (eq system-type 'android)
+  :config
+  (setq vc-handled-backends nil))
 
 (use-package vertico
   :ensure t
@@ -1056,6 +1114,10 @@ Also copy it to the kill ring for future reference."
 (use-package window
   :bind ("M-o" . other-window))
 
-(use-package yaml-mode :ensure t)
+(use-package yaml-mode
+  :ensure t
+  :mode "\\.\\(e?ya?\\|ra\\)ml\\'")
 
-(use-package zig-mode :ensure t)
+(use-package zig-mode
+  :ensure t
+  :mode "\\.\\(zig\\|zon\\)\\'")

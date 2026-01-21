@@ -3,5 +3,5 @@ profile desktop {
 }
 
 profile pocket {
-        output DSI-1 enable mode 1200x1920 scale 2 transform 270
+        output DSI-1 enable mode 1200x1920 scale 1.5 transform 270
 }
