@@ -449,9 +449,13 @@
   :config
   (global-hl-todo-mode 1))
 
-(use-package json-mode :ensure t)
+(use-package json-mode
+  :ensure t
+  :mode "\\.json\\'")
 
-(use-package lua-mode :ensure t)
+(use-package lua-mode
+  :ensure t
+  :mode "\\.lua\\'")
 
 (use-package magit
   :ensure t
@@ -990,7 +994,9 @@ Also copy it to the kill ring for future reference."
   :config
   (repeat-mode 1))
 
-(use-package rust-mode :ensure t)
+(use-package rust-mode
+  :ensure t
+  :mode :mode "\\.rs\\'")
 
 (use-package savehist
   :config
@@ -1117,6 +1123,10 @@ Also copy it to the kill ring for future reference."
 (use-package window
   :bind ("M-o" . other-window))
 
-(use-package yaml-mode :ensure t)
+(use-package yaml-mode
+  :ensure t
+  :mode "\\.yaml\\'")
 
-(use-package zig-mode :ensure t)
+(use-package zig-mode
+  :ensure t
+  :mode "\\.\\(zig\\|zon\\)\\'")
