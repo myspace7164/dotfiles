@@ -193,7 +193,7 @@
 
 (use-package csv-mode
   :ensure t
-  :mode "\\.csv\\'"
+  :mode "\\.[Cc][Ss][Vv]\\'"
   :hook (csv-mode . csv-guess-set-separator)
   :bind (("C-c C-b" . csv-backward-field)
          ("C-c C-f" . csv-forward-field)
@@ -470,7 +470,7 @@
 
 (use-package markdown-mode
   :ensure t
-  :mode "\\.md\\'")
+  :mode "\\.\\(?:md\\|markdown\\|mkd\\|mdown\\|mkdn\\|mdwn\\)\\'")
 
 (use-package matlab-mode
   :ensure t
@@ -970,7 +970,7 @@ Also copy it to the kill ring for future reference."
 
 (use-package plantuml-mode
   :ensure t
-  :mode "\\.plantuml\\'"
+  :mode "\\.\\(pu\\|uml\\|plantuml\\|pum\\|plu\\)\\'"
   :custom
   (plantuml-jar-path "~/.local/share/plantuml/plantuml.jar"))
 
@@ -1125,7 +1125,7 @@ Also copy it to the kill ring for future reference."
 
 (use-package yaml-mode
   :ensure t
-  :mode "\\.yaml\\'")
+  :mode "\\.\\(e?ya?\\|ra\\)ml\\'")
 
 (use-package zig-mode
   :ensure t
