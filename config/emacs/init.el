@@ -464,9 +464,13 @@
   :config
   (marginalia-mode 1))
 
-(use-package markdown-mode :ensure t)
+(use-package markdown-mode
+  :ensure t
+  :mode "\\.md\\'")
 
-(use-package matlab-mode :ensure t)
+(use-package matlab-mode
+  :ensure t
+  :mode "\\.m\\'")
 
 (use-package minibuffer
   :config
@@ -486,8 +490,8 @@
   (add-to-list 'mm-discouraged-alternatives "text/richtext"))
 
 (use-package modus-themes
-  :no-require
   :if (not (featurep 'dbusbind))
+  :no-require
   :config
   (load-theme 'modus-vivendi :no-confirm))
 
@@ -962,7 +966,6 @@ Also copy it to the kill ring for future reference."
 
 (use-package plantuml-mode
   :ensure t
-  :demand t
   :mode "\\.plantuml\\'"
   :custom
   (plantuml-jar-path "~/.local/share/plantuml/plantuml.jar"))
