@@ -40,6 +40,8 @@
     fd
     fzf
     git-filter-repo
+    harper
+    hut
     lazygit
     lua-language-server
     man-pages
