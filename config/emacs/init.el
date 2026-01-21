@@ -762,7 +762,6 @@ This works across multiple Org files."
   (setf (alist-get 'todo org-agenda-prefix-format) ""))
 
 (use-package org-capture
-  :after org-contacts
   :bind ("C-c c" . org-capture)
   :preface
   (defvar my/org-contacts-template
@@ -831,6 +830,7 @@ This works across multiple Org files."
 Also copy it to the kill ring for future reference."
     (org-entry-put nil "ID" (org-id-new))
     (org-id-copy))
+
   :custom
   (org-capture-templates
    `(("i" "Inbox" entry (file "inbox.org")
