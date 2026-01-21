@@ -899,7 +899,8 @@ Also copy it to the kill ring for future reference."
 
 (use-package org-inlinetask :after org)
 
-(use-package org-protocol :defer t)
+(use-package org-protocol
+  :if (not (eq system-type 'android)))
 
 (use-package org-tempo :after org)
 
