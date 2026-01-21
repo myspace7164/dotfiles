@@ -10,6 +10,10 @@
   (unless package--initialized
     (package-initialize)))
 
+(use-package use-package
+  :custom
+  (use-package-compute-statistics t))
+
 (use-package gcmh
   :ensure t
   :init
@@ -300,6 +304,7 @@
   (setq denote-dired-directories (list denote-directory)))
 
 (use-package dired
+  :defer t
   :custom
   (dired-auto-revert-buffer t)
   (dired-create-destination-dirs 'always)
@@ -449,8 +454,9 @@
 
 (use-package magit
   :ensure t
-  :config
-  (setq magit-repository-directories '(("~/Repos" . 1))))
+  :bind ("C-x g" . magit-status)
+  :custom
+  (magit-repository-directories '(("~/Repos" . 1))))
 
 (use-package marginalia
   :ensure t
@@ -495,12 +501,9 @@
          ("M-n" . move-text-down)))
 
 (use-package mu4e
-  :if (and (executable-find "mu") ;; when there is mu, there should be mu4e
-           (not (member system-name '("wsl"))))
-  :demand t
+  :if (executable-find "mu") ;; when there is mu, there should be mu4e
   :hook ((dired-mode . turn-on-gnus-dired-mode)
-         (mu4e-compose-mode . flyspell-mode)
-         (after-init . (lambda () (mu4e 'background))))
+         (mu4e-compose-mode . flyspell-mode))
   :bind (nil
          :map mu4e-headers-mode-map
          ("C-c c" . mu4e-org-store-and-capture)
@@ -577,7 +580,9 @@
          ("C-\"" . mc/skip-to-next-like-this)
          ("C-:" . mc/skip-to-previous-like-this)))
 
-(use-package nix-mode :ensure t)
+(use-package nix-mode
+  :ensure t
+  :mode "\\.nix\\'")
 
 (use-package ob-core
   :hook (org-babel-after-execute . org-redisplay-inline-images))
@@ -888,12 +893,13 @@ Also copy it to the kill ring for future reference."
 (use-package org-contacts
   :ensure t
   :after org
+  :defer t
   :custom
   (org-contacts-files (list (concat org-directory "/contacts.org"))))
 
 (use-package org-inlinetask :after org)
 
-(use-package org-protocol)
+(use-package org-protocol :defer t)
 
 (use-package org-tempo :after org)
 
@@ -908,6 +914,7 @@ Also copy it to the kill ring for future reference."
   (outline-minor-mode-cycle t))
 
 (use-package ox-publish
+  :defer t
   :custom
   (org-publish-project-alist
    '(("org-notes"
