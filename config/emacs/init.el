@@ -314,6 +314,7 @@
   (dired-recursive-deletes 'always))
 
 (use-package wdired
+  :defer t
   :custom
   (wdired-allow-to-change-permissions t))
 
