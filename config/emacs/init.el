@@ -823,15 +823,6 @@ This works across multiple Org files."
             my/org-capture-created-line
             ":END:\n"))
 
-  (defvar my/org-capture-log-weight
-    (concat "* Weight :health:\n"
-            ":PROPERTIES:\n"
-            ":VALUE:  %^{weight}\n"
-            ":UNIT:  kg\n"
-            ":EFFECT:  neutral\n"
-            my/org-capture-created-line
-            ":END:\n"))
-
   ;; Thank you https://emacs.stackexchange.com/a/82754
   ;; I'm not using it currently but who knows
   (defun my/org-capture-add-id ()
@@ -853,9 +844,9 @@ Also copy it to the kill ring for future reference."
      ("e" "Event" entry (file "calendar.org")
       ,my/org-event-template)
      ("w" "Wäsche abhängen" entry (file "tasks.org")
-      ,(concat "* TODO Wäsche abhängen :@home:\nSCHEDULED: <%(org-read-date nil nil \"+3d\")>\n" my/org-capture-created-property) :immediate-finish t)
+      ,(concat "* TODO Wäsche abhängen :@home:errand:\nSCHEDULED: <%(org-read-date nil nil \"+3d\")>\n" my/org-capture-created-property) :immediate-finish t)
      ("W" "Wäsche abhängen (time-prompt)" entry (file "tasks.org")
-      ,(concat "* TODO Wäsche abhängen :@home:\nSCHEDULED: %^t\n" my/org-capture-created-property) :immediate-finish t)
+      ,(concat "* TODO Wäsche abhängen :@home:errand:\nSCHEDULED: %^t\n" my/org-capture-created-property) :immediate-finish t)
 
      ;; journaling
      ("j" "Journal")
