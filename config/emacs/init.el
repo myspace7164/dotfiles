@@ -101,6 +101,9 @@
   :config
   (setq native-comp-async-report-warnings-errors nil))
 
+(use-package compile
+  :bind ("C-c C-c" . compile))
+
 (use-package consult
   :ensure t
   :bind (;; C-c bindings in `mode-specific-map'
