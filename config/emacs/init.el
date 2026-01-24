@@ -342,7 +342,10 @@
       ["Agenda List" org-agenda-list]
       ["Global TODO List" org-todo-list]
       ["Search for Keywords" org-search-view]
-      ["Refile" org-refile])))
+      ["Refile" org-refile]
+      ["Log" (org-capture nil "ll")]
+      ["Nicotine" (org-capture nil "ln")]
+      ["Weight" (org-capture nil "lw")])))
 
 (use-package eglot
   :hook ((lua-mode . eglot-ensure)
