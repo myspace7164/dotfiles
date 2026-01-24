@@ -12,6 +12,7 @@
       glib
       gnome-themes-extra
       grim
+      hyprpicker
       i3status
       jq
       kanshi
