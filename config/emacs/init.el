@@ -777,10 +777,13 @@ This works across multiple Org files."
 (use-package org-capture
   :bind ("C-c c" . org-capture)
   :preface
+  (defvar my/org-capture-created-line
+    ":CREATED:  %U\n")
+
   (defvar my/org-contacts-template
     (concat "* %(org-contacts-template-name)\n"
             ":PROPERTIES:\n"
-            ":CREATED:  %U\n"
+            my/org-capture-created-line
             ":EMAIL: %(org-contacts-template-email)\n"
             ":PHONE:\n"
             ":ALIAS:\n"
@@ -790,19 +793,15 @@ This works across multiple Org files."
             ":NOTE: %^{NOTE}\n"
             ":ADDRESS: %^{123 Street, 0001 State, Country}\n"
             ":BIRTHDAY: %^{YYYY-MM-DD}\n"
-            ":END:")
-    "Template for a contact.")
+            ":END:"))
 
   (defvar my/org-event-template
     (concat "* %?\n"
             ":PROPERTIES:\n"
-            ":CREATED:  %U\n"
+            my/org-capture-created-line
             ":PARTICIPANTS:\n"
             ":LOCATION:\n"
             ":END:"))
-
-  (defvar my/org-capture-created-line
-    ":CREATED:  %U\n")
 
   (defvar my/org-capture-created-property
     (concat ":PROPERTIES:\n"
@@ -863,9 +862,9 @@ Also copy it to the kill ring for future reference."
      ("jD" "Daily review (time-prompt)" entry (file+olp+datetree "journal.org")
       ,(concat "* %u Daily review\n" my/org-capture-created-property "%?") :time-prompt t)
      ("jt" "Daily todo" entry (file+olp+datetree "journal.org")
-      ,(concat "* TODO Todo for today\nSCHEDULED: %t\n" my/org-capture-created-property "%?"))
+      ,(concat "* TODO Todos for today\nSCHEDULED: %t\n" my/org-capture-created-property "%?"))
      ("jT" "Daily todo (time-prompt)" entry (file+olp+datetree "journal.org")
-      ,(concat "* TODO Todo for today\nSCHEDULED: %t\n" my/org-capture-created-property "%?") :time-prompt t)
+      ,(concat "* TODO Todos for today\nSCHEDULED: %t\n" my/org-capture-created-property "%?") :time-prompt t)
 
      ;; logging
      ("l" "Log")
