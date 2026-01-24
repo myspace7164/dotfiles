@@ -343,6 +343,7 @@
       ["Global TODO List" org-todo-list]
       ["Search for Keywords" org-search-view]
       ["Refile" org-refile]
+      ["Laundry" (org-caputre nil "w")]
       ["Log" (org-capture nil "ll")]
       ["Nicotine" (org-capture nil "ln")]
       ["Weight" (org-capture nil "lw")])))
