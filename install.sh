@@ -10,6 +10,20 @@ mkdir -vp $HOME/Repos
 if [[ $distro == nixos ]]; then
     nix flake update --flake $scriptdir
     sudo nixos-rebuild switch --flake $scriptdir
+
+    REPO_URL="https://github.com/LuaCATS/love2d.git"
+    TARGET_DIR="$HOME/.local/share/LuaAddons/love2d"
+    mkdir -p $TARGET_DIR
+
+    if [ ! -d "$TARGET_DIR/.git" ]; then
+        echo "Cloning repository into $TARGET_DIR..."
+        git clone "$REPO_URL" "$TARGET_DIR"
+    else
+        echo "Repository exists, updating..."
+        cd "$TARGET_DIR"
+        git pull --rebase
+    fi
+
     exit
 elif [[ $hostname =~ arch ]]; then
     # Enable colors in pacman
