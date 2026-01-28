@@ -337,17 +337,16 @@
   :config
   (easy-menu-define my-menu global-map
     "My Customized Menu for using Emacs on Android."
-    '("My"
-      ("File"
-       ["Save buffers" save-some-buffers])
-      ("Org"
-       ["Capture" org-capture]
-       ["Agenda List" org-agenda-list]
-       ["Global TODO List" org-todo-list]
-       ["Search for Keywords" org-search-view]
-       ["Refile" org-refile])
-      ("Magit"
-       ["Status" magit-status]))))
+    '("Shortcuts"
+      ["Capture" org-capture]
+      ["Agenda List" org-agenda-list]
+      ["Global TODO List" org-todo-list]
+      ["Search for Keywords" org-search-view]
+      ["Refile" org-refile]
+      ["Laundry" (org-caputre nil "w")]
+      ["Log" (org-capture nil "ll")]
+      ["Nicotine" (org-capture nil "ln")]
+      ["Weight" (org-capture nil "lw")])))
 
 (use-package eglot
   :hook ((lua-mode . eglot-ensure)
@@ -777,10 +776,13 @@ This works across multiple Org files."
 (use-package org-capture
   :bind ("C-c c" . org-capture)
   :preface
+  (defvar my/org-capture-created-line
+    ":CREATED:  %U\n")
+
   (defvar my/org-contacts-template
     (concat "* %(org-contacts-template-name)\n"
             ":PROPERTIES:\n"
-            ":CREATED:  %U\n"
+            my/org-capture-created-line
             ":EMAIL: %(org-contacts-template-email)\n"
             ":PHONE:\n"
             ":ALIAS:\n"
@@ -790,19 +792,15 @@ This works across multiple Org files."
             ":NOTE: %^{NOTE}\n"
             ":ADDRESS: %^{123 Street, 0001 State, Country}\n"
             ":BIRTHDAY: %^{YYYY-MM-DD}\n"
-            ":END:")
-    "Template for a contact.")
+            ":END:"))
 
   (defvar my/org-event-template
     (concat "* %?\n"
             ":PROPERTIES:\n"
-            ":CREATED:  %U\n"
+            my/org-capture-created-line
             ":PARTICIPANTS:\n"
             ":LOCATION:\n"
             ":END:"))
-
-  (defvar my/org-capture-created-line
-    ":CREATED:  %U\n")
 
   (defvar my/org-capture-created-property
     (concat ":PROPERTIES:\n"
@@ -818,6 +816,15 @@ This works across multiple Org files."
             my/org-capture-created-line
             ":END:\n"))
 
+  (defvar my/org-capture-log-nicotine
+    (concat "* Nicotine :health:\n"
+            ":PROPERTIES:\n"
+            ":VALUE:  %^{count|1}\n"
+            ":UNIT:  #\n"
+            ":EFFECT:  negative\n"
+            my/org-capture-created-line
+            ":END:\n"))
+
   (defvar my/org-capture-log
     (concat "* %^{Title} %^G\n"
             ":PROPERTIES:\n"
@@ -826,6 +833,12 @@ This works across multiple Org files."
             ":EFFECT:  %^{effect|neutral|neutral|positive|negative}\n"
             my/org-capture-created-line
             ":END:\n"))
+
+  (defvar my/org-capture-daily-todos
+    (concat "* TODO Todos for today [/]\n"
+            "SCHEDULED: %t\n"
+            my/org-capture-created-property
+            "- [ ] %?"))
 
   ;; Thank you https://emacs.stackexchange.com/a/82754
   ;; I'm not using it currently but who knows
@@ -855,22 +868,20 @@ Also copy it to the kill ring for future reference."
      ;; journaling
      ("j" "Journal")
      ("jj" "Journal entry" entry (file+olp+datetree "journal.org")
-      "* %U %^{Title}\n%?")
+      "* %U %^{Title|Daily review}\n%?")
      ("jJ" "Journal entry (time-prompt)" entry (file+olp+datetree "journal.org")
-      "* %U %^{Title}\n%?" :time-prompt t)
-     ("jd" "Daily review" entry (file+olp+datetree "journal.org")
-      "* %U Daily review\n%?")
-     ("jD" "Daily review (time-prompt)" entry (file+olp+datetree "journal.org")
-      ,(concat "* %u Daily review\n" my/org-capture-created-property "%?") :time-prompt t)
+      "* %U %^{Title|Daily review}\n%?" :time-prompt t)
      ("jt" "Daily todo" entry (file+olp+datetree "journal.org")
-      ,(concat "* TODO Todo for today\nSCHEDULED: %t\n" my/org-capture-created-property "%?"))
+      ,my/org-capture-daily-todos)
      ("jT" "Daily todo (time-prompt)" entry (file+olp+datetree "journal.org")
-      ,(concat "* TODO Todo for today\nSCHEDULED: %t\n" my/org-capture-created-property "%?") :time-prompt t)
+      ,my/org-capture-daily-todos :time-prompt t)
 
      ;; logging
      ("l" "Log")
      ("ll" "Log" entry (file "log.org")
-       ,my/org-capture-log)
+      ,my/org-capture-log)
+     ("ln" "Nicotine" entry (file "log.org")
+      ,my/org-capture-log-nicotine :immediate-finish t)
      ("lw" "Weight" entry (file "log.org")
        ,my/org-capture-log-weight :immediate-finish t)
 
