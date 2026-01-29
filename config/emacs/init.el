@@ -596,6 +596,10 @@
   :ensure t
   :mode "\\.nix\\'")
 
+(use-package nov
+  :ensure t
+  :mode ("\\.epub\\'" . nov-mode))
+
 (use-package ob-core
   :hook (org-babel-after-execute . org-redisplay-inline-images))
 
@@ -755,7 +759,7 @@ This works across multiple Org files."
   (org-agenda-custom-commands
    '(("i" "Inbox" tags "+inbox")
 	   ("s" "Shopping List" tags-todo "+buy-someday-@aabacka")
-     ("o" "Todo" tags-todo "-buy-project-someday-@aabacka/!-WAITING"
+     ("o" "Todo" tags-todo "-projects-recipe-bookmark-buy-someday/!-WAITING"
       ((org-agenda-skip-function '(org-agenda-skip-subtree-if 'scheduled))
        (org-agenda-skip-function '(org-agenda-skip-subtree-if 'deadline))
        (org-agenda-skip-function '(org-agenda-skip-subtree-if 'timestamp))))

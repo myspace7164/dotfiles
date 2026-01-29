@@ -35,6 +35,7 @@ let
         move-text
         multiple-cursors
         nix-mode
+        nov
         org-contacts
         pdf-tools
         plantuml-mode
