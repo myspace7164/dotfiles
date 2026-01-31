@@ -308,6 +308,8 @@
 
 (use-package dired
   :defer t
+  :bind (:map dired-mode-map
+         ("b" . dired-up-directory))
   :custom
   (dired-auto-revert-buffer t)
   (dired-create-destination-dirs 'always)
