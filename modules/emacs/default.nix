@@ -49,6 +49,7 @@ let
       ++ [
         epkgs.mu4e
         epkgs.treesit-grammars.with-all-grammars
+        epkgs.typst-ts-mode
         epkgs.ripgrep
       ]
     ));

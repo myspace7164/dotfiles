@@ -355,10 +355,12 @@
          (nix-mode . eglot-ensure)
          (python-mode . eglot-ensure)
          (rust-mode . eglot-ensure)
+         (typst-ts-mode . eglot-ensure)
          (zig-mode . eglot-ensure))
   :config
   (add-to-list 'eglot-server-programs '(nix-mode . ("nixd")))
-  (add-to-list 'eglot-server-programs '(text-mode . ("harper-ls" "--stdio"))))
+  (add-to-list 'eglot-server-programs '(text-mode . ("harper-ls" "--stdio")))
+  (add-to-list 'eglot-server-programs '(typst-ts-mode . ("tinymist"))))
 
 (use-package eldoc
   :custom
