@@ -516,6 +516,7 @@
 
 (use-package mu4e
   :if (executable-find "mu") ;; when there is mu, there should be mu4e
+  :demand t
   :hook ((dired-mode . turn-on-gnus-dired-mode)
          (mu4e-compose-mode . flyspell-mode))
   :bind (nil
@@ -524,24 +525,38 @@
          :map mu4e-view-mode-map
          ("C-c c" . mu4e-org-store-and-capture))
   :custom
+  (mail-user-agent 'mu4e-user-agent)
+  (message-kill-buffer-on-exit t)
+  (message-mail-user-agent 'mu4e-user-agent)
+  (message-send-mail-function 'message-send-mail-with-sendmail)
+  (message-sendmail-extra-arguments '("--read-envelope-from"))
+  (message-sendmail-f-is-evil t)
+  (send-mail-function 'smtpmail-send-it)
+  (sendmail-program (executable-find "msmtp"))
+
+  (mu4e-attachment-dir "~/Downloads")
+  (mu4e-change-filenames-when-moving t)
+  (mu4e-completing-read-function 'completing-read)
+  (mu4e-compose-context-policy 'pick-first)
+  (mu4e-confirm-quit nil)
+  (mu4e-context-policy 'pick-first)
+  (mu4e-get-mail-command "mbsync -a")
   (mu4e-modeline-mode nil)
+  (mu4e-notification-support t)
+  (mu4e-org-contacts-file (concat org-directory "/contacts.org"))
+  (mu4e-read-option-use-builtin nil)
+  (mu4e-update-interval 300)
+
+  (mu4e-drafts-folder "/Drafts")
+  (mu4e-refile-folder "/Archive")
+  (mu4e-sent-folder "/Sent")
+  (mu4e-trash-folder "/Trash")
+
   :config
-  (setq mail-user-agent 'mu4e-user-agent)
-  (setq message-mail-user-agent 'mu4e-user-agent)
   (set-variable 'read-mail-command 'mu4e)
 
-  (setq mu4e-change-filenames-when-moving t)
-  (setq mu4e-get-mail-command "mbsync -a")
-  (setq mu4e-update-interval 300)
-  (setq mu4e-attachment-dir "~/Downloads")
-
-  (setq mu4e-context-policy 'pick-first)
-  (setq mu4e-compose-context-policy 'pick-first)
-
-  (setq mu4e-read-option-use-builtin nil)
-  (setq mu4e-completing-read-function 'completing-read)
-  (setq mu4e-confirm-quit nil)
-  (setq mu4e-notification-support t)
+  (add-to-list 'mu4e-headers-actions '("org-contact-add" . mu4e-action-add-org-contact) t)
+  (add-to-list 'mu4e-view-actions '("org-contact-add" . mu4e-action-add-org-contact) t)
 
   (when (and (auth-source-search :host "127.0.0.1" :max 1) (auth-source-search :host "personal" :max 1))
     (setq mu4e-contexts
@@ -558,31 +573,15 @@
                   :name (plist-get auth-info :user)
                   :vars `((user-mail-address . ,(plist-get auth-info :user))
                           (user-full-name . ,(plist-get auth-info :name))
-                          (message-signature . ,(plist-get auth-info :name)))))))))
-
-  (setq mu4e-sent-folder "/Sent")
-  (setq mu4e-drafts-folder "/Drafts")
-  (setq mu4e-trash-folder "/Trash")
-  (setq mu4e-refile-folder "/Archive")
-
-  (when (executable-find "msmtp")
-    (setq sendmail-program (executable-find "msmtp")))
-  (setq message-sendmail-f-is-evil t)
-  (setq message-sendmail-extra-arguments '("--read-envelope-from"))
-  (setq send-mail-function 'smtpmail-send-it)
-  (setq message-send-mail-function 'message-send-mail-with-sendmail)
-  (setq message-kill-buffer-on-exit t)
-
-  (setq mu4e-org-contacts-file (concat org-directory "/contacts.org"))
-  (add-to-list 'mu4e-headers-actions '("org-contact-add" . mu4e-action-add-org-contact) t)
-  (add-to-list 'mu4e-view-actions '("org-contact-add" . mu4e-action-add-org-contact) t))
+                          (message-signature . ,(plist-get auth-info :name))))))))))
 
 (use-package mu4e-icalendar
   :after mu4e org org-agenda
+  :custom
+  (gnus-icalendar-org-capture-file (concat org-directory "/calendar.org"))
+  (gnus-icalendar-org-capture-headline '("iCalendar events"))
   :config
   (mu4e-icalendar-setup)
-  (setq gnus-icalendar-org-capture-file (concat org-directory "/calendar.org"))
-  (setq gnus-icalendar-org-capture-headline '("iCalendar events"))
   (gnus-icalendar-org-setup))
 
 (use-package multiple-cursors
