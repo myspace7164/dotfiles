@@ -43,6 +43,13 @@
     pulse.enable = true;
   };
 
+  services.openssh = {
+    enable = true;
+    startWhenNeeded = true;
+    settings.PasswordAuthentication = false;
+  };
+
+
   environment.systemPackages = with pkgs; [
     audacity
     bitwarden-desktop

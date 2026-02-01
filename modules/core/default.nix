@@ -25,15 +25,6 @@
     ];
   };
 
-  users.users.user = {
-    description = "User";
-    isNormalUser = true;
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-  };
-
   environment.systemPackages = with pkgs; [
     bat
     direnv
