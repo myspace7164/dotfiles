@@ -1,11 +1,11 @@
-{ ... }:
+{ lib, ... }:
 {
   services.syncthing = {
     enable = true;
     guiAddress = "0.0.0.0:8384";
     openDefaultPorts = true;
     user = "user";
-    dataDir = "/home/user";
+    dataDir = lib.mkDefault "/home/user";
 
     settings.devices = {
       desktop.id = "QGPMTZJ-RKIH4T6-AWTM5LT-GAWTTAP-PTYR3Z7-UNQKIPC-ENS5JN4-W635BAV";
