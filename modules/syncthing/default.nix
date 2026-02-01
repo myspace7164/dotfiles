@@ -18,7 +18,15 @@
     };
 
     settings.folders = {
-      "~/Nextcloud/games".devices = [ "steamdeck" ];
+      "~/games".devices = [
+        "desktop"
+        "device"
+        "marlin6105"
+        "player"
+        "pocket"
+        "steamdeck"
+        "thinkpad"
+      ];
       "~/org".devices = [
         "desktop"
         "device"

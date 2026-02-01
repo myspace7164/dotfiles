@@ -34,6 +34,7 @@
 
   services.syncthing = {
     dataDir = "/mnt/drive/syncthing";
+    settings.folders."~/games".path = "/mnt/drive/syncthing/games";
     settings.folders."~/org".path = "/mnt/drive/syncthing/org";
     settings.folder."SeedVaultAndroidBackup".path = "/mnt/drive/syncthing/SeedVaultAndroidBackup";
   };
