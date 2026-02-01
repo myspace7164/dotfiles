@@ -37,6 +37,7 @@
   environment.systemPackages = with pkgs; [
     bat
     direnv
+    exfat
     fd
     fzf
     git-filter-repo
