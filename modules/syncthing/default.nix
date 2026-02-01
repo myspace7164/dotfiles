@@ -1,4 +1,15 @@
 { lib, ... }:
+let
+  all = [
+    "desktop"
+    "device"
+    "marlin6105"
+    "player"
+    "pocket"
+    "steamdeck"
+    "thinkpad"
+  ];
+in
 {
   services.syncthing = {
     enable = true;
@@ -18,24 +29,8 @@
     };
 
     settings.folders = {
-      "~/games".devices = [
-        "desktop"
-        "device"
-        "marlin6105"
-        "player"
-        "pocket"
-        "steamdeck"
-        "thinkpad"
-      ];
-      "~/org".devices = [
-        "desktop"
-        "device"
-        "marlin6105"
-        "player"
-        "pocket"
-        "steamdeck"
-        "thinkpad"
-      ];
+      "~/games".devices = all;
+      "~/org".devices = all;
       "SeedVaultAndroidBackup" = {
         id = "ojr5r-owslz";
         path = "~/syncthing/SeedVaultAndroidBackup";
