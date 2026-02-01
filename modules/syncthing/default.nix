@@ -19,15 +19,20 @@
 
     settings.folders = {
       "~/Nextcloud/games".devices = [ "steamdeck" ];
-      "~/org" = {
+      "~/org".devices = [
+        "desktop"
+        "device"
+        "marlin6105"
+        "player"
+        "pocket"
+        "steamdeck"
+        "thinkpad"
+      ];
+      "SeedVaultAndroidBackup" = {
+        id = "ojr5r-owslz";
         devices = [
-          "desktop"
-          "device"
           "marlin6105"
           "player"
-          "pocket"
-          "steamdeck"
-          "thinkpad"
         ];
       };
     };
