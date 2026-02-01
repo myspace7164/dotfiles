@@ -50,7 +50,6 @@
     settings.PasswordAuthentication = false;
   };
 
-
   environment.systemPackages = with pkgs; [
     audacity
     bitwarden-desktop
