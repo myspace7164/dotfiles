@@ -5,6 +5,7 @@
     ../emacs
     ../librewolf
     ../syncthing
+    ../users
   ];
 
   # Enable networking

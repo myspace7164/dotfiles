@@ -104,6 +104,11 @@
           ];
         };
 
+        marlin6105 = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [ ./hosts/marlin6105 ];
+        };
+
         wsl = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
