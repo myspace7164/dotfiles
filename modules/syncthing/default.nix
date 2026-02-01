@@ -38,6 +38,7 @@
       ];
       "SeedVaultAndroidBackup" = {
         id = "ojr5r-owslz";
+        path = "~/syncthing/SeedVaultAndroidBackup";
         devices = [
           "marlin6105"
           "player"
