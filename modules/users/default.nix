@@ -8,7 +8,6 @@ let
 in
 {
   users = {
-    mutableUsers = false;
     users.user = {
       description = "User";
       isNormalUser = true;
