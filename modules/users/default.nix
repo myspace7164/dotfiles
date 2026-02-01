@@ -1,7 +1,10 @@
 { ... }:
 
 let
-  keyFiles = [ "../../hosts/thinkpad/id_rsa.pub" ];
+  keyFiles = [
+    "../../hosts/player/id_rsa.pub"
+    "../../hosts/thinkpad/id_rsa.pub"
+  ];
 in
 {
   users = {
