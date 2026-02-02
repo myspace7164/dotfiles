@@ -11,6 +11,8 @@ let
   ];
 in
 {
+  networking.firewall.allowedTCPPorts = [ 8384 ];
+
   services.syncthing = {
     enable = true;
     guiAddress = "0.0.0.0:8384";
@@ -29,16 +31,21 @@ in
     };
 
     settings.folders = {
+      "~/archive".devices = ["marlin6105" "thinkpad"];
+      "~/audio".devices = ["marlin6105" "thinkpad"];
+      "~/backup".devices = ["marlin6105" "thinkpad"];
+      "~/documents".devices = ["marlin6105" "thinkpad"];
       "~/games".devices = all;
+      "~/hosts".devices = ["marlin6105" "thinkpad"];
+      "~/inbox".devices = ["marlin6105" "thinkpad"];
+      "~/music".devices = ["marlin6105" "thinkpad"];
+      "~/notes".devices = ["marlin6105" "thinkpad"];
       "~/org".devices = all;
-      "SeedVaultAndroidBackup" = {
-        id = "ojr5r-owslz";
-        path = "~/syncthing/SeedVaultAndroidBackup";
-        devices = [
-          "device"
-          "marlin6105"
-        ];
-      };
+      "~/pictures".devices = ["marlin6105" "thinkpad"];
+      "~/projects".devices = ["marlin6105" "thinkpad"];
+      "~/recovery".devices = ["marlin6105" "thinkpad"];
+      "~/templates".devices = ["marlin6105" "thinkpad"];
+      "~/video".devices = ["marlin6105" "thinkpad"];
     };
   };
 }

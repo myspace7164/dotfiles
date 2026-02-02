@@ -1,5 +1,8 @@
 { pkgs, ... }:
 
+let
+  dataDir = "/mnt/drive/syncthing";
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -13,7 +16,6 @@
 
   networking.hostName = "marlin6105";
   networking.networkmanager.enable = true;
-  networking.firewall.allowedTCPPorts = [ 8384 28981 ];
 
   fileSystems."/mnt/drive" = {
     device = "/dev/disk/by-uuid/6fa81b71-8a9a-4de8-ab8f-c93f7a4e18ad";
@@ -34,10 +36,32 @@
   };
 
   services.syncthing = {
-    dataDir = "/mnt/drive/syncthing";
-    settings.folders."~/games".path = "/mnt/drive/syncthing/games";
-    settings.folders."~/org".path = "/mnt/drive/syncthing/org";
-    settings.folder."SeedVaultAndroidBackup".path = "/mnt/drive/syncthing/SeedVaultAndroidBackup";
+    dataDir = dataDir;
+
+    settings.folders."~/archive".path = "${dataDir}/archive";
+    settings.folders."~/audio".path = "${dataDir}/audio";
+    settings.folders."~/backup".path = "${dataDir}/backup";
+    settings.folders."~/documents".path = "${dataDir}/documents";
+    settings.folders."~/games".path = "${dataDir}/games";
+    settings.folders."~/hosts".path = "${dataDir}/hosts";
+    settings.folders."~/inbox".path = "${dataDir}/inbox";
+    settings.folders."~/music".path = "${dataDir}/music";
+    settings.folders."~/notes".path = "${dataDir}/notes";
+    settings.folders."~/org".path = "${dataDir}/org";
+    settings.folders."~/pictures".path = "${dataDir}/pictures";
+    settings.folders."~/projects".path = "${dataDir}/projects";
+    settings.folders."~/recovery".path = "${dataDir}/recovery";
+    settings.folders."~/templates".path = "${dataDir}/templates";
+    settings.folders."~/video".path = "${dataDir}/video";
+
+    settings.folders."SeedVaultAndroidBackup" = {
+      id = "ojr5r-owslz";
+      path = "${dataDir}/SeedVaultAndroidBackup";
+      devices = [
+        "device"
+        "marlin6105"
+      ];
+    };
   };
 
   services.paperless = {
@@ -46,6 +70,7 @@
     user = "user";
     dataDir = "/mnt/drive/paperless";
   };
+  networking.firewall.allowedTCPPorts = [ 28981 ];
 
   hardware.enableRedistributableFirmware = true;
   system.stateVersion = "25.11";
