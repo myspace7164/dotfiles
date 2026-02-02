@@ -13,6 +13,7 @@
 
   networking.hostName = "marlin6105";
   networking.networkmanager.enable = true;
+  networking.firewall.allowedTCPPorts = [ 8384 28981 ];
 
   fileSystems."/mnt/drive" = {
     device = "/dev/disk/by-uuid/6fa81b71-8a9a-4de8-ab8f-c93f7a4e18ad";
