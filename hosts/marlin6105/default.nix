@@ -11,6 +11,7 @@ in
   ];
 
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
+  boot.loader.timeout = 0;
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;
 
