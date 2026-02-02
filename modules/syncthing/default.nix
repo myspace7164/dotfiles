@@ -31,21 +31,73 @@ in
     };
 
     settings.folders = {
-      "~/archive".devices = ["marlin6105" "thinkpad"];
-      "~/audio".devices = ["marlin6105" "thinkpad"];
-      "~/backup".devices = ["marlin6105" "thinkpad"];
-      "~/documents".devices = ["marlin6105" "thinkpad"];
+      "~/archive".devices = [
+        "marlin6105"
+        "player"
+        "thinkpad"
+      ];
+      "~/audio".devices = [
+        "marlin6105"
+        "player"
+        "thinkpad"
+      ];
+      "~/backup".devices = [
+        "marlin6105"
+        "player"
+        "thinkpad"
+      ];
+      "~/documents".devices = [
+        "marlin6105"
+        "player"
+        "thinkpad"
+      ];
       "~/games".devices = all;
-      "~/hosts".devices = ["marlin6105" "thinkpad"];
-      "~/inbox".devices = ["marlin6105" "thinkpad"];
-      "~/music".devices = ["marlin6105" "thinkpad"];
-      "~/notes".devices = ["marlin6105" "thinkpad"];
+      "~/hosts".devices = [
+        "marlin6105"
+        "player"
+        "thinkpad"
+      ];
+      "~/inbox".devices = [
+        "marlin6105"
+        "player"
+        "thinkpad"
+      ];
+      "~/music".devices = [
+        "marlin6105"
+        "player"
+        "thinkpad"
+      ];
+      "~/notes".devices = [
+        "marlin6105"
+        "player"
+        "thinkpad"
+      ];
       "~/org".devices = all;
-      "~/pictures".devices = ["marlin6105" "thinkpad"];
-      "~/projects".devices = ["marlin6105" "thinkpad"];
-      "~/recovery".devices = ["marlin6105" "thinkpad"];
-      "~/templates".devices = ["marlin6105" "thinkpad"];
-      "~/video".devices = ["marlin6105" "thinkpad"];
+      "~/pictures".devices = [
+        "marlin6105"
+        "player"
+        "thinkpad"
+      ];
+      "~/projects".devices = [
+        "marlin6105"
+        "player"
+        "thinkpad"
+      ];
+      "~/recovery".devices = [
+        "marlin6105"
+        "player"
+        "thinkpad"
+      ];
+      "~/templates".devices = [
+        "marlin6105"
+        "player"
+        "thinkpad"
+      ];
+      "~/video".devices = [
+        "marlin6105"
+        "player"
+        "thinkpad"
+      ];
     };
   };
 }

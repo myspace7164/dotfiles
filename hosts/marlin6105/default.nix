@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  dataDir = "/mnt/drive/syncthing";
+  syncthingDataDir = "/mnt/drive/syncthing";
 in
 {
   imports = [
@@ -36,27 +36,27 @@ in
   };
 
   services.syncthing = {
-    dataDir = dataDir;
+    dataDir = syncthingDataDir;
 
-    settings.folders."~/archive".path = "${dataDir}/archive";
-    settings.folders."~/audio".path = "${dataDir}/audio";
-    settings.folders."~/backup".path = "${dataDir}/backup";
-    settings.folders."~/documents".path = "${dataDir}/documents";
-    settings.folders."~/games".path = "${dataDir}/games";
-    settings.folders."~/hosts".path = "${dataDir}/hosts";
-    settings.folders."~/inbox".path = "${dataDir}/inbox";
-    settings.folders."~/music".path = "${dataDir}/music";
-    settings.folders."~/notes".path = "${dataDir}/notes";
-    settings.folders."~/org".path = "${dataDir}/org";
-    settings.folders."~/pictures".path = "${dataDir}/pictures";
-    settings.folders."~/projects".path = "${dataDir}/projects";
-    settings.folders."~/recovery".path = "${dataDir}/recovery";
-    settings.folders."~/templates".path = "${dataDir}/templates";
-    settings.folders."~/video".path = "${dataDir}/video";
+    settings.folders."~/archive".path = "${syncthingDataDir}/archive";
+    settings.folders."~/audio".path = "${syncthingDataDir}/audio";
+    settings.folders."~/backup".path = "${syncthingDataDir}/backup";
+    settings.folders."~/documents".path = "${syncthingDataDir}/documents";
+    settings.folders."~/games".path = "${syncthingDataDir}/games";
+    settings.folders."~/hosts".path = "${syncthingDataDir}/hosts";
+    settings.folders."~/inbox".path = "${syncthingDataDir}/inbox";
+    settings.folders."~/music".path = "${syncthingDataDir}/music";
+    settings.folders."~/notes".path = "${syncthingDataDir}/notes";
+    settings.folders."~/org".path = "${syncthingDataDir}/org";
+    settings.folders."~/pictures".path = "${syncthingDataDir}/pictures";
+    settings.folders."~/projects".path = "${syncthingDataDir}/projects";
+    settings.folders."~/recovery".path = "${syncthingDataDir}/recovery";
+    settings.folders."~/templates".path = "${syncthingDataDir}/templates";
+    settings.folders."~/video".path = "${syncthingDataDir}/video";
 
     settings.folders."SeedVaultAndroidBackup" = {
       id = "ojr5r-owslz";
-      path = "${dataDir}/SeedVaultAndroidBackup";
+      path = "${syncthingDataDir}/SeedVaultAndroidBackup";
       devices = [
         "device"
         "marlin6105"
