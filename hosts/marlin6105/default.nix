@@ -40,20 +40,12 @@ in
     dataDir = syncthingDataDir;
 
     settings.folders."~/archive".path = "${syncthingDataDir}/archive";
-    settings.folders."~/audio".path = "${syncthingDataDir}/audio";
     settings.folders."~/backup".path = "${syncthingDataDir}/backup";
     settings.folders."~/documents".path = "${syncthingDataDir}/documents";
     settings.folders."~/games".path = "${syncthingDataDir}/games";
-    settings.folders."~/hosts".path = "${syncthingDataDir}/hosts";
-    settings.folders."~/inbox".path = "${syncthingDataDir}/inbox";
     settings.folders."~/music".path = "${syncthingDataDir}/music";
-    settings.folders."~/notes".path = "${syncthingDataDir}/notes";
     settings.folders."~/org".path = "${syncthingDataDir}/org";
-    settings.folders."~/pictures".path = "${syncthingDataDir}/pictures";
     settings.folders."~/projects".path = "${syncthingDataDir}/projects";
-    settings.folders."~/recovery".path = "${syncthingDataDir}/recovery";
-    settings.folders."~/templates".path = "${syncthingDataDir}/templates";
-    settings.folders."~/video".path = "${syncthingDataDir}/video";
 
     settings.folders."SeedVaultAndroidBackup" = {
       id = "ojr5r-owslz";

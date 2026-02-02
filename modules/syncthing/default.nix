@@ -37,12 +37,6 @@ in
         "player"
         "thinkpad"
       ];
-      "~/audio".devices = [
-        "desktop"
-        "marlin6105"
-        "player"
-        "thinkpad"
-      ];
       "~/backup".devices = [
         "desktop"
         "marlin6105"
@@ -56,56 +50,14 @@ in
         "thinkpad"
       ];
       "~/games".devices = all;
-      "~/hosts".devices = [
-        "desktop"
-        "marlin6105"
-        "player"
-        "thinkpad"
-      ];
-      "~/inbox".devices = [
-        "desktop"
-        "marlin6105"
-        "player"
-        "thinkpad"
-      ];
       "~/music".devices = [
         "desktop"
         "marlin6105"
         "player"
         "thinkpad"
       ];
-      "~/notes".devices = [
-        "desktop"
-        "marlin6105"
-        "player"
-        "thinkpad"
-      ];
       "~/org".devices = all;
-      "~/pictures".devices = [
-        "desktop"
-        "marlin6105"
-        "player"
-        "thinkpad"
-      ];
       "~/projects".devices = [
-        "desktop"
-        "marlin6105"
-        "player"
-        "thinkpad"
-      ];
-      "~/recovery".devices = [
-        "desktop"
-        "marlin6105"
-        "player"
-        "thinkpad"
-      ];
-      "~/templates".devices = [
-        "desktop"
-        "marlin6105"
-        "player"
-        "thinkpad"
-      ];
-      "~/video".devices = [
         "desktop"
         "marlin6105"
         "player"
