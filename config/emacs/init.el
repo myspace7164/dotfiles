@@ -466,9 +466,7 @@
 
 (use-package magit
   :ensure t
-  :bind ("C-x g" . magit-status)
-  :custom
-  (magit-repository-directories '(("~/Repos" . 1))))
+  :bind ("C-x g" . magit-status))
 
 (use-package marginalia
   :ensure t
@@ -536,7 +534,7 @@
   (send-mail-function 'smtpmail-send-it)
   (sendmail-program (executable-find "msmtp"))
 
-  (mu4e-attachment-dir "~/Downloads")
+  (mu4e-attachment-dir "~/tmp")
   (mu4e-change-filenames-when-moving t)
   (mu4e-completing-read-function 'completing-read)
   (mu4e-compose-context-policy 'pick-first)

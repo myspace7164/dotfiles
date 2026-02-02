@@ -70,7 +70,6 @@
     metadata-cleaner
     mixxx
     mpv
-    nextcloud-client
     nicotine-plus
     obs-studio
     onionshare

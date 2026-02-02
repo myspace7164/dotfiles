@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 {
   home.username = "user";
   home.homeDirectory = "/home/user";
@@ -26,8 +26,18 @@
     "yazi".source = ../../config/yazi;
   };
 
-  xdg.userDirs.enable = true;
-  xdg.userDirs.createDirectories = true;
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true;
+    desktop = "${config.home.homeDirectory}/.user-dirs.dirs/Desktop";
+    documents = "${config.home.homeDirectory}/.user-dirs.dirs/Documents";
+    download = "${config.home.homeDirectory}/tmp";
+    music = "${config.home.homeDirectory}/.user-dirs.dirs/Music";
+    pictures = "${config.home.homeDirectory}/.user-dirs.dirs/Pictures";
+    publicShare = "${config.home.homeDirectory}/.user-dirs.dirs/Public";
+    templates = "${config.home.homeDirectory}/.user-dirs.dirs/Templates";
+    videos = "${config.home.homeDirectory}/.user-dirs.dirs/Videos";
+  };
 
   # emacs
   home.file = {

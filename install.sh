@@ -4,9 +4,6 @@ distro=$(awk -F= '/^ID=/{print $2}' /etc/os-release | tr -d '"')
 hostname=$(cat /etc/hostname)
 scriptdir=$(readlink -f $(dirname "$0"))
 
-mkdir -vp $HOME/Nextcloud
-mkdir -vp $HOME/Repos
-
 if [[ $distro == nixos ]]; then
     nix flake update --flake $scriptdir
     sudo nixos-rebuild switch --flake $scriptdir

@@ -1,15 +1,4 @@
 { lib, ... }:
-let
-  all = [
-    "desktop"
-    "device"
-    "marlin6105"
-    "player"
-    "pocket"
-    "steamdeck"
-    "thinkpad"
-  ];
-in
 {
   networking.firewall.allowedTCPPorts = [ 8384 ];
 
@@ -31,36 +20,13 @@ in
     };
 
     settings.folders = {
-      "~/archive".devices = [
+      "~/org".devices = [
         "desktop"
+        "device"
         "marlin6105"
         "player"
-        "thinkpad"
-      ];
-      "~/backup".devices = [
-        "desktop"
-        "marlin6105"
-        "player"
-        "thinkpad"
-      ];
-      "~/documents".devices = [
-        "desktop"
-        "marlin6105"
-        "player"
-        "thinkpad"
-      ];
-      "~/games".devices = all;
-      "~/music".devices = [
-        "desktop"
-        "marlin6105"
-        "player"
-        "thinkpad"
-      ];
-      "~/org".devices = all;
-      "~/projects".devices = [
-        "desktop"
-        "marlin6105"
-        "player"
+        "pocket"
+        "steamdeck"
         "thinkpad"
       ];
     };

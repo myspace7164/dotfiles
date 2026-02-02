@@ -1,8 +1,5 @@
 { pkgs, ... }:
 
-let
-  syncthingDataDir = "/mnt/drive/syncthing";
-in
 {
   imports = [
     ./hardware-configuration.nix
@@ -37,19 +34,12 @@ in
   };
 
   services.syncthing = {
-    dataDir = syncthingDataDir;
+    dataDir = "/mnt/drive/syncthing";
 
-    settings.folders."~/archive".path = "${syncthingDataDir}/archive";
-    settings.folders."~/backup".path = "${syncthingDataDir}/backup";
-    settings.folders."~/documents".path = "${syncthingDataDir}/documents";
-    settings.folders."~/games".path = "${syncthingDataDir}/games";
-    settings.folders."~/music".path = "${syncthingDataDir}/music";
-    settings.folders."~/org".path = "${syncthingDataDir}/org";
-    settings.folders."~/projects".path = "${syncthingDataDir}/projects";
-
+    settings.folders."~/org".path = "/mnt/drive/syncthing/org";
     settings.folders."SeedVaultAndroidBackup" = {
       id = "ojr5r-owslz";
-      path = "${syncthingDataDir}/SeedVaultAndroidBackup";
+      path = "/mnt/drive/syncthing/SeedVaultAndroidBackup";
       devices = [
         "device"
         "marlin6105"
