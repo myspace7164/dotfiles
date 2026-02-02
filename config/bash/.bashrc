@@ -12,11 +12,10 @@ function executable_find() {
 }
 
 # prompt
-PROMPT_GIT=""
-if executable_find __git_ps1; then
-    PROMPT_GIT="\[\e[32m\]\$(__git_ps1)"
+if [ -n "$SSH_CLIENT" ]; then
+    PROMPT_SSH="(ssh) "
 fi
-PS1="\[\e[36m\]\w${PROMPT_GIT}\[\e[0m\] $ "
+PS1="\[\e[31m\]${PROMPT_SSH}\[\e[36m\]\w\[\e[32m\]\$(__git_ps1)\[\e[0m\] $ "
 
 # config based on availability of executables
 executable_find direnv && eval "$(direnv hook bash)"
