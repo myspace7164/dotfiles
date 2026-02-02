@@ -17,6 +17,13 @@
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.useOSProber = true;
 
+  fileSystems."/mnt/drive" = {
+    device = "/dev/disk/by-uuid/62dc23af-e608-415a-85e9-5267d179a3d3";
+    fsType = "ext4";
+    options = [ "noatime" ];
+  };
+
+
   fileSystems."/mnt/games" = {
     device = "/dev/disk/by-uuid/d13ee898-8082-4557-b8f3-90dcc68c94de";
     fsType = "ext4";
