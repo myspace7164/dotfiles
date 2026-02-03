@@ -37,7 +37,6 @@
         "marlin6105"
         "player"
         "pocket"
-        "steamdeck"
         "thinkpad"
       ];
     };

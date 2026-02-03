@@ -58,4 +58,11 @@
 
   hardware.enableRedistributableFirmware = true;
   system.stateVersion = "25.11";
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.flake = "github:myspace7164/dotfiles";
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+  };
 }
