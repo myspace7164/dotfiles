@@ -10,8 +10,6 @@
 
   networking.hostName = "pocket";
 
-  time.timeZone = "Europe/Zurich";
-
   console = {
     keyMap = "us";
     font = "ter-128b";

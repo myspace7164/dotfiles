@@ -5,12 +5,13 @@
   home.stateVersion = "25.11";
 
   home.file = {
-    ".bashrc".source = ../../config/bash/.bashrc;
     ".bash_profile".source = ../../config/bash/.bash_profile;
-    ".mbsyncrc".source = ../../config/mail/.mbsyncrc;
-    ".msmtprc".source = ../../config/mail/.msmtprc;
+    ".bashrc".source = ../../config/bash/.bashrc;
     ".local/bin".source = ../../bin;
     ".local/share/scripts".source = ../../scripts;
+    ".mbsyncrc".source = ../../config/mail/.mbsyncrc;
+    ".msmtprc".source = ../../config/mail/.msmtprc;
+    ".unison/default.prf".source = ../../config/unison/default.prf;
   };
 
   xdg.configFile = {
@@ -56,24 +57,6 @@
       mimeType = [ "x-scheme-handler/org-protocol" ];
     };
   };
-
-  # unison
-  xdg.configFile."systemd/user/unison-drive.service".source =
-    ../../config/unison/unison-drive.service;
-  xdg.configFile."systemd/user/unison-usb.service".source = ../../config/unison/unison-usb.service;
-
-  home.file = {
-    ".unison/backup-drive.prf".source = ../../config/unison/backup-drive.prf;
-    ".unison/backup-usb.prf".source = ../../config/unison/backup-usb.prf;
-  };
-
-  #  home.activation.daemonReload = lib.hm.dag.entryAfter ["writeBoundary"] ''
-  #  ${pkgs.systemd}/bin/systemctl --user daemon-reload
-  #  ${pkgs.systemd}/bin/systemctl --user start unison-drive.service
-  #  ${pkgs.systemd}/bin/systemctl --user enable unison-drive.service
-  #  ${pkgs.systemd}/bin/systemctl --user start unison-usb.service
-  #  ${pkgs.systemd}/bin/systemctl --user enable unison-usb.service
-  #'';
 
   programs.man.generateCaches = true;
 }

@@ -11,8 +11,5 @@
   ];
 
   networking.hostName = "thinkpad";
-
-  time.timeZone = "Europe/Zurich";
-
   services.tlp.enable = true;
 }

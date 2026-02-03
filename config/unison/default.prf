@@ -1,0 +1,7 @@
+root = /home/user
+root = /run/media/user/dig4718
+path = org
+perms = 0
+batch = true
+auto = true
+repeat = watch

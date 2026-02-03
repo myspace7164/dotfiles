@@ -50,6 +50,17 @@
     settings.PasswordAuthentication = false;
   };
 
+  systemd.user.services.unison-default = {
+    enable = true;
+    wantedBy = [ "default.target" ];
+    description = "Unison default service";
+    serviceConfig = {
+      ExecStart = "${pkgs.unison}/bin/unison default";
+      Restart = "always";
+      RestartSec = 10;
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     audacity
     bitwarden-desktop

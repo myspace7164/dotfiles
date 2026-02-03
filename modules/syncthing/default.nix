@@ -20,6 +20,17 @@
     };
 
     settings.folders = {
+      "dig4718" = {
+        path = "/run/media/user/dig4718";
+        devices = [
+          "marlin6105"
+          "thinkpad"
+        ];
+        ignorePatterns = [
+          "/.SeedVaultAndroidBackup"
+          "/org"
+        ];
+      };
       "~/org".devices = [
         "desktop"
         "device"
