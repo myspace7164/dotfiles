@@ -36,6 +36,7 @@
   services.syncthing = {
     dataDir = "/mnt/drive/syncthing";
 
+    settings.folders."dig4718".path = "/mnt/drive/dig4718";
     settings.folders."~/org".path = "/mnt/drive/syncthing/org";
     settings.folders."SeedVaultAndroidBackup" = {
       id = "ojr5r-owslz";

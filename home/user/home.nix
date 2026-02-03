@@ -12,6 +12,7 @@
     ".mbsyncrc".source = ../../config/mail/.mbsyncrc;
     ".msmtprc".source = ../../config/mail/.msmtprc;
     ".unison/default.prf".source = ../../config/unison/default.prf;
+    ".unison/sync-dig4718.prf".source = ../../config/unison/sync-dig4718.prf;
   };
 
   xdg.configFile = {
