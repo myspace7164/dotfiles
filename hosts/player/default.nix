@@ -17,4 +17,6 @@
   environment.systemPackages = with pkgs; [
     gitwatch
   ];
+
+  services.syncthing.settings.folders."dig4718".path = "~/dig4718";
 }

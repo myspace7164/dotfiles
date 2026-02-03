@@ -25,6 +25,7 @@
         devices = [
           "desktop"
           "marlin6105"
+          "player"
           "thinkpad"
         ];
         ignorePatterns = [

@@ -53,6 +53,11 @@
     address = "0.0.0.0";
     user = "user";
     dataDir = "/mnt/drive/paperless";
+    settings = {
+      PAPERLESS_OCR_LANGUAGE = "deu+eng";
+      PAPERLESS_CONVERT_MEMORY_LIMIT = 32;
+      PAPERLESS_CONVERT_TMPDIR = "/mnt/drive/paperless/tmp";
+    };
   };
   networking.firewall.allowedTCPPorts = [ 28981 ];
 
