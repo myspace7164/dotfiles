@@ -23,6 +23,7 @@
       "dig4718" = {
         path = lib.mkDefault "/run/media/user/dig4718";
         devices = [
+          "desktop"
           "marlin6105"
           "thinkpad"
         ];

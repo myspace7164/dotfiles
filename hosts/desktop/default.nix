@@ -43,7 +43,7 @@
       SUBSYSTEM=="i2c", ACTION=="add", ATTR{name}=="${ddcciDev}", RUN+="${bash} -c 'sleep 30; printf ddcci\ 0x37 > ${ddcciNode}'"
     '';
 
-  settings.folders."dig4718".path = "/mnt/drive/dig4718";
+  services.syncthing.settings.folders."dig4718".path = "/mnt/drive/dig4718";
 
   systemd.user.services.unison-dig4718 = {
     enable = true;
