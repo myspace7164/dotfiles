@@ -6,7 +6,7 @@
     enable = true;
     guiAddress = "0.0.0.0:8384";
     openDefaultPorts = true;
-    user = "user";
+    user = lib.mkDefault "user";
     dataDir = lib.mkDefault "/home/user";
 
     settings.devices = {

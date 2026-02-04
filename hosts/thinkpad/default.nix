@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
     ../../modules/desktop
     ../../modules/hack-the-box.nix
+    ../../modules/marlin6105-dav
     ../../modules/sway
     ../../modules/virtualisation
   ];
