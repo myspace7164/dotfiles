@@ -25,6 +25,8 @@
     3990
     # paperless
     28981
+    # radicale
+    5232
   ];
   # the below are copyparty
   networking.firewall.allowedTCPPortRanges = [
@@ -76,21 +78,20 @@
   };
 
   services.radicale = {
-    enable = false;
+    enable = true;
     settings = {
       server = {
         hosts = [
           "0.0.0.0:5232"
-          "[::]:5232"
         ];
       };
       auth = {
         type = "htpasswd";
-        htpasswd_filename = "/etc/radicale/users";
+        htpasswd_filename = "/mnt/drive/radicale/users";
         htpasswd_encryption = "bcrypt";
       };
       storage = {
-        filesystem_folder = "/var/lib/radicale/collections";
+        filesystem_folder = "/mnt/drive/radicale/collections";
       };
     };
   };
