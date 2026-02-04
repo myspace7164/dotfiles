@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -15,5 +15,8 @@
 
   networking.hostName = "thinkpad";
 
+  environment.systemPackages = [ pkgs.rclone ];
+
   services.tlp.enable = true;
+  services.davfs2.enable = true;
 }

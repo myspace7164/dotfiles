@@ -15,6 +15,8 @@
     plasma-manager.inputs.home-manager.follows = "home-manager";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+
+    copyparty.url = "github:9001/copyparty";
   };
 
   outputs =
@@ -24,6 +26,7 @@
       home-manager,
       nix-flatpak,
       nixos-wsl,
+      copyparty,
       ...
     }@inputs:
     let
@@ -106,7 +109,10 @@
 
         marlin6105 = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
-          modules = [ ./hosts/marlin6105 ];
+          modules = [
+            copyparty.nixosModules.default
+            ./hosts/marlin6105
+          ];
         };
 
         wsl = nixpkgs.lib.nixosSystem {
