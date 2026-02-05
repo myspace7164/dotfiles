@@ -19,6 +19,41 @@
   networking.hostName = "marlin6105";
   networking.networkmanager.enable = true;
 
+  networking.nat.enable = true;
+  networking.nat.externalInterface = "eth0";
+  networking.nat.internalInterfaces = [ "wg0" ];
+
+  networking.wireguard.interfaces = {
+    wg0 = {
+      ips = [ "10.100.0.1/24" ];
+      listenPort = 51820;
+
+      postSetup = ''
+        ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
+      '';
+      postShutdown = ''
+        ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
+      '';
+
+      privateKeyFile = "/root/wireguard-keys/private";
+
+      peers = [
+        {
+          publicKey = "EJ/Z2TUrEKrYdK7X5/so4k/uw5mV2UI/GcORnjL3h2k=";
+          allowedIPs = [ "10.100.0.2/32" ];
+        }
+        {
+          publicKey = "WKJRz8KnCo+xdi3AfWzcMcV6oZLxde8qj5SQUjsQbRs=";
+          allowedIPs = [ "10.100.0.3/32" ];
+        }
+        {
+          publicKey = "TODO";
+          allowedIPs = [ "10.100.0.4/32" ];
+        }
+      ];
+    };
+  };
+
   fileSystems."/mnt/drive" = {
     device = "/dev/disk/by-uuid/6fa81b71-8a9a-4de8-ab8f-c93f7a4e18ad";
     fsType = "ext4";
@@ -152,5 +187,8 @@
     1900
     3969
     5353
+
+    # wireguard
+    51820
   ];
 }

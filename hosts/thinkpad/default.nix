@@ -22,4 +22,24 @@
 
   services.tlp.enable = true;
   services.davfs2.enable = true;
+
+  networking.firewall = {
+    allowedUDPPorts = [ 51820 ];
+  };
+
+  networking.wireguard.interfaces = {
+    wg0 = {
+      ips = [ "10.100.0.2/24" ];
+      listenPort = 51820;
+      privateKeyFile = "/home/user/wireguard-keys/private";
+      peers = [
+        {
+          publicKey = "nAhX+IQOU/UTkrVzev+DrGZ5X1oIUFqXE01xuZf/L1M=";
+          allowedIPs = [ "0.0.0.0/0" ];
+          endpoint = "reissue9478.servecounterstrike.com:51820";
+          persistentKeepalive = 25;
+        }
+      ];
+    };
+  };
 }
