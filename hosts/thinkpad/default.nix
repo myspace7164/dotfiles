@@ -16,7 +16,9 @@
 
   networking.hostName = "thinkpad";
 
-  environment.systemPackages = [ pkgs.rclone ];
+  environment.systemPackages = with pkgs; [
+    unstable.rclone
+  ];
 
   services.tlp.enable = true;
   services.davfs2.enable = true;
