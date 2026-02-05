@@ -262,6 +262,12 @@ bindsym $mod+Shift+d exec cliphist list | wmenu -i -f "Iosevka 10" | cliphist de
 bindsym $mod+Shift+w exec cliphist wipe
 
 #
+# App bindings:
+#
+
+bindsym $mod+b exec librewolf
+
+#
 # Status Bar:
 #
 
