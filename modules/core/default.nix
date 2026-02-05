@@ -54,6 +54,7 @@
     tree
     tree-sitter
     typst
+    unstable.rclone
     unzip
     wget
     zig_0_15

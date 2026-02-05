@@ -4,6 +4,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/desktop
+    ../../modules/marlin6105-dav
     ../../modules/sway
     ../../modules/virtualisation
   ];
