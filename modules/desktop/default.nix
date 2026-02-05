@@ -62,23 +62,16 @@
   };
 
   environment.systemPackages = with pkgs; [
-    audacity
     bitwarden-desktop
-    bleachbit
     blender
     calibre
     czkawka
     darktable
-    drawio
-    easyeffects
     ente-auth
     ente-desktop
     gimp
-    gnucash
     inkscape
     libreoffice
-    mat2
-    metadata-cleaner
     mixxx
     mpv
     nicotine-plus
@@ -89,15 +82,11 @@
     reaper
     signal-desktop
     spotify
-    standardnotes
-    switcheroo
     tor-browser
     unison
-    veracrypt
     vlc
     vscodium
     zathura
-    zotero
     (retroarch.withCores (
       cores: with cores; [
         dolphin
