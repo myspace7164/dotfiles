@@ -27,6 +27,7 @@
     wg0 = {
       ips = [ "10.100.0.1/24" ];
       listenPort = 51820;
+      privateKeyFile = "/root/wireguard-keys/private";
 
       postSetup = ''
         ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
@@ -35,20 +36,14 @@
         ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
       '';
 
-      privateKeyFile = "/root/wireguard-keys/private";
-
       peers = [
         {
-          publicKey = "EJ/Z2TUrEKrYdK7X5/so4k/uw5mV2UI/GcORnjL3h2k=";
+          publicKey = "KRWSLsbcXIZkY33RsXrM4mvdX0MSAVNkoq88qKrcSFc=";
           allowedIPs = [ "10.100.0.2/32" ];
         }
         {
           publicKey = "WKJRz8KnCo+xdi3AfWzcMcV6oZLxde8qj5SQUjsQbRs=";
           allowedIPs = [ "10.100.0.3/32" ];
-        }
-        {
-          publicKey = "TODO";
-          allowedIPs = [ "10.100.0.4/32" ];
         }
       ];
     };
@@ -187,7 +182,6 @@
     1900
     3969
     5353
-
     # wireguard
     51820
   ];
