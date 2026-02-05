@@ -63,29 +63,15 @@
 
   environment.systemPackages = with pkgs; [
     bitwarden-desktop
-    blender
-    calibre
-    czkawka
-    darktable
     ente-auth
     ente-desktop
-    gimp
-    inkscape
-    libreoffice
     mixxx
     mpv
-    nicotine-plus
-    obs-studio
-    onionshare
     protonvpn-gui
-    qbittorrent
-    reaper
     signal-desktop
     spotify
     tor-browser
     unison
-    vlc
-    vscodium
     zathura
     (retroarch.withCores (
       cores: with cores; [
