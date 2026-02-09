@@ -1,9 +1,3 @@
-(defvar my/dark-theme 'modus-vivendi
-  "Default dark theme.")
-
-(defvar my/light-theme 'modus-operandi
-  "Default light theme.")
-
 (use-package package
   :init
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -216,26 +210,12 @@
   (defvar my/dark-theme-hook nil)
   (defvar my/light-theme-hook nil)
 
-  (add-hook 'my/dark-theme-hook
-            (lambda ()
-              (dolist (buf (buffer-list))
-                (with-current-buffer buf
-                  (when (derived-mode-p 'pdf-view-mode)
-                    (pdf-view-midnight-minor-mode 1))))))
-
-  (add-hook 'my/light-theme-hook
-            (lambda ()
-              (dolist (buf (buffer-list))
-                (with-current-buffer buf
-                  (when (derived-mode-p 'pdf-view-mode)
-                    (pdf-view-midnight-minor-mode -1))))))
-
   (defun my/apply-dark-theme ()
-    (load-theme my/dark-theme t)
+    (load-theme 'modus-vivendi t)
     (run-hooks 'my/dark-theme-hook))
 
   (defun my/apply-light-theme ()
-    (load-theme my/light-theme t)
+    (load-theme 'modus-operandi t)
     (run-hooks 'my/light-theme-hook))
 
   (defun my/theme-from-dbus (value)
@@ -812,11 +792,6 @@ This works across multiple Org files."
   :ensure t
   :magic ("%PDF" . pdf-view-mode)
   :preface
-  (defun my/pdf-view-auto-midnight ()
-    "Enable or disable `pdf-view-midnight-minor-mode` based on current theme."
-    (if (equal my/dark-theme (car custom-enabled-themes))
-        (pdf-view-midnight-minor-mode 1)
-      (pdf-view-midnight-minor-mode -1)))
   :hook ((pdf-view-mode . pdf-view-fit-page-to-window)
          (pdf-view-mode . my/pdf-view-auto-midnight))
   :config
