@@ -55,7 +55,7 @@
     wantedBy = [ "default.target" ];
     description = "Unison default service";
     serviceConfig = {
-      ExecStart = "${pkgs.unison}/bin/unison default";
+      ExecStart = "${pkgs.unison}/bin/unison /home/user /run/media/user/dig4718 -path org -perms 0 -batch -auto -repeat watch";
       Restart = "always";
       RestartSec = 10;
     };

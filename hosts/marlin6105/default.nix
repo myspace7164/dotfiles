@@ -79,7 +79,7 @@
     volumes = {
       "/" = {
         path = "/mnt/drive/copyparty";
-        access.rwd = [ "mousy6863" ];
+        access.rwmd = [ "mousy6863" ];
       };
     };
   };
@@ -134,7 +134,6 @@
       group = "syncthing";
       dataDir = dataDir;
 
-      settings.folders."dig4718".path = "${dataDir}/dig4718";
       settings.folders."~/org".path = "${dataDir}/org";
       settings.folders."SeedVaultAndroidBackup" = {
         id = "ojr5r-owslz";
@@ -145,6 +144,23 @@
         ];
       };
     };
+
+  systemd.timers.rclone-sync = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true;
+      Unit = "rclone-sync.service";
+    };
+  };
+
+  systemd.services.rclone-sync = {
+    serviceConfig = {
+      ExecStart = "${pkgs.unstable.rclone}/bin/rclone sync -v /mnt/drive backup:";
+      Type = "oneshot";
+      User = "root";
+    };
+  };
 
   hardware.enableRedistributableFirmware = true;
   system.stateVersion = "25.11";
