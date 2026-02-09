@@ -334,22 +334,6 @@
   :hook ((conf-mode . display-line-numbers-mode)
          (prog-mode . display-line-numbers-mode)))
 
-(use-package easymenu
-  :if (eq system-type 'android)
-  :config
-  (easy-menu-define my-menu global-map
-    "My Customized Menu for using Emacs on Android."
-    '("Shortcuts"
-      ["Capture" org-capture]
-      ["Agenda List" org-agenda-list]
-      ["Global TODO List" org-todo-list]
-      ["Search for Keywords" org-search-view]
-      ["Refile" org-refile]
-      ["Laundry" (org-caputre nil "w")]
-      ["Log" (org-capture nil "ll")]
-      ["Nicotine" (org-capture nil "ln")]
-      ["Weight" (org-capture nil "lw")])))
-
 (use-package eglot
   :hook ((lua-mode . eglot-ensure)
          (nix-mode . eglot-ensure)
@@ -720,8 +704,6 @@ This works across multiple Org files."
   (org-refile-use-outline-path 'file)
   (org-special-ctrl-k t)
   (org-tags-column 0)
-  (org-todo-keyword-faces '(("STARTED" . "yellow4") ("WAITING" . "orange") ("CANCELED" . "gray")))
-  (org-todo-keywords '((sequence "TODO(t)" "STARTED(s)" "WAITING(w@/!)" "|" "DONE(d)" "CANCELED(c@)")))
   (org-use-fast-todo-selection 'expert)
   (org-use-speed-commands t)
   :config
@@ -756,16 +738,7 @@ This works across multiple Org files."
   (org-agenda-show-future-repeats 'next)
   (org-agenda-todo-ignore-deadlines 'future)
   (org-agenda-todo-ignore-scheduled 'future)
-  (org-agenda-todo-ignore-timestamp 'future)
-  (org-agenda-custom-commands
-   '(("i" "Inbox" tags "+inbox")
-	   ("s" "Shopping List" tags-todo "+buy-someday-@aabacka")
-     ("o" "Todo" tags-todo "-projects-recipe-bookmark-buy-someday/!-WAITING"
-      ((org-agenda-skip-function '(org-agenda-skip-subtree-if 'scheduled))
-       (org-agenda-skip-function '(org-agenda-skip-subtree-if 'deadline))
-       (org-agenda-skip-function '(org-agenda-skip-subtree-if 'timestamp))))
-     ("w" "Waiting" tags "/WAITING")
-     ("S" "Someday" tags-todo "+someday"))))
+  (org-agenda-todo-ignore-timestamp 'future))
 
 (use-package org-agenda
   :if (eq system-type 'android)
@@ -779,132 +752,7 @@ This works across multiple Org files."
   (setf (alist-get 'todo org-agenda-prefix-format) ""))
 
 (use-package org-capture
-  :bind ("C-c c" . org-capture)
-  :preface
-  (defvar my/org-capture-created-line
-    ":CREATED:  %U\n")
-
-  (defvar my/org-contacts-template
-    (concat "* %(org-contacts-template-name)\n"
-            ":PROPERTIES:\n"
-            my/org-capture-created-line
-            ":EMAIL: %(org-contacts-template-email)\n"
-            ":PHONE:\n"
-            ":ALIAS:\n"
-            ":NICKNAME:\n"
-            ":IGNORE:\n"
-            ":ICON:\n"
-            ":NOTE: %^{NOTE}\n"
-            ":ADDRESS: %^{123 Street, 0001 State, Country}\n"
-            ":BIRTHDAY: %^{YYYY-MM-DD}\n"
-            ":END:"))
-
-  (defvar my/org-event-template
-    (concat "* %?\n"
-            ":PROPERTIES:\n"
-            my/org-capture-created-line
-            ":PARTICIPANTS:\n"
-            ":LOCATION:\n"
-            ":END:"))
-
-  (defvar my/org-capture-created-property
-    (concat ":PROPERTIES:\n"
-            my/org-capture-created-line
-            ":END:\n"))
-
-  (defvar my/org-capture-log-weight
-    (concat "* Weight :health:\n"
-            ":PROPERTIES:\n"
-            ":VALUE:  %^{weight}\n"
-            ":UNIT:  kg\n"
-            ":EFFECT:  neutral\n"
-            my/org-capture-created-line
-            ":END:\n"))
-
-  (defvar my/org-capture-log-nicotine
-    (concat "* Nicotine :health:\n"
-            ":PROPERTIES:\n"
-            ":VALUE:  %^{count|1}\n"
-            ":UNIT:  #\n"
-            ":EFFECT:  negative\n"
-            my/org-capture-created-line
-            ":END:\n"))
-
-  (defvar my/org-capture-log
-    (concat "* %^{Title} %^G\n"
-            ":PROPERTIES:\n"
-            ":VALUE:  %^{value}\n"
-            ":UNIT:  %^{unit}\n"
-            ":EFFECT:  %^{effect|neutral|neutral|positive|negative}\n"
-            my/org-capture-created-line
-            ":END:\n"))
-
-  (defvar my/org-capture-daily-todos
-    (concat "* TODO Todos for today [/]\n"
-            "SCHEDULED: %t\n"
-            my/org-capture-created-property
-            "- [ ] %?"))
-
-  ;; Thank you https://emacs.stackexchange.com/a/82754
-  ;; I'm not using it currently but who knows
-  (defun my/org-capture-add-id ()
-    "Add an ID property with a newly generated id to the current node.
-Also copy it to the kill ring for future reference."
-    (org-entry-put nil "ID" (org-id-new))
-    (org-id-copy))
-
-  :custom
-  (org-capture-templates
-   `(("i" "Inbox" entry (file "inbox.org")
-      ,(concat "* %?\n" my/org-capture-created-property))
-     ("t" "Task" entry (file "tasks.org")
-      ,(concat "* TODO %?\n" my/org-capture-created-property))
-     ("b" "Buy" entry (file "buy.org")
-      ,(concat "* TODO %?\n" my/org-capture-created-property))
-     ("c" "Contact" entry (file "contacts.org")
-      ,my/org-contacts-template)
-     ("e" "Event" entry (file "calendar.org")
-      ,my/org-event-template)
-     ("w" "Wäsche abhängen" entry (file "tasks.org")
-      ,(concat "* TODO Wäsche abhängen :@home:errand:\nSCHEDULED: <%(org-read-date nil nil \"+3d\")>\n" my/org-capture-created-property) :immediate-finish t)
-     ("W" "Wäsche abhängen (time-prompt)" entry (file "tasks.org")
-      ,(concat "* TODO Wäsche abhängen :@home:errand:\nSCHEDULED: %^t\n" my/org-capture-created-property) :immediate-finish t)
-
-     ;; journaling
-     ("j" "Journal")
-     ("jj" "Journal entry" entry (file+olp+datetree "journal.org")
-      "* %U %^{Title|Daily review}\n%?")
-     ("jJ" "Journal entry (time-prompt)" entry (file+olp+datetree "journal.org")
-      "* %U %^{Title|Daily review}\n%?" :time-prompt t)
-     ("jt" "Daily todo" entry (file+olp+datetree "journal.org")
-      ,my/org-capture-daily-todos)
-     ("jT" "Daily todo (time-prompt)" entry (file+olp+datetree "journal.org")
-      ,my/org-capture-daily-todos :time-prompt t)
-
-     ;; logging
-     ("l" "Log")
-     ("ll" "Log" entry (file "log.org")
-      ,my/org-capture-log)
-     ("ln" "Nicotine" entry (file "log.org")
-      ,my/org-capture-log-nicotine :immediate-finish t)
-     ("lw" "Weight" entry (file "log.org")
-       ,my/org-capture-log-weight :immediate-finish t)
-
-     ;; meeting notes
-     ("n" "Meeting notes" entry (file+headline "notes.org" "Meetings")
-      "* %U %^{Title}\n%?")
-     ("N" "Meeting notes (custom datetime)" entry (file+headline "notes.org" "Meetings")
-      "* %^U %^{Title}\n%?")
-
-     ;; mu4e
-     ("m" "Mail" entry (file "inbox.org")
-      "* %:fromname\n%U\n%a\n%?")
-
-     ;; org-capture-extension specific (https://github.com/sprig/org-capture-extension)
-     ("p" "Protocol" entry (file "bookmarks.org")
-      ,(concat "* TODO %^{Title} :inbox:\n" my/org-capture-created-property "\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?") :immediate-finish t)
-	   ("L" "Protocol Link" entry (file "bookmarks.org")
-      ,(concat "* TODO %?[[%:link][%:description]] :inbox:\n" my/org-capture-created-property) :immediate-finish t))))
+  :bind ("C-c c" . org-capture))
 
 (use-package org-capture
   :if (eq system-type 'android)
@@ -1141,3 +989,7 @@ Also copy it to the kill ring for future reference."
 (use-package zig-mode
   :ensure t
   :mode "\\.\\(zig\\|zon\\)\\'")
+
+(let ((org-config (concat org-directory "/.emacs")))
+  (when (file-exists-p org-config)
+    (load org-config nil 'nomessage)))
