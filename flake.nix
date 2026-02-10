@@ -2,31 +2,26 @@
   description = "my-nixos-flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
-
-    nixos-wsl.url = "github:nix-community/nixos-wsl";
-
-    plasma-manager.url = "github:nix-community/plasma-manager";
-    plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
-    plasma-manager.inputs.home-manager.follows = "home-manager";
-
-    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-
     copyparty.url = "github:9001/copyparty";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+    nixos-wsl.url = "github:nix-community/nixos-wsl";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    plasma-manager.inputs.home-manager.follows = "home-manager";
+    plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
+    plasma-manager.url = "github:nix-community/plasma-manager";
   };
 
   outputs =
     {
       self,
-      nixpkgs,
+      copyparty,
       home-manager,
       nix-flatpak,
       nixos-wsl,
-      copyparty,
+      nixpkgs,
       ...
     }@inputs:
     let
@@ -43,11 +38,9 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            nix-flatpak.nixosModules.nix-flatpak
-
             ./hosts/thinkpad
-
             home-manager.nixosModules.home-manager
+            nix-flatpak.nixosModules.nix-flatpak
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -60,10 +53,8 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            nix-flatpak.nixosModules.nix-flatpak
-
             ./hosts/desktop
-
+            nix-flatpak.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -77,10 +68,8 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            nix-flatpak.nixosModules.nix-flatpak
-
             ./hosts/player
-
+            nix-flatpak.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -94,10 +83,8 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            nix-flatpak.nixosModules.nix-flatpak
-
             ./hosts/pocket
-
+            nix-flatpak.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -110,8 +97,8 @@
         marlin6105 = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
-            copyparty.nixosModules.default
             ./hosts/marlin6105
+            copyparty.nixosModules.default
           ];
         };
 
@@ -119,10 +106,8 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            nixos-wsl.nixosModules.default
-
             ./hosts/wsl
-
+            nixos-wsl.nixosModules.default
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
