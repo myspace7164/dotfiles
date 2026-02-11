@@ -792,8 +792,7 @@ This works across multiple Org files."
   :ensure t
   :magic ("%PDF" . pdf-view-mode)
   :preface
-  :hook ((pdf-view-mode . pdf-view-fit-page-to-window)
-         (pdf-view-mode . my/pdf-view-auto-midnight))
+  :hook (pdf-view-mode . pdf-view-fit-page-to-window)
   :config
   (pdf-tools-install :no-query))
 
