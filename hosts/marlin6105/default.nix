@@ -71,6 +71,7 @@
     settings = {
       i = "0.0.0.0";
       daw = true;
+      acao = "moz-extension://797c70b0-c04f-445c-b70b-be1246ad52ac";
     };
 
     accounts.mousy6863.passwordFile = "/root/copyparty/password";
