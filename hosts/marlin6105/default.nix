@@ -69,7 +69,7 @@
     group = "copyparty";
 
     settings = {
-      i = "10.100.0.0";
+      i = "0.0.0.0";
       daw = true;
       acao = "moz-extension://797c70b0-c04f-445c-b70b-be1246ad52ac";
     };
@@ -97,7 +97,7 @@
 
   services.paperless = {
     enable = true;
-    address = "10.100.0.0";
+    address = "0.0.0.0";
     user = "paperless";
     dataDir = "/mnt/drive/paperless";
     settings = {
@@ -112,7 +112,7 @@
     settings = {
       server = {
         hosts = [
-          "10.100.0.0:5232"
+          "0.0.0.0:5232"
         ];
       };
       auth = {
@@ -134,7 +134,7 @@
       user = "syncthing";
       group = "syncthing";
       dataDir = dataDir;
-      guiAddress = "10.100.0.0:8384";
+      guiAddress = "0.0.0.0:8384";
 
       settings.folders."~/org".path = "${dataDir}/org";
       settings.folders."SeedVaultAndroidBackup" = {
