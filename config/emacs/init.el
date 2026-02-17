@@ -282,9 +282,9 @@
   ;; TODO: optional output-dir
   (defun my/denote-uml-file (description)
     (concat (file-name-sans-extension (file-name-nondirectory buffer-file-name)) "-" description "__"  "uml" ".svg"))
-  :config
-  (setq denote-directory "~/Nextcloud/org/notes")
-  (setq denote-dired-directories (list denote-directory)))
+  :custom
+  (denote-directory "~/notes")
+  (denote-dired-directories (list denote-directory)))
 
 (use-package dired
   :defer t

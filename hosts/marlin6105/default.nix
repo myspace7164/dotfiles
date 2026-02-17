@@ -58,6 +58,7 @@
   environment.systemPackages = with pkgs; [
     copyparty
     git
+    gitwatch
     unstable.rclone
     vim
     wireguard-tools
@@ -136,6 +137,7 @@
       dataDir = dataDir;
       guiAddress = "0.0.0.0:8384";
 
+      settings.folders."~/notes".path = "${dataDir}/notes";
       settings.folders."~/org".path = "${dataDir}/org";
       settings.folders."SeedVaultAndroidBackup" = {
         id = "ojr5r-owslz";
@@ -162,6 +164,20 @@
       Type = "oneshot";
       User = "root";
     };
+  };
+
+  systemd.services.gitwatch-notes = {
+    enable = true;
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
+    description = "gitwatch for notes";
+    path = with pkgs; [
+      gitwatch
+      git
+    ];
+    script = "gitwatch /mnt/drive/syncthing/notes";
+    serviceConfig.User = "syncthing";
   };
 
   hardware.enableRedistributableFirmware = true;

@@ -63,6 +63,7 @@
 
   environment.systemPackages = with pkgs; [
     bitwarden-desktop
+    calibre
     ente-auth
     ente-desktop
     mixxx

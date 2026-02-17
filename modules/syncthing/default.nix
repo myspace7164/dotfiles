@@ -17,6 +17,14 @@
     };
 
     settings.folders = {
+      "~/notes".devices = [
+        "desktop"
+        "device"
+        "marlin6105"
+        "player"
+        "pocket"
+        "thinkpad"
+      ];
       "~/org".devices = [
         "desktop"
         "device"
