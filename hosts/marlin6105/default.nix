@@ -90,6 +90,12 @@
     enable = false;
   };
 
+  services.jellyfin = {
+    enable = true;
+    dataDir = "/mnt/drive/jellyfin";
+    openFirewall = true;
+  };
+
   services.openssh = {
     enable = true;
     startWhenNeeded = true;

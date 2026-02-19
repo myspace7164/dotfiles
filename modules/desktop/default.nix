@@ -66,9 +66,13 @@
     calibre
     ente-auth
     ente-desktop
+    fooyin
     mixxx
     mpv
+    nicotine-plus
+    picard
     protonvpn-gui
+    qbittorrent
     signal-desktop
     spotify
     tor-browser
