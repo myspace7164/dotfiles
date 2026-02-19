@@ -82,6 +82,10 @@
       "/" = {
         path = "/mnt/drive/copyparty";
         access.rwmd = [ "mousy6863" ];
+        flags = {
+          chmod_f = "644";
+          chmod_d = "755";
+        };
       };
     };
   };
