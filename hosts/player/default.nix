@@ -13,8 +13,4 @@
   boot.loader.timeout = 0;
 
   networking.hostName = "player";
-
-  environment.systemPackages = with pkgs; [
-    gitwatch
-  ];
 }

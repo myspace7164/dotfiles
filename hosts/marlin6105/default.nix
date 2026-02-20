@@ -170,7 +170,7 @@
 
   systemd.services.rclone-sync = {
     serviceConfig = {
-      ExecStart = "${pkgs.unstable.rclone}/bin/rclone sync -v /mnt/drive backup:";
+      ExecStart = "${pkgs.coreutils-full}/bin/nice -n 19 ${pkgs.util-linux}/bin/ionice -c3 ${pkgs.unstable.rclone}/bin/rclone sync -v /mnt/drive backup: --transfers 1 --checkers 2 --bwlimit 2M --buffer-size 4m";
       Type = "oneshot";
       User = "root";
     };
@@ -187,6 +187,20 @@
       git
     ];
     script = "gitwatch /mnt/drive/syncthing/notes";
+    serviceConfig.User = "syncthing";
+  };
+
+  systemd.services.gitwatch-org = {
+    enable = true;
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
+    description = "gitwatch for org";
+    path = with pkgs; [
+      gitwatch
+      git
+    ];
+    script = "gitwatch /mnt/drive/syncthing/org";
     serviceConfig.User = "syncthing";
   };
 
