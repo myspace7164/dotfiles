@@ -13,24 +13,15 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 0;
+  boot.supportedFilesystems = [ "nfs" ];
+
+  fileSystems."/mnt/media" = {
+    device = "192.168.1.135:/volume1/media";
+    fsType = "nfs";
+  };
 
   networking.hostName = "thinkpad";
 
+  services.tailscale.enable = true;
   services.tlp.enable = true;
-  services.davfs2.enable = true;
-
-  networking.wireguard.interfaces = {
-    wg0 = {
-      ips = [ "10.100.0.2/24" ];
-      privateKeyFile = "/home/user/wireguard-keys/private";
-      peers = [
-        {
-          publicKey = "nAhX+IQOU/UTkrVzev+DrGZ5X1oIUFqXE01xuZf/L1M=";
-          allowedIPs = [ "192.168.1.0/24" ];
-          endpoint = "reissue9478.servecounterstrike.com:51820";
-          persistentKeepalive = 25;
-        }
-      ];
-    };
-  };
 }

@@ -8,9 +8,15 @@
   ];
 
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
-  boot.loader.timeout = 0;
-  boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;
+  boot.loader.grub.enable = false;
+  boot.loader.timeout = 0;
+  boot.supportedFilesystems = [ "nfs" ];
+
+  fileSystems."/mnt/media" = {
+    device = "192.168.1.135:/volume1/media";
+    fsType = "nfs";
+  };
 
   nixpkgs.overlays = [
     inputs.self.overlays.unstable-packages
@@ -18,36 +24,6 @@
 
   networking.hostName = "marlin6105";
   networking.networkmanager.enable = true;
-
-  networking.nat.enable = true;
-  networking.nat.externalInterface = "eth0";
-  networking.nat.internalInterfaces = [ "wg0" ];
-
-  networking.wireguard.interfaces = {
-    wg0 = {
-      ips = [ "10.100.0.1/24" ];
-      listenPort = 51820;
-      privateKeyFile = "/root/wireguard-keys/private";
-
-      postSetup = ''
-        ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
-      '';
-      postShutdown = ''
-        ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
-      '';
-
-      peers = [
-        {
-          publicKey = "6q/O7CwFllVhaTF3B9KBrmVMlcO9MdFYXgU/1K9x7Q8=";
-          allowedIPs = [ "10.100.0.2/32" ];
-        }
-        {
-          publicKey = "WKJRz8KnCo+xdi3AfWzcMcV6oZLxde8qj5SQUjsQbRs=";
-          allowedIPs = [ "10.100.0.3/32" ];
-        }
-      ];
-    };
-  };
 
   fileSystems."/mnt/drive" = {
     device = "/dev/disk/by-uuid/6fa81b71-8a9a-4de8-ab8f-c93f7a4e18ad";
@@ -61,7 +37,6 @@
     gitwatch
     unstable.rclone
     vim
-    wireguard-tools
   ];
 
   services.copyparty = {
@@ -159,6 +134,8 @@
       };
     };
 
+  services.tailscale.enable = true;
+
   systemd.timers.rclone-sync = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
@@ -250,7 +227,5 @@
     1900
     3969
     5353
-    # wireguard
-    51820
   ];
 }
