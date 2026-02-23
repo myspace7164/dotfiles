@@ -16,12 +16,21 @@
   boot.supportedFilesystems = [ "nfs" ];
 
   fileSystems."/mnt/media" = {
-    device = "192.168.1.135:/volume1/media";
+    device = "100.70.70.7:/volume1/media";
     fsType = "nfs";
+    options = [
+      "nfsvers=4.1"
+      "noauto"
+      "x-systemd.automount"
+      "x-systemd.idle-timeout=600"
+    ];
   };
 
   networking.hostName = "thinkpad";
 
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+		package = pkgs.unstable.tailscale;
+  };
   services.tlp.enable = true;
 }

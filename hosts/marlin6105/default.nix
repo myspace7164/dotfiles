@@ -134,7 +134,11 @@
       };
     };
 
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+		openFirewall = true;
+		package = pkgs.unstable.tailscale;
+  };
 
   systemd.timers.rclone-sync = {
     wantedBy = [ "timers.target" ];
