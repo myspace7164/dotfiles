@@ -94,10 +94,10 @@
           ];
         };
 
-        marlin6105 = nixpkgs.lib.nixosSystem {
+        marlin = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
-            ./hosts/marlin6105
+            ./hosts/marlin
             copyparty.nixosModules.default
           ];
         };

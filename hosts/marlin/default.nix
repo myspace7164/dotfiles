@@ -22,7 +22,7 @@
     inputs.self.overlays.unstable-packages
   ];
 
-  networking.hostName = "marlin6105";
+  networking.hostName = "marlin";
   networking.networkmanager.enable = true;
 
   fileSystems."/mnt/drive" = {
@@ -129,7 +129,7 @@
         path = "${dataDir}/SeedVaultAndroidBackup";
         devices = [
           "device"
-          "marlin6105"
+          "marlin"
         ];
       };
     };
