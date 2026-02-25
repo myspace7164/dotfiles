@@ -140,18 +140,35 @@
     package = pkgs.unstable.tailscale;
   };
 
-  systemd.timers.rclone-sync = {
+  systemd.timers.rclone-sync-drive = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnCalendar = "daily";
       Persistent = true;
-      Unit = "rclone-sync.service";
+      Unit = "rclone-sync-drive.service";
     };
   };
 
-  systemd.services.rclone-sync = {
+  systemd.services.rclone-sync-drive = {
     serviceConfig = {
-      ExecStart = "${pkgs.coreutils-full}/bin/nice -n 19 ${pkgs.util-linux}/bin/ionice -c3 ${pkgs.unstable.rclone}/bin/rclone sync -v /mnt/drive backup: --transfers 1 --checkers 2 --bwlimit 2M --buffer-size 4m";
+      ExecStart = "${pkgs.coreutils-full}/bin/nice -n 19 ${pkgs.util-linux}/bin/ionice -c3 ${pkgs.unstable.rclone}/bin/rclone sync -v /mnt/drive backup-marlin: --transfers 1 --checkers 2 --bwlimit 2M --buffer-size 4m";
+      Type = "oneshot";
+      User = "root";
+    };
+  };
+
+  systemd.timers.rclone-sync-media = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true;
+      Unit = "rclone-sync-media.service";
+    };
+  };
+
+  systemd.services.rclone-sync-media = {
+    serviceConfig = {
+      ExecStart = "${pkgs.coreutils-full}/bin/nice -n 19 ${pkgs.util-linux}/bin/ionice -c3 ${pkgs.unstable.rclone}/bin/rclone sync -v /mnt/media backup-media: --transfers 1 --checkers 2 --bwlimit 2M --buffer-size 4m";
       Type = "oneshot";
       User = "root";
     };
