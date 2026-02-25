@@ -136,8 +136,8 @@
 
   services.tailscale = {
     enable = true;
-		openFirewall = true;
-		package = pkgs.unstable.tailscale;
+    openFirewall = true;
+    package = pkgs.unstable.tailscale;
   };
 
   systemd.timers.rclone-sync = {
@@ -187,8 +187,17 @@
 
   hardware.enableRedistributableFirmware = true;
   system.stateVersion = "25.11";
-  system.autoUpgrade.enable = true;
-  system.autoUpgrade.flake = "github:myspace7164/dotfiles";
+
+  system.autoUpgrade = {
+    allowReboot = true;
+    dates = "01:40";
+    enable = true;
+    flags = [ "-L" ];
+    flake = inputs.self.outPath;
+    runGarbageCollection = true;
+  };
+
+  zramSwap.enable = true;
 
   nix.gc = {
     automatic = true;
