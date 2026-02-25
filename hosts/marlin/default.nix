@@ -16,6 +16,11 @@
   fileSystems."/mnt/media" = {
     device = "192.168.1.135:/volume1/media";
     fsType = "nfs";
+    options = [
+      "nfsvers=4.1"
+      "noauto"
+      "x-systemd.automount"
+    ];
   };
 
   nixpkgs.overlays = [
@@ -117,8 +122,8 @@
       dataDir = "/mnt/drive/syncthing";
     in
     {
-      user = "syncthing";
-      group = "syncthing";
+      user = "root";
+      group = "root";
       dataDir = dataDir;
       guiAddress = "0.0.0.0:8384";
 
