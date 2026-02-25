@@ -197,7 +197,10 @@
     runGarbageCollection = true;
   };
 
-  zramSwap.enable = true;
+  zramSwap = {
+    enable = true;
+    memoryPercent = 400;
+  };
 
   nix.gc = {
     automatic = true;
