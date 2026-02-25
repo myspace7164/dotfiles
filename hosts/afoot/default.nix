@@ -18,7 +18,13 @@
     font = "ter-128b";
     packages = [ pkgs.terminus_font ];
   };
+
   services.xserver.xkb.layout = "us";
+
+  services.tailscale = {
+    enable = true;
+    package = pkgs.unstable.tailscale;
+  };
 
   services.tlp = {
     enable = true;

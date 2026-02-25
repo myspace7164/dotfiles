@@ -17,6 +17,13 @@
     };
 
     settings.folders = {
+      "~/music".devices = [
+        "desktop"
+        "device"
+        "marlin"
+        "player"
+        "thinkpad"
+      ];
       "~/notes".devices = [
         "desktop"
         "device"

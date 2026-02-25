@@ -122,6 +122,7 @@
       dataDir = dataDir;
       guiAddress = "0.0.0.0:8384";
 
+      settings.folders."~/music".path = "/mnt/media/music";
       settings.folders."~/notes".path = "${dataDir}/notes";
       settings.folders."~/org".path = "${dataDir}/org";
       settings.folders."SeedVaultAndroidBackup" = {
