@@ -11,7 +11,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 0;
 
-  networking.hostName = "pocket";
+  networking.hostName = "afoot";
 
   console = {
     keyMap = "us";

@@ -11,7 +11,7 @@
       device.id = "V2RPWUX-YHTMNN7-OV324QC-5S56VI7-NLZQIWI-JVMGL4P-VEJFVCQ-66IF5A4";
       marlin.id = "R6TVQLH-5ZXEK6O-4JIZEJ6-FZWBUZQ-BHQRIT4-IEQQT7I-V6SASNJ-OVCV3AG";
       player.id = "MQPAXMC-J25TPXE-2TPZUWJ-RHRRSEM-SUZBLQQ-QHGL7YY-O52KPPT-CDXTBQO";
-      pocket.id = "GXR6U4A-4FDR47D-5EUJUMI-YCQMIOD-K2YAIOD-X2PUZ4Y-RXC57PU-L3ZTZQY";
+      afoot.id = "GXR6U4A-4FDR47D-5EUJUMI-YCQMIOD-K2YAIOD-X2PUZ4Y-RXC57PU-L3ZTZQY";
       steamdeck.id = "2HHZQDW-2LYDBPN-AYIKXOV-BVYJURA-CZUFCXF-7TB4N5Q-W2FE36H-YRXUMAM";
       thinkpad.id = "6EF3BXL-PNMEQHU-6Z6GUAS-6QWSCEL-J37NOFE-YOJVMR4-QU76ERV-N7JEJAO";
     };
@@ -22,7 +22,7 @@
         "device"
         "marlin"
         "player"
-        "pocket"
+        "afoot"
         "thinkpad"
       ];
       "~/org".devices = [
@@ -30,7 +30,7 @@
         "device"
         "marlin"
         "player"
-        "pocket"
+        "afoot"
         "thinkpad"
       ];
     };

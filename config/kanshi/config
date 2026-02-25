@@ -2,6 +2,6 @@ profile desktop {
         output "Philips Consumer Electronics Company 24M1N3200V UK02207014698" enable mode 1920x1080@165Hz
 }
 
-profile pocket {
+profile afoot {
         output DSI-1 enable mode 1200x1920 scale 1.5 transform 270
 }

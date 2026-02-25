@@ -79,11 +79,11 @@
           ];
         };
 
-        pocket = nixpkgs.lib.nixosSystem {
+        afoot = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            ./hosts/pocket
+            ./hosts/afoot
             nix-flatpak.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager
             {
