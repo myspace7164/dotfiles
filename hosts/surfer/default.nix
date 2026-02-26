@@ -3,12 +3,12 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/desktop
+    ../../modules/desktop.nix
     ../../modules/hack-the-box.nix
-    ../../modules/marlin-dav
-    ../../modules/sway
+    ../../modules/marlin-dav.nix
+    ../../modules/sway.nix
     ../../modules/tubby-dav.nix
-    ../../modules/virtualisation
+    ../../modules/virtualisation.nix
   ];
 
   boot.loader.systemd-boot.enable = true;

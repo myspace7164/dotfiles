@@ -3,8 +3,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/desktop
-    ../../modules/sway
+    ../../modules/desktop.nix
+    ../../modules/sway.nix
   ];
 
   boot.loader.systemd-boot.enable = true;

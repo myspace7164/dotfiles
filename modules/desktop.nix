@@ -1,11 +1,11 @@
 { pkgs, lib, ... }:
 {
   imports = [
-    ../core
-    ../emacs
-    ../librewolf
-    ../syncthing
-    ../users
+    ../core.nix
+    ../emacs.nix
+    ../librewolf.nix
+    ../syncthing.nix
+    ../users.nix
   ];
 
   # Enable networking

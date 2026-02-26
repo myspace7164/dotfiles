@@ -3,10 +3,10 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/desktop
-    ../../modules/marlin-dav
-    ../../modules/sway
-    ../../modules/virtualisation
+    ../../modules/desktop.nix
+    ../../modules/marlin-dav.nix
+    ../../modules/sway.nix
+    ../../modules/virtualisation.nix
   ];
 
   boot.loader.timeout = 1;

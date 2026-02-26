@@ -3,9 +3,9 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/desktop
-    ../../modules/gnome
-    ../../modules/plymouth
+    ../../modules/desktop.nix
+    ../../modules/gnome.nix
+    ../../modules/plymouth.nix
   ];
 
   boot.loader.systemd-boot.enable = true;

@@ -3,8 +3,8 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/syncthing
-    ../../modules/users
+    ../../modules/syncthing.nix
+    ../../modules/users.nix
   ];
 
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
@@ -46,8 +46,8 @@
 
   services.copyparty = {
     enable = true;
-    user = "copyparty";
-    group = "copyparty";
+    user = "root";
+    group = "root";
 
     settings = {
       i = "0.0.0.0";
@@ -60,7 +60,7 @@
 
     volumes = {
       "/" = {
-        path = "/mnt/drive/copyparty";
+        path = "/mnt/drive";
         access.rwmd = [ "mousy6863" ];
         flags = {
           chmod_f = "644";
@@ -119,20 +119,21 @@
 
   services.syncthing =
     let
-      dataDir = "/mnt/drive/syncthing";
+      dataDir = "/mnt/drive";
     in
     {
       user = "root";
       group = "root";
       dataDir = dataDir;
+      configDir = "/root/.config/syncthing";
       guiAddress = "0.0.0.0:8384";
 
       settings.folders."~/music".path = "/mnt/media/music";
       settings.folders."~/notes".path = "${dataDir}/notes";
       settings.folders."~/org".path = "${dataDir}/org";
-      settings.folders."Backup" = {
+      settings.folders."DeviceBackup" = {
         id = "rozy2-oh9fn";
-        path = "/mnt/drive/copyparty/backup/device";
+        path = "${dataDir}/backup/device";
         devices = [
           "device"
           "marlin"
@@ -140,7 +141,7 @@
       };
       settings.folders."SeedVaultAndroidBackup" = {
         id = "ojr5r-owslz";
-        path = "${dataDir}/SeedVaultAndroidBackup";
+        path = "${dataDir}/backup/SeedVaultAndroidBackup";
         devices = [
           "device"
           "marlin"
@@ -198,7 +199,7 @@
       gitwatch
       git
     ];
-    script = "gitwatch /mnt/drive/syncthing/notes";
+    script = "gitwatch /mnt/drive/notes";
   };
 
   systemd.services.gitwatch-org = {
@@ -211,7 +212,7 @@
       gitwatch
       git
     ];
-    script = "gitwatch /mnt/drive/syncthing/org";
+    script = "gitwatch /mnt/drive/org";
   };
 
   hardware.enableRedistributableFirmware = true;

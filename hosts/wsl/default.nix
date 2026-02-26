@@ -2,8 +2,8 @@
 
 {
   imports = [
-    ../../modules/core
-    ../../modules/emacs
+    ../../modules/core.nix
+    ../../modules/emacs.nix
   ];
 
   wsl.enable = true;
