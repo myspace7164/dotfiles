@@ -130,6 +130,14 @@
       settings.folders."~/music".path = "/mnt/media/music";
       settings.folders."~/notes".path = "${dataDir}/notes";
       settings.folders."~/org".path = "${dataDir}/org";
+      settings.folders."Backup" = {
+        id = "rozy2-oh9fn";
+        path = "/mnt/drive/copyparty/backup/device";
+        devices = [
+          "device"
+          "marlin"
+        ];
+      };
       settings.folders."SeedVaultAndroidBackup" = {
         id = "ojr5r-owslz";
         path = "${dataDir}/SeedVaultAndroidBackup";
@@ -191,7 +199,6 @@
       git
     ];
     script = "gitwatch /mnt/drive/syncthing/notes";
-    serviceConfig.User = "syncthing";
   };
 
   systemd.services.gitwatch-org = {
@@ -205,7 +212,6 @@
       git
     ];
     script = "gitwatch /mnt/drive/syncthing/org";
-    serviceConfig.User = "syncthing";
   };
 
   hardware.enableRedistributableFirmware = true;
