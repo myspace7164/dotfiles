@@ -274,4 +274,19 @@
     3969
     5353
   ];
+
+  systemd.services.owntracks = {
+    enable = true;
+    description = "owntracks recorder";
+    serviceConfig = {
+      ExecStart = ''
+        ${pkgs.unstable.owntracks-recorder}/bin/ot-recorder \
+           --storage /mnt/drive/owntracks/recorder/store \
+           --port 0
+        '';
+      StateDirectory = "owntracks";
+      Restart = "always";
+    };
+    wantedBy = [ "multi-user.target" ];
+  };
 }
