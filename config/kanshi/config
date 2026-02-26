@@ -1,4 +1,4 @@
-profile desktop {
+profile pronto {
         output "Philips Consumer Electronics Company 24M1N3200V UK02207014698" enable mode 1920x1080@165Hz
 }
 

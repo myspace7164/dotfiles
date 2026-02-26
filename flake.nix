@@ -49,11 +49,11 @@
           ];
         };
 
-        desktop = nixpkgs.lib.nixosSystem {
+        pronto = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            ./hosts/desktop
+            ./hosts/pronto
             nix-flatpak.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager
             {

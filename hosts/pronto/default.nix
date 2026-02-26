@@ -29,7 +29,7 @@
     options = [ "noatime" ];
   };
 
-  networking.hostName = "desktop";
+  networking.hostName = "pronto";
 
   # External monitor backlight control
   boot.extraModulePackages = with config.boot.kernelPackages; [ ddcci-driver ];
