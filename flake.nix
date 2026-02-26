@@ -64,11 +64,11 @@
           ];
         };
 
-        player = nixpkgs.lib.nixosSystem {
+        staring = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            ./hosts/player
+            ./hosts/staring
             nix-flatpak.nixosModules.nix-flatpak
             home-manager.nixosModules.home-manager
             {
