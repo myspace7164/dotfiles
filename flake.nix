@@ -34,11 +34,11 @@
       overlays = import ./overlays { inherit inputs; };
 
       nixosConfigurations = {
-        thinkpad = nixpkgs.lib.nixosSystem {
+        surfer = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            ./hosts/thinkpad
+            ./hosts/surfer
             home-manager.nixosModules.home-manager
             nix-flatpak.nixosModules.nix-flatpak
             {

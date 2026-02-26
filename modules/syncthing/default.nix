@@ -13,7 +13,7 @@
       player.id = "MQPAXMC-J25TPXE-2TPZUWJ-RHRRSEM-SUZBLQQ-QHGL7YY-O52KPPT-CDXTBQO";
       afoot.id = "GXR6U4A-4FDR47D-5EUJUMI-YCQMIOD-K2YAIOD-X2PUZ4Y-RXC57PU-L3ZTZQY";
       steamdeck.id = "2HHZQDW-2LYDBPN-AYIKXOV-BVYJURA-CZUFCXF-7TB4N5Q-W2FE36H-YRXUMAM";
-      thinkpad.id = "6EF3BXL-PNMEQHU-6Z6GUAS-6QWSCEL-J37NOFE-YOJVMR4-QU76ERV-N7JEJAO";
+      surfer.id = "6EF3BXL-PNMEQHU-6Z6GUAS-6QWSCEL-J37NOFE-YOJVMR4-QU76ERV-N7JEJAO";
     };
 
     settings.folders = {
@@ -22,7 +22,7 @@
         "device"
         "marlin"
         "player"
-        "thinkpad"
+        "surfer"
       ];
       "~/notes".devices = [
         "desktop"
@@ -30,7 +30,7 @@
         "marlin"
         "player"
         "afoot"
-        "thinkpad"
+        "surfer"
       ];
       "~/org".devices = [
         "desktop"
@@ -38,7 +38,7 @@
         "marlin"
         "player"
         "afoot"
-        "thinkpad"
+        "surfer"
       ];
     };
   };

@@ -15,7 +15,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 0;
 
-  networking.hostName = "thinkpad";
+  networking.hostName = "surfer";
 
   services.tailscale = {
     enable = true;
