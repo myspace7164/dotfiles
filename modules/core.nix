@@ -73,7 +73,7 @@
   programs.neovim = {
     enable = true;
     configure = {
-      customLuaRC = lib.fileContents ../../config/nvim/init.lua;
+      customLuaRC = lib.fileContents ../config/nvim/init.lua;
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [
           modus-themes-nvim

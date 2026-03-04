@@ -32,7 +32,7 @@
     desktop = "${config.home.homeDirectory}/.user-dirs.dirs/Desktop";
     documents = "${config.home.homeDirectory}/.user-dirs.dirs/Documents";
     download = "${config.home.homeDirectory}/tmp";
-    music = "${config.home.homeDirectory}/.user-dirs.dirs/Music";
+    music = "${config.home.homeDirectory}/music";
     pictures = "${config.home.homeDirectory}/.user-dirs.dirs/Pictures";
     publicShare = "${config.home.homeDirectory}/.user-dirs.dirs/Public";
     templates = "${config.home.homeDirectory}/.user-dirs.dirs/Templates";

@@ -1,11 +1,11 @@
 { pkgs, lib, ... }:
 {
   imports = [
-    ../core.nix
-    ../emacs.nix
-    ../librewolf.nix
-    ../syncthing.nix
-    ../users.nix
+    ./core.nix
+    ./emacs.nix
+    ./librewolf.nix
+    ./syncthing.nix
+    ./users.nix
   ];
 
   # Enable networking
@@ -66,13 +66,14 @@
     calibre
     ente-auth
     ente-desktop
-    fooyin
     mixxx
     mpv
     nicotine-plus
     picard
     protonvpn-gui
+    puddletag
     qbittorrent
+    quodlibet-full
     signal-desktop
     spotify
     tor-browser
