@@ -383,10 +383,7 @@
 (use-package files
   :custom
   (auto-save-visited-interval 1)
-  (auto-save-visited-predicate
-   (lambda () (and (eq major-mode 'org-mode)
-                   (string-match (concat "^" (expand-file-name org-directory) "/")
-                                 buffer-file-name))))
+  (auto-save-visited-predicate (lambda () (eq major-mode 'org-mode)))
   (require-final-newline t)
   :config
   (make-directory (locate-user-emacs-file "lock-files") t)
