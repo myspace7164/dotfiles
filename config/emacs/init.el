@@ -334,10 +334,6 @@
   :config
   (electric-pair-mode))
 
-(use-package electric
-  :config
-  (electric-indent-mode -1))
-
 (use-package emacs
   :bind (("M-Q" . my/unfill-paragraph)
          ("<f5>" . modus-themes-toggle))
@@ -359,12 +355,14 @@
   (text-mode-ispell-word-completion nil)
   (visible-bell t)
   :config
-  (cond ((eq system-type 'android)
-         (add-to-list 'default-frame-alist '(font . "Iosevka-12"))
-         (set-face-attribute 'default nil :font "Iosevka-12"))
-        (t
-         (add-to-list 'default-frame-alist '(font . "Iosevka-10"))
-         (set-face-attribute 'default nil :font "Iosevka-10"))))
+  (add-to-list 'default-frame-alist '(font . "Iosevka-10"))
+  (set-face-attribute 'default nil :font "Iosevka-10"))
+
+(use-package emacs
+  :if (eq system-type 'android)
+  :config
+  (add-to-list 'default-frame-alist '(font . "Iosevka-12"))
+  (set-face-attribute 'default nil :font "Iosevka-12"))
 
 (use-package embark
   :ensure t
