@@ -1,8 +1,8 @@
-(use-package package
-  :init
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-  (unless package--initialized
-    (package-initialize)))
+;; -*- lexical-binding: t; -*-
+
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                         ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+                         ("melpa" . "https://melpa.org/packages/")))
 
 (use-package use-package
   :custom
@@ -10,8 +10,8 @@
 
 (use-package gcmh
   :ensure t
-  :init
-  (gcmh-mode 1))
+  :config
+  (gcmh-mode))
 
 (use-package auth-source
   :custom
@@ -22,7 +22,7 @@
   (auto-revert-interval 1)
   (global-auto-revert-non-file-buffers t)
   :config
-  (global-auto-revert-mode 1))
+  (global-auto-revert-mode))
 
 (use-package bibtex
   :hook (bibtex-mode . (lambda () (setq-local fill-column 10000))))
@@ -83,13 +83,13 @@
       (if prefix (other-window-prefix))
       (citar-open-files citekey)))
   :config
-  (citar-denote-mode 1))
+  (citar-denote-mode))
 
 (use-package citar-embark
   :ensure t
   :after citar embark
   :config
-  (citar-embark-mode 1))
+  (citar-embark-mode))
 
 (use-package comp
   :config
@@ -181,12 +181,12 @@
       ;; (setq-local corfu-auto nil) ;; Enable/disable auto completion
       (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
                   corfu-popupinfo-delay nil)
-      (corfu-mode 1)))
+      (corfu-mode)))
   :custom
   (corfu-auto t)
   :config
   (add-hook 'minibuffer-setup-hook #'my/corfu-enable-always-in-minibuffer 1)
-  (global-corfu-mode 1))
+  (global-corfu-mode))
 
 (use-package csv-mode
   :ensure t
@@ -248,7 +248,7 @@
 
 (use-package delsel
   :config
-  (delete-selection-mode 1))
+  (delete-selection-mode))
 
 (use-package denote
   :ensure t
@@ -304,10 +304,9 @@
   (wdired-allow-to-change-permissions t))
 
 (use-package direnv
-  :if (executable-find "direnv")
   :ensure t
   :config
-  (direnv-mode 1))
+  (direnv-mode))
 
 (use-package display-line-numbers
   :if (not (eq system-type 'android))
@@ -332,9 +331,12 @@
   (eldoc-echo-area-use-multiline-p nil))
 
 (use-package elec-pair
-  :hook ((comint-mode . electric-pair-local-mode)
-         (minibuffer-mode . electric-pair-local-mode)
-	       (prog-mode . electric-pair-local-mode)))
+  :config
+  (electric-pair-mode))
+
+(use-package electric
+  :config
+  (electric-indent-mode -1))
 
 (use-package emacs
   :bind (("M-Q" . my/unfill-paragraph)
@@ -355,7 +357,6 @@
   (tab-always-indent 'complete)
   (tab-width 2)
   (text-mode-ispell-word-completion nil)
-  (use-short-answers t)
   (visible-bell t)
   :config
   (cond ((eq system-type 'android)
@@ -384,15 +385,14 @@
   :custom
   (auto-save-visited-interval 1)
   (auto-save-visited-predicate (lambda () (eq major-mode 'org-mode)))
+  (backup-by-copying t)
+  (backup-directory-alist `(("." . ,(locate-user-emacs-file "backups"))))
+  (delete-old-versions t)
+  (lock-file-name-transforms `((".*" ,(locate-user-emacs-file "lock-files/\\1") t)))
   (require-final-newline t)
+  (version-control t)
   :config
   (make-directory (locate-user-emacs-file "lock-files") t)
-  (setq lock-file-name-transforms `((".*" ,(locate-user-emacs-file "lock-files/\\1") t)))
-  (setq backup-directory-alist `(("." . ,(locate-user-emacs-file "backups"))))
-  (setq backup-by-copying t)
-  (setq version-control t)
-  (setq delete-old-versions t)
-
   (auto-save-visited-mode))
 
 (use-package flyspell
@@ -415,7 +415,7 @@
 (use-package hl-todo
   :ensure t
   :config
-  (global-hl-todo-mode 1))
+  (global-hl-todo-mode))
 
 (use-package json-mode
   :ensure t
@@ -432,7 +432,7 @@
 (use-package marginalia
   :ensure t
   :config
-  (marginalia-mode 1))
+  (marginalia-mode))
 
 (use-package markdown-mode
   :ensure t
@@ -452,7 +452,7 @@
   :custom
   (minions-mode-line-lighter ":")
   :config
-  (minions-mode 1))
+  (minions-mode))
 
 (use-package mm-decode
   :config
@@ -796,7 +796,7 @@ This works across multiple Org files."
 (use-package pixel-scroll
   :if (version<= "29.1" emacs-version)
   :config
-  (pixel-scroll-precision-mode 1))
+  (pixel-scroll-precision-mode))
 
 (use-package plantuml-mode
   :ensure t
@@ -806,8 +806,8 @@ This works across multiple Org files."
 
 (use-package pretty-sha-path
   :ensure t
-  :init
-  (global-pretty-sha-path-mode 1))
+  :config
+  (global-pretty-sha-path-mode))
 
 (use-package python
   :bind (nil
@@ -817,12 +817,12 @@ This works across multiple Org files."
 
 (use-package recentf
   :config
-  (recentf-mode 1)
+  (recentf-mode)
   (run-at-time nil (* 5 60) 'recentf-save-list))
 
 (use-package repeat
   :config
-  (repeat-mode 1))
+  (repeat-mode))
 
 (use-package rust-mode
   :ensure t
@@ -830,11 +830,11 @@ This works across multiple Org files."
 
 (use-package savehist
   :config
-  (savehist-mode 1))
+  (savehist-mode))
 
 (use-package saveplace
   :config
-  (save-place-mode 1))
+  (save-place-mode))
 
 (use-package simple
   :demand t
@@ -847,12 +847,12 @@ This works across multiple Org files."
       (delete-trailing-whitespace)))
   :config
   (setq-default indent-tabs-mode nil)
-  (column-number-mode 1))
+  (column-number-mode))
 
 (use-package startup
   :no-require
-  :config
-  (setq inhibit-startup-message t))
+  :custom
+  (inhibit-startup-screen t))
 
 (use-package tab-bar
   :bind (("C-c <left>" . tab-bar-history-back)
@@ -863,8 +863,8 @@ This works across multiple Org files."
   :custom
   (tab-bar-show 1)
   :config
-  (tab-bar-mode 1)
-  (tab-bar-history-mode 1))
+  (tab-bar-mode)
+  (tab-bar-history-mode))
 
 (use-package tex
   :ensure auctex
@@ -913,7 +913,7 @@ This works across multiple Org files."
   (vertico-cycle t)
   (vertico-sort-function #'vertico-sort-length-alpha)
   :config
-  (vertico-mode 1))
+  (vertico-mode))
 
 (use-package vertico
   :if (eq system-type 'android)
@@ -924,12 +924,12 @@ This works across multiple Org files."
 (use-package vertico-mouse
   :after vertico
   :config
-  (vertico-mouse-mode 1))
+  (vertico-mouse-mode))
 
 (use-package vertico-multiform
   :after vertico
   :config
-  (vertico-multiform-mode 1))
+  (vertico-multiform-mode))
 
 (use-package vterm
   :if (not (eq system-type 'android))
@@ -945,7 +945,7 @@ This works across multiple Org files."
   (which-key-idle-delay 10000)
   (which-key-idle-secondary-delay 0.05)
   :config
-  (which-key-mode 1))
+  (which-key-mode))
 
 (use-package whitespace
   :bind ("<f6>" . whitespace-mode))
