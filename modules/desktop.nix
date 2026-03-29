@@ -112,6 +112,6 @@
   services.flatpak = {
     enable = true;
     uninstallUnmanaged = true;
-    packages = [ "com.stremio.Stremio" ];
+    packages = [ ];
   };
 }
