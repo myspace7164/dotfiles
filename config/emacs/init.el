@@ -17,6 +17,13 @@
   :custom
   (auth-source-save-behavior nil))
 
+(use-package auto-dark
+	:ensure t
+	:custom
+	(auto-dark-themes '((modus-vivendi) (modus-operandi)))
+	(auto-dark-allow-powershell t)
+	:init (auto-dark-mode))
+
 (use-package autorevert
   :custom
   (auto-revert-interval 1)
@@ -204,48 +211,6 @@
   :config
   (setq custom-file (make-temp-file "emacs-custom-")))
 
-(use-package dbus
-  :if (featurep 'dbusbind)
-  :preface
-  (defvar my/dark-theme-hook nil)
-  (defvar my/light-theme-hook nil)
-
-  (defun my/apply-dark-theme ()
-    (load-theme 'modus-vivendi t)
-    (run-hooks 'my/dark-theme-hook))
-
-  (defun my/apply-light-theme ()
-    (load-theme 'modus-operandi t)
-    (run-hooks 'my/light-theme-hook))
-
-  (defun my/theme-from-dbus (value)
-    "Apply light or dark theme based on D-Bus VALUE."
-    (if (= 2 (car (flatten-list value)))
-        (my/apply-light-theme)
-      (my/apply-dark-theme)))
-
-  :config
-  ;; Set the current theme based on what the system theme is right now:
-  (dbus-call-method-asynchronously
-   :session "org.freedesktop.portal.Desktop"
-   "/org/freedesktop/portal/desktop"
-   "org.freedesktop.portal.Settings"
-   "Read"
-   #'my/theme-from-dbus
-   "org.freedesktop.appearance"
-   "color-scheme")
-
-  ;; Register to be notified when the system theme changes:
-  (dbus-register-signal
-   :session "org.freedesktop.portal.Desktop"
-   "/org/freedesktop/portal/desktop"
-   "org.freedesktop.portal.Settings"
-   "SettingChanged"
-   (lambda (path var value)
-     (when (and (string-equal path "org.freedesktop.appearance")
-                (string-equal var "color-scheme"))
-       (my/theme-from-dbus value)))))
-
 (use-package delsel
   :config
   (delete-selection-mode))
@@ -304,6 +269,7 @@
   (wdired-allow-to-change-permissions t))
 
 (use-package direnv
+	:if (executable-find "direnv")
   :ensure t
   :config
   (direnv-mode))
@@ -335,8 +301,7 @@
   (electric-pair-mode))
 
 (use-package emacs
-  :bind (("M-Q" . my/unfill-paragraph)
-         ("<f5>" . modus-themes-toggle))
+  :bind ("M-Q" . my/unfill-paragraph)
   :preface
   (defun my/unfill-paragraph (&optional region)
     "Takes a multi-line paragraph and makes it into a single line of text."
@@ -350,7 +315,6 @@
   (enable-recursive-minibuffers t)
   (read-buffer-completion-ignore-case t)
   (read-extended-command-predicate #'command-completion-default-include-p)
-  (tab-always-indent 'complete)
   (tab-width 2)
   (text-mode-ispell-word-completion nil)
   (visible-bell t)
@@ -436,10 +400,6 @@
   :ensure t
   :mode "\\.\\(?:md\\|markdown\\|mkd\\|mdown\\|mkdn\\|mdwn\\)\\'")
 
-(use-package matlab-mode
-  :ensure t
-  :mode "\\.m\\'")
-
 (use-package minibuffer
   :config
   (setq completion-cycle-threshold 3)
@@ -458,10 +418,8 @@
   (add-to-list 'mm-discouraged-alternatives "text/richtext"))
 
 (use-package modus-themes
-  :if (not (featurep 'dbusbind))
   :no-require
-  :config
-  (load-theme 'modus-vivendi :no-confirm))
+	:bind ("<f5>" . modus-themes-toggle))
 
 (use-package move-text
   :ensure t
@@ -682,15 +640,15 @@ This works across multiple Org files."
   (org-use-fast-todo-selection 'expert)
   (org-use-speed-commands t)
   :config
-  (add-to-list 'org-structure-template-alist '("p" . "src python") t)
-  (add-to-list 'org-structure-template-alist '("P" . "src plantuml") t)
+	(add-to-list 'org-default-properties "CREATED"))
 
-  (unless (eq system-type 'android)
-    (setq org-preview-latex-default-process 'dvisvgm)
-    (plist-put org-format-latex-options :foreground nil)
-    (plist-put org-format-latex-options :background nil))
-
-  (add-to-list 'org-default-properties "CREATED" t))
+(use-package org
+	:if (not (eq system-type 'android))
+	:custom
+	(org-preview-latex-default-process 'dvisvgm)
+	:config
+  (plist-put org-format-latex-options :foreground nil)
+  (plist-put org-format-latex-options :background nil))
 
 (use-package org
   :if (eq system-type 'android)
@@ -706,9 +664,9 @@ This works across multiple Org files."
              :latex-compiler '("latex -interaction nonstopmode -output-directory %o %f")
              :image-converter '("dvipng -D 300 -T tight -o %O %f")))))
 
-
 (use-package org-agenda
-  :bind ("C-c a" . org-agenda)
+  :bind (("C-c a" . (lambda () (interactive) (org-agenda nil "A")))
+				 ("C-c A" . org-agenda))
   :custom
   (org-agenda-show-future-repeats 'next)
   (org-agenda-todo-ignore-deadlines 'future)
@@ -744,18 +702,6 @@ This works across multiple Org files."
 
 (use-package org-protocol
   :if (not (eq system-type 'android)))
-
-(use-package org-tempo :after org)
-
-(use-package outline
-  :bind (nil
-         :repeat-map outline-navigation-repeat-map
-         ("<tab>" . outline-cycle)
-         ("<backtab>" . outline-cycle-buffer))
-  :hook ((LaTeX-mode . outline-minor-mode)
-         (prog-mode . outline-minor-mode))
-  :custom
-  (outline-minor-mode-cycle t))
 
 (use-package ox-publish
   :defer t
@@ -843,9 +789,8 @@ This works across multiple Org files."
     "Delete trailing whitespace unless in Org mode."
     (unless (derived-mode-p 'org-mode)
       (delete-trailing-whitespace)))
-  :config
-  (setq-default indent-tabs-mode nil)
-  (column-number-mode))
+  :custom
+  (column-number-mode t))
 
 (use-package startup
   :no-require
