@@ -315,6 +315,7 @@
   (enable-recursive-minibuffers t)
   (read-buffer-completion-ignore-case t)
   (read-extended-command-predicate #'command-completion-default-include-p)
+	(show-trailing-whitespace t)
   (tab-width 2)
   (text-mode-ispell-word-completion nil)
   (visible-bell t)
