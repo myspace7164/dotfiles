@@ -302,7 +302,11 @@
 
 (use-package emacs
   :bind ("M-Q" . my/unfill-paragraph)
+	:hook ((prog-mode . my/show-trailing-whitespace)
+				 (text-mode . my/show-trailing-whitespace))
   :preface
+	(defun my/show-trailing-whitespace ()
+		(setq show-trailing-whitespace t))
   (defun my/unfill-paragraph (&optional region)
     "Takes a multi-line paragraph and makes it into a single line of text."
     (interactive (progn (barf-if-buffer-read-only) '(t)))
@@ -315,7 +319,6 @@
   (enable-recursive-minibuffers t)
   (read-buffer-completion-ignore-case t)
   (read-extended-command-predicate #'command-completion-default-include-p)
-	(show-trailing-whitespace t)
   (tab-width 2)
   (text-mode-ispell-word-completion nil)
   (visible-bell t)
