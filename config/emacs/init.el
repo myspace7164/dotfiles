@@ -34,15 +34,15 @@
   :hook (bibtex-mode . (lambda () (setq-local fill-column 10000))))
 
 (use-package calendar
-  :config
-  (setq calendar-week-start-day 1)
-  (setq calendar-intermonth-text
-        '(propertize
-          (format "%2d"
-                  (car
-                   (calendar-iso-from-absolute
-                    (calendar-absolute-from-gregorian (list month day year)))))
-          'font-lock-face 'font-lock-function-name-face)))
+  :custom
+  (calendar-week-start-day 1)
+  (calendar-intermonth-text
+	 '(propertize
+		 (format "%2d"
+						 (car
+							(calendar-iso-from-absolute
+							 (calendar-absolute-from-gregorian (list month day year)))))
+		 'font-lock-face 'font-lock-function-name-face)))
 
 (use-package cape
   :ensure t
@@ -163,18 +163,15 @@
          ("M-r" . consult-history)
          :map org-mode-map :package org
          ("M-g o" . consult-org-heading))
-
-  :init
-  (setq register-preview-delay 0.5)
-  (advice-add #'register-preview :override #'consult-register-window)
-
-  (setq xref-show-xrefs-function #'consult-xref)
-  (setq xref-show-definitions-function #'consult-xref)
-
-  :config
-  (setq consult-fd-args '((if (executable-find "fdfind" 'remote) "fdfind" "fd")
+	:custom
+	(register-preview-delay 0.5)
+	(xref-show-xrefs-function #'consult-xref)
+  (xref-show-definitions-function #'consult-xref)
+  (consult-fd-args '((if (executable-find "fdfind" 'remote) "fdfind" "fd")
                           "--full-path --color=never" "--hidden" "--exclude" ".git"))
-  (setq consult-ripgrep-args "rg --null --line-buffered --color=never --max-columns=1000 --path-separator /   --smart-case --no-heading --with-filename --line-number --search-zip --hidden"))
+  (consult-ripgrep-args "rg --null --line-buffered --color=never --max-columns=1000 --path-separator /   --smart-case --no-heading --with-filename --line-number --search-zip --hidden")
+  :init
+  (advice-add #'register-preview :override #'consult-register-window))
 
 (use-package corfu
   :ensure t
@@ -207,8 +204,8 @@
          ("f" . csv-forward-field)))
 
 (use-package cus-edit
-  :config
-  (setq custom-file (make-temp-file "emacs-custom-")))
+  :custom
+  (custom-file (make-temp-file "emacs-custom-")))
 
 (use-package delsel
   :custom
@@ -314,6 +311,10 @@
 	        (emacs-lisp-docstring-fill-column t))
       (fill-paragraph nil region)))
   :custom
+	(bidi-inhibit-bpa t)
+	(highlight-nonselected-windows nil)
+	(read-process-output-max (* 4 1024 1024))
+	(redisplay-skip-fontification-on-input t)
   (delete-by-moving-to-trash t)
   (enable-recursive-minibuffers t)
   (read-buffer-completion-ignore-case t)
@@ -321,7 +322,11 @@
   (tab-width 2)
   (text-mode-ispell-word-completion nil)
   (visible-bell t)
+	(window-combination-resize t)
   :config
+	(setq-default bidi-display-reordering 'left-to-right)
+	(setq-default bidi-paragraph-direction 'left-to-right)
+	(setq-default cursor-in-non-selected-windows nil)
   (add-to-list 'default-frame-alist '(font . "Iosevka-10"))
   (set-face-attribute 'default nil :font "Iosevka-10"))
 
@@ -347,6 +352,7 @@
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package files
+	:hook (after-save . #'executable-make-buffer-file-executable-if-script-p)
   :custom
 	(auto-save-visited-mode t)
   (auto-save-visited-interval 1)
@@ -370,6 +376,10 @@
   :config
   ;; Small hack to show the screen keyboard when first opening emacs on android
   (frame-toggle-on-screen-keyboard (selected-frame) nil))
+
+(use-package help
+	:custom
+	(help-window-select t))
 
 (use-package hl-line
   :hook ((dired-mode . hl-line-mode)
@@ -404,9 +414,9 @@
   :mode "\\.\\(?:md\\|markdown\\|mkd\\|mdown\\|mkdn\\|mdwn\\)\\'")
 
 (use-package minibuffer
-  :config
-  (setq completion-cycle-threshold 3)
-  (setq read-file-name-completion-ignore-case t))
+  :custom
+  (completion-cycle-threshold 3)
+  (read-file-name-completion-ignore-case t))
 
 (use-package minions
   :ensure t
@@ -776,7 +786,13 @@ This works across multiple Org files."
   :mode "\\.rs\\'")
 
 (use-package savehist
+	:hook
+	(savehist-save . (lambda ()
+										 (setq kill-ring
+													 (mapcar #'substring-no-properties
+																	 (cl-remove-if-not #'stringp kill-ring)))))
   :custom
+	(savehist-additional-variables '(search-ring regexp-search-ring kill-ring))
   (savehist-mode t))
 
 (use-package saveplace
@@ -793,7 +809,10 @@ This works across multiple Org files."
     (unless (derived-mode-p 'org-mode)
       (delete-trailing-whitespace)))
   :custom
-  (column-number-mode t))
+  (column-number-mode t)
+	(kill-do-not-save-duplicates t)
+	(save-interprogram-paste-before-kill t)
+	(set-mark-command-repeat-pop t))
 
 (use-package startup
   :no-require
@@ -819,12 +838,12 @@ This works across multiple Org files."
          (LaTeX-mode . (lambda () (TeX-fold-mode 1)))
          (LaTeX-mode . (lambda () (set (make-local-variable 'TeX-electric-math)
 					                             (cons "\\(" "\\)")))))
+	:custom
+	(TeX-auto-save t)
+  (TeX-parse-self t)
+	(LaTeX-electric-left-right-brace t)
   :config
-  (setq TeX-auto-save t)
-  (setq TeX-parse-self t)
-  (setq-default TeX-master nil)
-
-  (setq LaTeX-electric-left-right-brace t))
+  (setq-default TeX-master nil))
 
 (use-package tool-bar
   :if (eq system-type 'android)
@@ -844,13 +863,13 @@ This works across multiple Org files."
   :commands trashed)
 
 (use-package vc
-  :config
-  (setq vc-follow-symlinks t))
+  :custom
+  (vc-follow-symlinks t))
 
 (use-package vc-hooks
   :if (eq system-type 'android)
-  :config
-  (setq vc-handled-backends nil))
+  :custom
+  (vc-handled-backends nil))
 
 (use-package vertico
   :ensure t
