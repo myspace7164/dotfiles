@@ -10,8 +10,8 @@
 
 (use-package gcmh
   :ensure t
-  :config
-  (gcmh-mode))
+  :custom
+  (gcmh-mode t))
 
 (use-package auth-source
   :custom
@@ -22,14 +22,13 @@
 	:custom
 	(auto-dark-themes '((modus-vivendi) (modus-operandi)))
 	(auto-dark-allow-powershell t)
-	:init (auto-dark-mode))
+	(auto-dark-mode t))
 
 (use-package autorevert
   :custom
   (auto-revert-interval 1)
   (global-auto-revert-non-file-buffers t)
-  :config
-  (global-auto-revert-mode))
+  (global-auto-revert-mode t))
 
 (use-package bibtex
   :hook (bibtex-mode . (lambda () (setq-local fill-column 10000))))
@@ -89,18 +88,18 @@
            (citekey (citar-denote--retrieve-references file)))
       (if prefix (other-window-prefix))
       (citar-open-files citekey)))
-  :config
-  (citar-denote-mode))
+  :custom
+  (citar-denote-mode t))
 
 (use-package citar-embark
   :ensure t
   :after citar embark
-  :config
-  (citar-embark-mode))
+  :custom
+  (citar-embark-mode t))
 
 (use-package comp
-  :config
-  (setq native-comp-async-report-warnings-errors nil))
+  :custom
+  (native-comp-async-report-warnings-errors nil))
 
 (use-package compile
   :bind ("C-c C-c" . compile))
@@ -191,9 +190,9 @@
       (corfu-mode)))
   :custom
   (corfu-auto t)
+	(global-corfu-mode t)
   :config
-  (add-hook 'minibuffer-setup-hook #'my/corfu-enable-always-in-minibuffer 1)
-  (global-corfu-mode))
+  (add-hook 'minibuffer-setup-hook #'my/corfu-enable-always-in-minibuffer 1))
 
 (use-package csv-mode
   :ensure t
@@ -212,8 +211,8 @@
   (setq custom-file (make-temp-file "emacs-custom-")))
 
 (use-package delsel
-  :config
-  (delete-selection-mode))
+  :custom
+  (delete-selection-mode t))
 
 (use-package denote
   :ensure t
@@ -271,8 +270,8 @@
 (use-package direnv
 	:if (executable-find "direnv")
   :ensure t
-  :config
-  (direnv-mode))
+  :custom
+  (direnv-mode t))
 
 (use-package display-line-numbers
   :if (not (eq system-type 'android))
@@ -297,8 +296,8 @@
   (eldoc-echo-area-use-multiline-p nil))
 
 (use-package elec-pair
-  :config
-  (electric-pair-mode))
+  :custom
+  (electric-pair-mode t))
 
 (use-package emacs
   :bind ("M-Q" . my/unfill-paragraph)
@@ -349,6 +348,7 @@
 
 (use-package files
   :custom
+	(auto-save-visited-mode t)
   (auto-save-visited-interval 1)
   (auto-save-visited-predicate (lambda () (eq major-mode 'org-mode)))
   (backup-by-copying t)
@@ -358,8 +358,7 @@
   (require-final-newline t)
   (version-control t)
   :config
-  (make-directory (locate-user-emacs-file "lock-files") t)
-  (auto-save-visited-mode))
+  (make-directory (locate-user-emacs-file "lock-files") t))
 
 (use-package flyspell
   :bind (nil
@@ -380,8 +379,8 @@
 
 (use-package hl-todo
   :ensure t
-  :config
-  (global-hl-todo-mode))
+  :custom
+  (global-hl-todo-mode t))
 
 (use-package json-mode
   :ensure t
@@ -397,8 +396,8 @@
 
 (use-package marginalia
   :ensure t
-  :config
-  (marginalia-mode))
+  :custom
+  (marginalia-mode t))
 
 (use-package markdown-mode
   :ensure t
@@ -413,8 +412,7 @@
   :ensure t
   :custom
   (minions-mode-line-lighter ":")
-  :config
-  (minions-mode))
+	(minions-mode t))
 
 (use-package mm-decode
   :config
@@ -743,8 +741,8 @@ This works across multiple Org files."
 
 (use-package pixel-scroll
   :if (version<= "29.1" emacs-version)
-  :config
-  (pixel-scroll-precision-mode))
+  :custom
+  (pixel-scroll-precision-mode t))
 
 (use-package plantuml-mode
   :ensure t
@@ -754,8 +752,8 @@ This works across multiple Org files."
 
 (use-package pretty-sha-path
   :ensure t
-  :config
-  (global-pretty-sha-path-mode))
+  :custom
+  (global-pretty-sha-path-mode t))
 
 (use-package python
   :bind (nil
@@ -764,25 +762,26 @@ This works across multiple Org files."
          (">" . python-indent-shift-right)))
 
 (use-package recentf
+	:custom
+	(recentf-mode t)
   :config
-  (recentf-mode)
   (run-at-time nil (* 5 60) 'recentf-save-list))
 
 (use-package repeat
-  :config
-  (repeat-mode))
+  :custom
+  (repeat-mode t))
 
 (use-package rust-mode
   :ensure t
   :mode "\\.rs\\'")
 
 (use-package savehist
-  :config
-  (savehist-mode))
+  :custom
+  (savehist-mode t))
 
 (use-package saveplace
-  :config
-  (save-place-mode))
+  :custom
+  (save-place-mode t))
 
 (use-package simple
   :demand t
@@ -809,9 +808,8 @@ This works across multiple Org files."
          ("<right>" . tab-bar-history-forward))
   :custom
   (tab-bar-show 1)
-  :config
-  (tab-bar-mode)
-  (tab-bar-history-mode))
+  (tab-bar-mode t)
+  (tab-bar-history-mode t))
 
 (use-package tex
   :ensure auctex
@@ -858,9 +856,8 @@ This works across multiple Org files."
   :ensure t
   :custom
   (vertico-cycle t)
-  (vertico-sort-function #'vertico-sort-length-alpha)
-  :config
-  (vertico-mode))
+  ;; (vertico-sort-function #'vertico-sort-length-alpha)
+	(vertico-mode t))
 
 (use-package vertico
   :if (eq system-type 'android)
@@ -870,16 +867,16 @@ This works across multiple Org files."
 
 (use-package vertico-mouse
   :after vertico
-  :config
-  (vertico-mouse-mode))
+  :custom
+  (vertico-mouse-mode t))
 
 (use-package vertico-multiform
   :after vertico
-  :config
-  (vertico-multiform-mode))
+  :custom
+  (vertico-multiform-mode t))
 
 (use-package vterm
-  :if (not (eq system-type 'android))
+  :if (eq system-type 'gnu/linux)
   :ensure t
   :bind ("C-c t" . vterm)
   :custom
@@ -891,8 +888,7 @@ This works across multiple Org files."
   (which-key-show-early-on-C-h t)
   (which-key-idle-delay 10000)
   (which-key-idle-secondary-delay 0.05)
-  :config
-  (which-key-mode))
+	(which-key-mode t))
 
 (use-package whitespace
   :bind ("<f6>" . whitespace-mode))
